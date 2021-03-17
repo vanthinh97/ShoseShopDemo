@@ -128,16 +128,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AuthorizationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TbUsersController.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202103081429463_f1.cs" />
-    <Compile Include="Migrations\202103081429463_f1.designer.cs">
-      <DependentUpon>202103081429463_f1.cs</DependentUpon>
+    <Compile Include="Migrations\202103161708474_f1.cs" />
+    <Compile Include="Migrations\202103161708474_f1.designer.cs">
+      <DependentUpon>202103161708474_f1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Authorization\MyRoleProvider.cs" />
     <Compile Include="Models\Entites\AptechShoseShopDbContext.cs" />
     <Compile Include="Models\Entites\Category.cs" />
     <Compile Include="Models\Entites\Color.cs" />
@@ -154,16 +160,13 @@
     <Compile Include="Models\Entites\StatusUser.cs" />
     <Compile Include="Models\Entites\TbUser.cs" />
     <Compile Include="Models\Entites\UserRole.cs" />
+    <Compile Include="Models\Security\MySecurity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Admin\css\sb-admin-2.css" />
     <Content Include="assets\Admin\css\sb-admin-2.min.css" />
     <Content Include="assets\Admin\img\undraw_posting_photo.svg" />
-    <Content Include="assets\Admin\js\demo\chart-area-demo.js" />
-    <Content Include="assets\Admin\js\demo\chart-bar-demo.js" />
-    <Content Include="assets\Admin\js\demo\chart-pie-demo.js" />
-    <Content Include="assets\Admin\js\demo\datatables-demo.js" />
     <Content Include="assets\Admin\js\sb-admin-2.js" />
     <Content Include="assets\Admin\js\sb-admin-2.min.js" />
     <Content Include="assets\Admin\vendor\bootstrap\js\bootstrap.bundle.js" />
@@ -1813,6 +1816,90 @@
     <Content Include="assets\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="assets\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="assets\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="assets\css\main.css" />
+    <Content Include="assets\css\plugins.css" />
+    <Content Include="assets\fonts\fa-brands-400.svg" />
+    <Content Include="assets\fonts\fa-regular-400.svg" />
+    <Content Include="assets\fonts\fa-solid-900.svg" />
+    <Content Include="assets\fonts\Ionicons28b5.svg" />
+    <Content Include="assets\image\bg-images\best-seller-bg.jpg" />
+    <Content Include="assets\image\bg-images\home-2-slider-1.jpg" />
+    <Content Include="assets\image\bg-images\home-2-slider-2.jpg" />
+    <Content Include="assets\image\bg-images\home-3-slider-1.jpg" />
+    <Content Include="assets\image\bg-images\home-3-slider-2.jpg" />
+    <Content Include="assets\image\bg-images\home-4-slider-1.jpg" />
+    <Content Include="assets\image\bg-images\home-4-slider-2.jpg" />
+    <Content Include="assets\image\bg-images\home-slider-1-ai.png" />
+    <Content Include="assets\image\bg-images\home-slider-2-ai.png" />
+    <Content Include="assets\image\bg-images\promo-banner-contained.jpg" />
+    <Content Include="assets\image\bg-images\promo-banner-full.jpg" />
+    <Content Include="assets\image\bg-images\promo-banner-mid.jpg" />
+    <Content Include="assets\image\bg-images\promo-banner-small-with-text.jpg" />
+    <Content Include="assets\image\bg-images\promo-banner-small.jpg" />
+    <Content Include="assets\image\bg-images\promo-banner-with-text-2--small.jpg" />
+    <Content Include="assets\image\bg-images\promo-banner-with-text-2.jpg" />
+    <Content Include="assets\image\bg-images\promo-banner-with-text-big.jpg" />
+    <Content Include="assets\image\bg-images\promo-banner-with-text.jpg" />
+    <Content Include="assets\image\emptycart\tải xuống.png" />
+    <Content Include="assets\image\favicon.ico" />
+    <Content Include="assets\image\icon\author-logo.png" />
+    <Content Include="assets\image\icon\eng-flag.png" />
+    <Content Include="assets\image\icon\germany-flag.png" />
+    <Content Include="assets\image\icon\payment.png" />
+    <Content Include="assets\image\icon\quotation.png" />
+    <Content Include="assets\image\logo--footer.png" />
+    <Content Include="assets\image\logo.png" />
+    <Content Include="assets\image\others\best-seller-author.jpg" />
+    <Content Include="assets\image\others\blog-grid-1.jpg" />
+    <Content Include="assets\image\others\blog-grid-2.jpg" />
+    <Content Include="assets\image\others\blog-grid-3.jpg" />
+    <Content Include="assets\image\others\blog-grid-4.jpg" />
+    <Content Include="assets\image\others\blog-img-big-1.jpg" />
+    <Content Include="assets\image\others\blog-img-big-2.jpg" />
+    <Content Include="assets\image\others\blog-img-big-3.jpg" />
+    <Content Include="assets\image\others\brand-1.jpg" />
+    <Content Include="assets\image\others\brand-2.jpg" />
+    <Content Include="assets\image\others\brand-3.jpg" />
+    <Content Include="assets\image\others\brand-4.jpg" />
+    <Content Include="assets\image\others\brand-5.jpg" />
+    <Content Include="assets\image\others\brand-6.jpg" />
+    <Content Include="assets\image\others\cat-gal-large.png" />
+    <Content Include="assets\image\others\cat-gal-mid-2.png" />
+    <Content Include="assets\image\others\cat-gal-mid.png" />
+    <Content Include="assets\image\others\cat-gal-small-2.jpg" />
+    <Content Include="assets\image\others\cat-gal-small.png" />
+    <Content Include="assets\image\others\client-1.png" />
+    <Content Include="assets\image\others\client-2.png" />
+    <Content Include="assets\image\others\client-3.png" />
+    <Content Include="assets\image\others\client-4.png" />
+    <Content Include="assets\image\others\client-5.png" />
+    <Content Include="assets\image\others\home-blog-1.jpg" />
+    <Content Include="assets\image\others\home-blog-2.jpg" />
+    <Content Include="assets\image\others\home-side-promo.jpg" />
+    <Content Include="assets\image\products\cart-product-1.jpg" />
+    <Content Include="assets\image\products\product-1.jpg" />
+    <Content Include="assets\image\products\product-10.jpg" />
+    <Content Include="assets\image\products\product-11.jpg" />
+    <Content Include="assets\image\products\product-12.jpg" />
+    <Content Include="assets\image\products\product-13.jpg" />
+    <Content Include="assets\image\products\product-2.jpg" />
+    <Content Include="assets\image\products\product-3.jpg" />
+    <Content Include="assets\image\products\product-4.jpg" />
+    <Content Include="assets\image\products\product-5.jpg" />
+    <Content Include="assets\image\products\product-6.jpg" />
+    <Content Include="assets\image\products\product-7.jpg" />
+    <Content Include="assets\image\products\product-8.jpg" />
+    <Content Include="assets\image\products\product-9.jpg" />
+    <Content Include="assets\image\products\product-details-1.jpg" />
+    <Content Include="assets\image\products\product-details-2.jpg" />
+    <Content Include="assets\image\products\product-details-3.jpg" />
+    <Content Include="assets\image\products\product-details-4.jpg" />
+    <Content Include="assets\image\products\product-details-5.jpg" />
+    <Content Include="assets\js\ajax-mail.js" />
+    <Content Include="assets\js\custom.js" />
+    <Content Include="assets\js\jquery.cookie.js" />
+    <Content Include="assets\js\mycart.js" />
+    <Content Include="assets\js\plugins.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1999,6 +2086,35 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\_Create.cshtml" />
+    <Content Include="assets\fonts\fa-brands-400.eot" />
+    <Content Include="assets\fonts\fa-brands-400.ttf" />
+    <Content Include="assets\fonts\fa-brands-400.woff" />
+    <Content Include="assets\fonts\fa-brands-400.woff2" />
+    <Content Include="assets\fonts\fa-brands-400d41d.eot" />
+    <Content Include="assets\fonts\fa-regular-400.eot" />
+    <Content Include="assets\fonts\fa-regular-400.ttf" />
+    <Content Include="assets\fonts\fa-regular-400.woff" />
+    <Content Include="assets\fonts\fa-regular-400.woff2" />
+    <Content Include="assets\fonts\fa-regular-400d41d.eot" />
+    <Content Include="assets\fonts\fa-solid-900.eot" />
+    <Content Include="assets\fonts\fa-solid-900.ttf" />
+    <Content Include="assets\fonts\fa-solid-900.woff" />
+    <Content Include="assets\fonts\fa-solid-900.woff2" />
+    <Content Include="assets\fonts\fa-solid-900d41d.eot" />
+    <Content Include="assets\fonts\Ionicons28b5.eot" />
+    <Content Include="assets\fonts\Ionicons28b5.ttf" />
+    <Content Include="assets\fonts\Ionicons28b5.woff" />
+    <Content Include="assets\fonts\Material-Design-Iconic-Fontd1f1.ttf" />
+    <Content Include="assets\fonts\Material-Design-Iconic-Fontd1f1.woff" />
+    <Content Include="assets\fonts\Material-Design-Iconic-Fontd1f1.woff2" />
+    <Content Include="Areas\Admin\Views\Authorization\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TbUsers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TbUsers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\TbUsers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TbUsers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TbUsers\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2024,6 +2140,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\Accounts\_Register.cshtml" />
+    <Content Include="Views\Accounts\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2043,8 +2164,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103081429463_f1.resx">
-      <DependentUpon>202103081429463_f1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103161708474_f1.resx">
+      <DependentUpon>202103161708474_f1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

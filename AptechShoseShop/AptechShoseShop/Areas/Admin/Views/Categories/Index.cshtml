@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AptechShoseShop.Models.Entites.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Categories</h2>
+@Html.Partial("_Create")
+<p>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#_create">Create New</button>
+</p>
+
+
+<table id="tblCate" class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+    </tr>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="HideCate-@item.Id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default xs-margin" })*@
+                    <button class="btn btn-danger" onclick="DeleteCate('@item.Id')">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<script type="text/javascript">
+    
+    function DeleteCate(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Nếu xóa, bạn sẽ ko thể khôi phục lại!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: "@Url.Action("DeleteCate")",
+                            type: "post",
+                            data: {
+                                id: id
+                            },
+                            success: function (result) {
+                                if (result === "OK") {
+                                    swal("Poof! Your imaginary file has been deleted!", {
+                                        icon: "success",
+                                    });
+                                    // ẩn doituong-id
+                                    $("#HideCate-" + id).hide();
+                                }
+                            }
+                        });
+
+
+                    } else {
+                        swal("Ban chua xoa");
+                    }
+                });
+    };
+</script>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,9 +10,9 @@ namespace AptechShoseShop.Models.Entites
     {
         public Product()
         {
+            ProductImages = new HashSet<ProductImage>();
             OrderDetails = new HashSet<OrderDetail>();
             ProductColors = new HashSet<ProductColor>();
-            ProductImages = new HashSet<ProductImage>();
             ProductSizes = new HashSet<ProductSize>();
         }
 
@@ -21,19 +22,26 @@ namespace AptechShoseShop.Models.Entites
         public double DiscountRatio { get; set; }
         public DateTime DiscountExpiry { get; set; }
         public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
+        /// <summary>
+        /// Id ảnh đại diện
+        /// </summary>
         public int? ProductImageId { get; set; }
+        [ForeignKey("ProductImageId")]
+        public virtual ProductImage ProductImage { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
+        [ForeignKey("CreatedBy")]
+        public virtual TbUser TbUser { get; set; }
         public int StatusId { get; set; }
+        [ForeignKey("StatusId")]
+        public virtual StatusProduct StatusProduct { get; set; }
 
-        public virtual Category Category { get; set; }
-        public virtual TbUser CreatedByNavigation { get; set; }
-        public virtual ProductImage ProductImage { get; set; }
-        public virtual StatusProduct Status { get; set; }
+        
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ProductColor> ProductColors { get; set; }
-        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductSize> ProductSizes { get; set; }
     }
 }

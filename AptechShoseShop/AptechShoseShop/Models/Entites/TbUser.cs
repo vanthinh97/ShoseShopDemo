@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,7 +17,9 @@ namespace AptechShoseShop.Models.Entites
 
         public int Id { get; set; }
         public string FullName { get; set; }
-        public string Gender { get; set; }
+        public bool? Gender { get; set; }
+
+        ///[Index(IsUnique = true)]
         public string Email { get; set; }
         public string Address { get; set; }
         public string Password { get; set; }

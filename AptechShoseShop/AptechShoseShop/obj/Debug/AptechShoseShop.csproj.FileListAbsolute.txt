@@ -160,9 +160,9 @@ D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\N
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\Antlr3.Runtime.pdb
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csprojAssemblyReference.cache
-D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f1.resources
-D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.GenerateResource.cache
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.CoreCompileInputs.cache
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.CopyComplete
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.dll
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.pdb
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f1.resources
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.GenerateResource.cache

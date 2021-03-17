@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AptechShoseShop.Models.Entites.UserRole>
+@using AptechShoseShop.Models.Entites
+@{
+    AptechShoseShopDbContext db = new AptechShoseShopDbContext();
+}
+<form method="post" action="@Url.Action("AddRole")">
+    <select name="UserId">
+        @foreach (var item in db.TbUsers)
+        {
+            <option value="@item.Id">@item.Email</option>
+        }
+    </select>
+    <select name="RoleId">
+        @foreach (var item in db.Roles)
+        {
+            <option value="@item.Id">@item.RoleName</option>
+        }
+    </select>
+    <button type="submit">Add</button>
+</form>
+
+
+<hr />
+
+<div class="container">
+    <h2>Basic Table</h2>
+    <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                foreach (var item in Model)
+                {
+                    <form method="post" action="@Url.Action("Delete", new { id = item.Id})">
+
+                        <tr>
+                            <td>@item.User.Id</td>
+                            <td>@item.User.Email</td>
+                            <td>@item.Role.RoleName</td>
+                            <td>
+                                <button>Edit</button>
+                                <button type="submit">Delete</button>
+                            </td>
+                        </tr>
+                    </form>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
