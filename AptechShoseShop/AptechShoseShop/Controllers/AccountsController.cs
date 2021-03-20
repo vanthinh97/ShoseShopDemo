@@ -1,7 +1,9 @@
-﻿using AptechShoseShop.Models.Entites;
+﻿using AptechShoseShop.Models;
+using AptechShoseShop.Models.Entites;
 using AptechShoseShop.Models.Security;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,9 +18,42 @@ namespace AptechShoseShop.Controllers
         // GET: Accounts
         public ActionResult Index()
         {
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    int userId = int.Parse(User.Identity.Name);
+            //    var account = db.TbUsers.Find(userId);
+            //    return View(account);
+            //}
             return View();
         }
+        [HttpPost]
+        public ActionResult UploadAvatar(HttpPostedFileBase file)
+        {
+            string fileName = file.FileName;
+            int userId = 3;
+            TbUser user = db.TbUsers.Find(userId);
 
+            string strFolder = Server.MapPath("~/data/users/" + user.Id);
+
+
+
+            if (System.IO.File.Exists(strFolder + @"\" + user.Avatar))
+            {
+                System.IO.File.Delete(strFolder + @"\" + user.Avatar);
+            }
+
+            
+
+            if (!Directory.Exists(strFolder))
+            {
+                Directory.CreateDirectory(strFolder);
+            }
+            file.SaveAs(strFolder + @"\" + fileName);
+
+            user.Avatar = fileName;
+            db.SaveChanges();
+            return Content("/data/users/" + user.Id + "/" + fileName);
+        }
         public ActionResult Login()
         {
             return View();
@@ -82,9 +117,14 @@ namespace AptechShoseShop.Controllers
             db.SaveChanges();
             Authen(newUser.Id);
 
+
+            //sendmail
+            EmailManagement.SendMail(user.Email, "Chuc mung dang ky thanh cong", "<h1>Hello [Name], ban da dag ky</h1>".Replace("[Name]", newUser.FullName));
             return RedirectToAction("Index", "Home");
             ///return Redirect(Request.UrlReferrer.ToString());
         }
+        ///
+
 
         public ActionResult EditProfile()
         {

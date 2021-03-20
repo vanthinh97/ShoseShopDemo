@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<div>
+    <img id="imgmap" src="https://9mobi.vn/cf/images/2015/03/nkk/hinh-anh-de-thuong-1.jpg" style="width:200px" />
+   @* <img id="loading" style="display:none" src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"/>*@
+    <input onchange="UploadFile()" style="display:none" id="fileInput" name="file" type="file" />
+    <br />
+    <button onclick="ClickInput()" id="btnUpload" class="btn btn-success">Upload avatar</button>
+</div>
+
+<script>
+
+    function UploadFile() {
+        $(document).ready(function () {
+                var formdata = new FormData();
+                var _image = $('#fileInput')[0].files[0];
+                formdata.append('file', _image);
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UploadAvatar")',
+                    data: formdata,
+                    //async: false,
+                    //cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        $('#imgmap').attr('src', result);
+                    //    $("#loading").hide();
+                    },
+                    error: function (result) { console.log(result); }
+                });
+        });
+    }
+    function ClickInput() {
+        $("#fileInput").trigger("click");
+       // $("#loading").show();
+    }
+
+
+</script>

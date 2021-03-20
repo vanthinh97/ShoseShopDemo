@@ -27,7 +27,7 @@ namespace AptechShoseShop.Models.Entites
         /// Id ảnh đại diện
         /// </summary>
         public int? ProductImageId { get; set; }
-        [ForeignKey("ProductImageId")]
+        
         public virtual ProductImage ProductImage { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -38,7 +38,7 @@ namespace AptechShoseShop.Models.Entites
         [ForeignKey("StatusId")]
         public virtual StatusProduct StatusProduct { get; set; }
 
-        
+        [ForeignKey("ProductId")]
         public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ProductColor> ProductColors { get; set; }

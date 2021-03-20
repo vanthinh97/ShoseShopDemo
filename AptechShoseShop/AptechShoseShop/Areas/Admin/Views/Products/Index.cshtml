@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AptechShoseShop.Models.Entites.Product>
+
+<h2>Products Management</h2>
+
+<button onclick="location.href='@Url.Action("Create")'">Create</button>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product Info</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model)
+            {
+                string src = "";
+
+                if (item.ProductImageId != null)
+                {
+                    src = "/data/products/" + item.Id + "/" + item.ProductImage.ImageUrl;
+                }
+                else
+                {
+                    src = "https://www.viettablet.com/images/companies/1/anh3/galaxy-s7-edge-01.jpg";
+                }
+                <tr>
+
+                    <td>
+                        <img src="@src" style="width:200px" />
+                    </td>
+                    <td>
+                        <div>#ID: @item.Id</div>
+                        <div>@item.ProductName</div>
+                        <div>$@item.UnitPrice.ToString("N2")</div>
+                        <div>@item.DiscountRatio %</div>
+                        <div>@item.DiscountExpiry.ToString("yyyy-MM-dd")</div>
+                        <div>@item.Category.CategoryName</div>
+                        <div>@item.StatusProduct.StatusName</div>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

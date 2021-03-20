@@ -1,0 +1,71 @@
+﻿@model IEnumerable<AptechShoseShop.Models.Entites.Category>
+
+<h2>Create Product</h2>
+@*@ViewBag.Congra*@
+<div class="row">
+    <div class="col-sm-2">
+
+    </div>
+    <div class="col-sm-8">
+        <!-- enctype="multipart/form-data" : thêm cái này mới upload file được-->
+        <form method="post" action="@Url.Action("Create")" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>ProductName</label>
+                <input name="ProductName" class="form-control" />
+            </div>
+            <div class="form-group">
+
+                <label>UnitPrice</label>
+                <input name="UnitPrice" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Discount Ratio</label>
+                <input name="DiscountRatio" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Discount Expiry</label>
+                <input value="@ViewBag.date" name="DiscountExpiry" type="date" class="form-control" />
+            </div>
+            <div class="form-group">
+
+                <label>Category</label>
+                <select name="CategoryId" class="form-control">
+                    <option>--Choose--</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.Id">@item.CategoryName</option>
+
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+
+                <input name="ProductImageId" type="file" multiple="multiple" />
+            </div>
+            <div class="form-group">
+
+                <label>Description</label>
+                <textarea name="Description" id="editor" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Created Date</label>
+                <input name="CreatedDate" class="form-control" value="@ViewBag.date" />
+            </div>
+            <div class="form-group">
+                <label>Created By</label>
+                <input name="CreatedBy" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Status Product</label>
+                @Html.DropDownList("StatusId", (IEnumerable<SelectListItem>)ViewBag.StatusPro, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">Create</button>
+            </div>
+        </form>
+
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+</div>
