@@ -142,6 +142,10 @@
     <Compile Include="Migrations\202103181123055_f1.designer.cs">
       <DependentUpon>202103181123055_f1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103211003023_f2.cs" />
+    <Compile Include="Migrations\202103211003023_f2.Designer.cs">
+      <DependentUpon>202103211003023_f2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin\ProductVM.cs" />
     <Compile Include="Models\Authorization\MyRoleProvider.cs" />
@@ -2113,13 +2117,13 @@
     <Content Include="assets\fonts\Material-Design-Iconic-Fontd1f1.woff" />
     <Content Include="assets\fonts\Material-Design-Iconic-Fontd1f1.woff2" />
     <Content Include="Areas\Admin\Views\Authorization\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Create.cshtml" />
     <Content Include="Areas\Admin\Views\TbUsers\Create.cshtml" />
     <Content Include="Areas\Admin\Views\TbUsers\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\TbUsers\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TbUsers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TbUsers\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Create.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2174,6 +2178,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202103181123055_f1.resx">
       <DependentUpon>202103181123055_f1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103211003023_f2.resx">
+      <DependentUpon>202103211003023_f2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

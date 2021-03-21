@@ -2,6 +2,7 @@
 using AptechShoseShop.Models.Entites;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,11 +22,20 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ///Viết lại ProductVM có thêm kiểu dữ liệu size cho thuộc tính size 
             var showCate = db.Categories.OrderBy(x => x.Position);
 
             List<StatusProduct> statusPro = db.StatusProducts.ToList();
-            SelectList statusProList = new SelectList(statusPro, "Id", "StatusName");
+            SelectList statusProList = new SelectList(statusPro, "Id", "StatusName", "1");
             ViewBag.StatusPro = statusProList;
+
+            List<Size> size = db.Sizes.ToList();
+            SelectList sizeList = new SelectList(size, "Id", "SizeName");
+            ViewBag.Size = sizeList;
+
+            List<Color> color = db.Colors.ToList();
+            SelectList colorList = new SelectList(color, "Id", "ColorName");
+            ViewBag.Color = colorList;
 
             string date = DateTime.Today.ToString("yyyy-MM-dd");
             ViewBag.date = date;
@@ -34,8 +44,9 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ProductVM product, HttpPostedFileBase[] ProductImageId)
+        public ActionResult Create(ProductVM product, HttpPostedFileBase[] ProductImageId, int sizeId, int colorId)
         {
+
             Product newPro = new Product()
             {
                 ProductName = product.ProductName,
@@ -51,6 +62,28 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             db.Products.Add(newPro);
             db.SaveChanges();
 
+            ///Thêm vào bảng size và colorProduct
+            ProductSize proSize = new ProductSize()
+            {
+                ProductId = newPro.Id,
+                SizeId = sizeId
+            };
+            db.ProductSizes.Add(proSize);
+            db.SaveChanges();
+
+            ProductColor proColor = new ProductColor()
+            {
+                ProductId = newPro.Id,
+                ColorId = colorId
+            };
+            db.ProductColors.Add(proColor);
+            db.SaveChanges();
+
+            //Kiểm tra chưa thêm ảnh thì k được lưu
+            if (ProductImageId[0] == null)
+            {
+                return RedirectToAction("Index");
+            }
 
             ///Lưu vào bảng ProIamge
             ProductImage proImage = new ProductImage();
@@ -69,7 +102,19 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             newPro.ProductImageId = defaultImage.Id;
             db.SaveChanges();
 
-            return RedirectToAction("Create");
+            //Tạo thư mục ảnh
+            string strFolder = Server.MapPath("~/Data/Products/" + newPro.Id);
+
+            if (!Directory.Exists(strFolder))
+            {
+                Directory.CreateDirectory(strFolder);
+            }
+            foreach (var item in ProductImageId)
+            {
+                item.SaveAs(strFolder + @"\" + item.FileName);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

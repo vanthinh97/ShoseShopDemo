@@ -28,9 +28,18 @@
                             @{
 
                                 string userGender = Model.Gender != null ? (Model.Gender == true ? "Nam" : "Nữ") : "Chọn";
+                                int numGender = -1;
+                                if (Model.Gender == true)
+                                {
+                                    numGender = 1;
+                                }
+                                else if (Model.Gender == false)
+                                {
+                                    numGender = 0;
+                                }
                             }
                             <select id="Gender" name="Gender" class="form-control nice-select sort-select">
-                                <option value="-1">@userGender</option>
+                                <option value="@numGender">@userGender</option>
                                 <option value="1">Nam</option>
                                 <option value="0">Nữ</option>
                             </select>

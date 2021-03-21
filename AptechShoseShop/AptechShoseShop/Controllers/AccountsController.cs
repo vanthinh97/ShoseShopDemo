@@ -24,8 +24,12 @@ namespace AptechShoseShop.Controllers
             //    var account = db.TbUsers.Find(userId);
             //    return View(account);
             //}
-            return View();
+            var user = db.TbUsers.Where(x => x.Id == 3).SingleOrDefault();
+            ViewBag.Url = "/Data/users/" + user.Id + "/" + user.Avatar;
+            return View(user);
         }
+
+
         [HttpPost]
         public ActionResult UploadAvatar(HttpPostedFileBase file)
         {
@@ -54,6 +58,8 @@ namespace AptechShoseShop.Controllers
             db.SaveChanges();
             return Content("/data/users/" + user.Id + "/" + fileName);
         }
+
+
         public ActionResult Login()
         {
             return View();
@@ -125,32 +131,46 @@ namespace AptechShoseShop.Controllers
         }
         ///
 
-
+        [HttpGet]
         public ActionResult EditProfile()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                int userId = int.Parse(User.Identity.Name);
-                var account = db.TbUsers.Find(userId);
-                return View(account);
-            }
-            return Redirect(Request.UrlReferrer.ToString()); 
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    int userId = int.Parse(User.Identity.Name);
+            //    var account = db.TbUsers.Find(userId);
+            //    return View(account);
+            //}
+
+            //return Redirect(Request.UrlReferrer.ToString()); 
+
+            var user = db.TbUsers.Where(x => x.Id == 3).SingleOrDefault();
+            
+            return View(user);
         }
 
         [HttpPost]
         public ActionResult EditProfile(int Id, string FullName, int Gender, string Address)
         {
             bool? GenderV2 = null;
-            if (Gender != -1)
+            //if (Gender != -1)
+            //{
+            //    if (Gender != 1)
+            //    {
+            //        GenderV2 = false;
+            //    }
+            //    else
+            //    {
+            //        GenderV2 = true;
+            //    }
+            //}
+
+            if (Gender == 1)
             {
-                if (Gender != 1)
-                {
-                    GenderV2 = false;
-                }
-                else
-                {
-                    GenderV2 = true;
-                }
+                GenderV2 = true;
+            }
+            else if (Gender == 0)
+            {
+                GenderV2 = false;
             }
 
             var newUser = db.TbUsers.Find(Id);

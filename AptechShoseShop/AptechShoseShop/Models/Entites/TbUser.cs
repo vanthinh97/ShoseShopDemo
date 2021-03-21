@@ -18,6 +18,7 @@ namespace AptechShoseShop.Models.Entites
         public int Id { get; set; }
         public string FullName { get; set; }
         public bool? Gender { get; set; }
+        public string NumberPhone { get; set; }
 
         ///[Index(IsUnique = true)]
         public string Email { get; set; }

@@ -165,4 +165,5 @@ D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\D
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.CopyComplete
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.dll
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.pdb
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f2.resources
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csprojAssemblyReference.cache

@@ -1,16 +1,42 @@
-﻿@{
-    Layout = null;
-}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+﻿@model AptechShoseShop.Models.Entites.TbUser
 
-<div>
-    <img id="imgmap" src="https://9mobi.vn/cf/images/2015/03/nkk/hinh-anh-de-thuong-1.jpg" style="width:200px" />
-   @* <img id="loading" style="display:none" src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"/>*@
-    <input onchange="UploadFile()" style="display:none" id="fileInput" name="file" type="file" />
-    <br />
-    <button onclick="ClickInput()" id="btnUpload" class="btn btn-success">Upload avatar</button>
+<div style="margin: 0 auto; width: 500px">
+
+    <h2>Chào @Model.FullName! <br />Đây là trang cá nhân của bạn</h2>
 </div>
+
+<div style="width: 100%; margin-top: 30px; margin-bottom: 30px" class="row">
+    <div class="col-6">
+        <div style="margin-left: 300px; width: 400px;">
+            @if (Model.Avatar == null)
+            {
+                <img id="imgmap" src="https://9mobi.vn/cf/images/2015/03/nkk/hinh-anh-de-thuong-1.jpg" style="width:400px" />
+            }
+            else
+            {
+                <img id="imgmap" src="@ViewBag.Url" style="width:400px" />
+            }
+            @* <img id="loading" style="display:none" src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"/>*@
+            <input onchange="UploadFile()" style="display:none" id="fileInput" name="file" type="file" />
+            <br />
+            <button onclick="ClickInput()" id="btnUpload" class="btn btn-success">Upload avatar</button>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div style="margin-left: 100px; width: 300px; font-weight: bold; font-size: 20px">
+            <p>Tên: <span style="margin-left: 30px">@Model.FullName</span></p>
+            <p>Số điện thoại: <span style="margin-left: 30px">@Model.NumberPhone</span></p>
+            <p>Email: <span style="margin-left: 30px">@Model.Email</span></p>
+            <p>Địa chỉ: <span style="margin-left: 30px">@Model.Address</span></p>
+        </div>
+        <div style="margin-left: 150px; width: 200px;">
+            <input src="@Url.Action("EditProfile", "Accounts")" type="button" class="btn btn-success" value="Cập nhật thông tin"></input>
+        </div>
+    </div>
+
+</div>
+
 
 <script>
 

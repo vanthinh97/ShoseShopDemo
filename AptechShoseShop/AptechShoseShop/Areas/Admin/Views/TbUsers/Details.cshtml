@@ -1,83 +1,90 @@
 ﻿@model AptechShoseShop.Models.Entites.TbUser
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
 
-<div>
-    <h4>TbUser</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Status.StatusName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status.StatusName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Avatar)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Avatar)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>TbUser</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Status.StatusName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Status.StatusName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.FullName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FullName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Avatar)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
