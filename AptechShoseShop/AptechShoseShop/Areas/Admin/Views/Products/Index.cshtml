@@ -26,7 +26,7 @@
                 {
                     src = "https://www.viettablet.com/images/companies/1/anh3/galaxy-s7-edge-01.jpg";
                 }
-                <tr>
+                <tr id="HidePro-@item.Id">
 
                     <td>
                         <img src="@src" style="width:200px" />
@@ -43,7 +43,7 @@
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                         @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        <a class="btn btn-warning" onclick="DeletePro('@item.Id')">Delete</a> 
                     </td>
                 </tr>
             }
@@ -51,3 +51,41 @@
 
     </tbody>
 </table>
+
+<script type="text/javascript">
+
+    function DeletePro(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Nếu xóa, bạn sẽ ko thể khôi phục lại!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: "@Url.Action("DeletePro")",
+                            type: "post",
+                            data: {
+                                id: id
+                            },
+                            success: function (result) {
+                                if (result === "OK") {
+                                    swal("Ảnh của bạn đã được xóa!", {
+                                        icon: "success",
+                                    });
+                                    // ẩn doituong-id
+                                    $("#HidePro-" + id).hide();
+                                }
+                                else {alert(result)}
+                            }
+                        });
+
+
+                    } else {
+                        swal("Bạn chưa xóa");
+                    }
+                });
+    };
+</script>
