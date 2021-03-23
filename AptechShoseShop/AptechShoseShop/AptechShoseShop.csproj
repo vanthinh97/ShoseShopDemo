@@ -147,6 +147,7 @@
       <DependentUpon>202103211003023_f2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Accounts\ChangePW.cs" />
     <Compile Include="Models\Admin\ProductVM.cs" />
     <Compile Include="Models\Authorization\MyRoleProvider.cs" />
     <Compile Include="Models\EmailManagement.cs" />
@@ -2156,6 +2157,8 @@
     <Content Include="Views\Accounts\EditProfile.cshtml" />
     <Content Include="Views\Accounts\Profile.cshtml" />
     <Content Include="Views\Accounts\Index.cshtml" />
+    <Content Include="Views\Accounts\_ChangePW.cshtml" />
+    <Content Include="Views\Accounts\_ForgotPW.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

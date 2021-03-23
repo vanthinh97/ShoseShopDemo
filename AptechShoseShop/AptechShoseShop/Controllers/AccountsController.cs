@@ -1,4 +1,5 @@
 ﻿using AptechShoseShop.Models;
+using AptechShoseShop.Models.Accounts;
 using AptechShoseShop.Models.Entites;
 using AptechShoseShop.Models.Security;
 using System;
@@ -46,7 +47,7 @@ namespace AptechShoseShop.Controllers
                 System.IO.File.Delete(strFolder + @"\" + user.Avatar);
             }
 
-            
+
 
             if (!Directory.Exists(strFolder))
             {
@@ -125,9 +126,9 @@ namespace AptechShoseShop.Controllers
 
 
             //sendmail
-            EmailManagement.SendMail(user.Email, "Chuc mung dang ky thanh cong", "<h1>Hello [Name], ban da dag ky</h1>".Replace("[Name]", newUser.FullName));
+            EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
+                "<h1>Hello [Name]!, bạn đã đăng ký tài khoản thành công tại Aptech Shose Shop</h1>".Replace("[Name]", newUser.FullName));
             return RedirectToAction("Index", "Home");
-            ///return Redirect(Request.UrlReferrer.ToString());
         }
         ///
 
@@ -144,7 +145,7 @@ namespace AptechShoseShop.Controllers
             //return Redirect(Request.UrlReferrer.ToString()); 
 
             var user = db.TbUsers.Where(x => x.Id == 3).SingleOrDefault();
-            
+
             return View(user);
         }
 
@@ -152,17 +153,6 @@ namespace AptechShoseShop.Controllers
         public ActionResult EditProfile(int Id, string FullName, int Gender, string Address)
         {
             bool? GenderV2 = null;
-            //if (Gender != -1)
-            //{
-            //    if (Gender != 1)
-            //    {
-            //        GenderV2 = false;
-            //    }
-            //    else
-            //    {
-            //        GenderV2 = true;
-            //    }
-            //}
 
             if (Gender == 1)
             {
@@ -181,6 +171,59 @@ namespace AptechShoseShop.Controllers
 
             return RedirectToAction("EditProfile");
         }
+
+        [HttpGet]
+        public ActionResult ChangePW()
+        {
+            int userId = 3;
+            TbUser user = db.TbUsers.Find(userId);
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePW(ChangePW changePW)
+        {
+            int userId = 3;
+            TbUser user = db.TbUsers.Find(userId);
+
+            if (!user.Password.Equals(MySecurity.EncryptPassword(changePW.oldPassword)))
+            {
+                return Json("Mật khẩu không đúng, hãy nhập lại!");
+            }
+
+            user.Password = MySecurity.EncryptPassword(changePW.newPassword);
+            db.SaveChanges();
+
+            return Json("Mật khẩu đã thay đổi!");
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPW(string email)
+        {
+            var user = db.TbUsers.Where(x => x.Email == email).SingleOrDefault();
+
+            if (user == null)
+            {
+                return Json("Email bạn nhập vào không đúng");
+            }
+
+
+            Random rdom = new Random();
+            var xPass = rdom.Next(0, 1000000);
+            string newPass = xPass.ToString("000000");
+
+            user.Password = MySecurity.EncryptPassword(newPass);
+            db.SaveChanges();
+
+            EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
+                "<h1>Hello [Name]! Mật khẩu mới của bạn là [newPass]</h1>"
+                .Replace("[Name]", user.FullName)
+                .Replace("[newPass]", newPass));
+            
+            return Json("Bạn hãy kiểm tra email để lấy mật khẩu");
+        }
+
+
 
         public void Authen(int userId)
         {

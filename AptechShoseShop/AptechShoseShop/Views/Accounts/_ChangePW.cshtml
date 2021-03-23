@@ -1,0 +1,87 @@
+﻿<div class="">
+
+    <div class="modal fade" id="_changePW" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Change Password</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+
+                        </div>
+                        <div class="col-sm-6">
+                            
+                            <form>
+                                <div class="form-group">
+                                    <label>Nhập mật khẩu cũ</label>
+                                    <input id="oldPassword" name="oldPassword" class="form-control" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Nhập mật khẩu mới</label>
+                                    <input id="newPassword" name="newPassword" class="form-control" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Nhập lại mật khẩu mới</label>
+                                    <input id="reNewPassword" name="reNewPassword" class="form-control" required />
+                                </div>
+                                <div class="form-group text-right">
+                                    <button id="btnChangePW" type="button" class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnChangePW').click(function () {
+
+
+                var password = $('#oldPassword').val(),
+                newPassword = $('#newPassword').val(),
+                reNewPassword = $('#reNewPassword').val();
+
+                if (newPassword !== reNewPassword) {
+                    alert("Bạn nhập lại mật khẩu mới không đúng!");
+                    return;
+                }
+
+                var changePW = {
+                    "oldPassword" : $('#oldPassword').val(),
+                    "newPassword" : $('#newPassword').val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ChangePW")',
+                    data: changePW,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result);
+                        alert(result);
+                    },
+                    error: function (result) { console.log(result); }
+                });
+            })
+        });
+
+</script>

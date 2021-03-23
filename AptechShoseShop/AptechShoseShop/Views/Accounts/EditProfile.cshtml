@@ -52,16 +52,14 @@
                             <label>Address</label>
                             <input name="Address" class="form-control" value="@Model.Address"/>
                         </div>
-                        <!--<div class="form-group">
-                            <label>AVATAR</label>
-                            <input name="Password" class="form-control" value="@Model.Address"/>-->
-                            @*<a class="btn btn--primary" href="@Url.Action("ChangePW","Products", new { id = item.Id})">
-                                Change Password
-                            </a>*@
-                        <!--</div>-->
 
                         <div class="form-group">
                             <button id="submitButton" class="btn btn-success">Submit</button>
+                        </div>
+                        <div class="form-group">
+                            <a style="color: white; font-weight: bold" class="btn btn-info" data-toggle="modal" data-target="#_changePW">
+                                Thay đổi mật khẩu
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -70,16 +68,5 @@
     </div>
 
 </div>
-
-
-@*<script>
- $(document).ready(function(){
-  $("#submitButton").on("click",function()
-  {
-   alert('Bạn đã sửa thành công!');
-  });
-
-});
-</script>*@
 
 

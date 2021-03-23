@@ -44,7 +44,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ProductVM product, HttpPostedFileBase[] ProductImageId, int sizeId, int colorId)
+        public ActionResult Create(ProductVM product, HttpPostedFileBase[] ProductImageId, List<int> sizeId, List<int> colorId)
         {
 
             Product newPro = new Product()
@@ -63,25 +63,28 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             db.SaveChanges();
 
             ///Thêm vào bảng size và colorProduct
-            ProductSize proSize = new ProductSize()
+            ProductSize proSize = new ProductSize();
+            foreach (var item in sizeId)
             {
-                ProductId = newPro.Id,
-                SizeId = sizeId
-            };
-            db.ProductSizes.Add(proSize);
-            db.SaveChanges();
+                proSize.ProductId = newPro.Id;
+                proSize.SizeId = item;
+                db.ProductSizes.Add(proSize);
+                db.SaveChanges();
+            }
 
-            ProductColor proColor = new ProductColor()
+            ProductColor proColor = new ProductColor();
+            foreach (var item in colorId)
             {
-                ProductId = newPro.Id,
-                ColorId = colorId
+                proColor.ProductId = newPro.Id;
+                proColor.ColorId = item;
+                db.ProductColors.Add(proColor);
+                db.SaveChanges();
             };
-            db.ProductColors.Add(proColor);
-            db.SaveChanges();
 
             //Kiểm tra chưa thêm ảnh thì k được lưu
             if (ProductImageId[0] == null)
             {
+                ///ViewBag.AddImage = "Bạn chưa thêm ảnh";
                 return RedirectToAction("Index");
             }
 
@@ -98,7 +101,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
 
             ///Lấy id của url đầu tiên của Pro
             string findUrl = ProductImageId[0].FileName;
-            var defaultImage = db.ProductImages.Where(x => x.ImageUrl == findUrl).SingleOrDefault();
+            var defaultImage = db.ProductImages.Where(x => x.ImageUrl == findUrl).FirstOrDefault();
             newPro.ProductImageId = defaultImage.Id;
             db.SaveChanges();
 
