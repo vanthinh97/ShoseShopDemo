@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<AptechShoseShop.Models.Entites.Category>
-
+    @using AptechShoseShop.Models.Entites;
+@{ 
+    List<Size> listSize = ViewBag.Size;
+    List<Color> listColor = ViewBag.Color;
+}
 <h2>Create Product</h2>
 @*@ViewBag.Congra*@
 <div class="row">
@@ -50,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label>Created By</label>
-                <input name="CreatedBy" class="form-control" />
+                <input readonly value="@ViewBag.UserID" name="CreatedBy" class="form-control" />
             </div>
             <div class="form-group">
                 <label>Status Product</label>
@@ -58,11 +62,33 @@
             </div>
             <div class="form-group">
                 <label>Size Product</label>
-                @Html.DropDownList("sizeId", (IEnumerable<SelectListItem>)ViewBag.Size, new { @class = "form-control", @multiple = "multiple" })
+                <br />
+                @{
+                    foreach (var item in listSize)
+                    {
+                                <label class="checkbox-inline">
+                                    <input name="SizeId" type="checkbox" value="@item.Id">&#160;&#160;@item.SizeName
+                                </label>
+                                <span>&#160;&#160;</span>
+                    }
+                }
+
+                @*    @Html.DropDownList("sizeId", (IEnumerable<SelectListItem>)ViewBag.Size, new { @class = "form-control", @multiple = "multiple" })*@
             </div>
             <div class="form-group">
                 <label>Color Product</label>
-                @Html.DropDownList("colorId", (IEnumerable<SelectListItem>)ViewBag.Color, new { @class = "form-control", @multiple = "multiple" })
+                <br />
+                @{
+                    foreach (var item in listColor)
+                    {
+                        <label class="checkbox-inline">
+                            <input name="ColorId" type="checkbox" value="@item.Id">&#160;&#160;@item.ColorName
+                        </label>
+                        <span>&#160;&#160;</span>
+                    }
+                }
+
+                @*    @Html.DropDownList("colorId", (IEnumerable<SelectListItem>)ViewBag.Color, new { @class = "form-control", @multiple = "multiple" })*@
             </div>
             <div class="form-group">
                 <button class="btn btn-success">Create</button>

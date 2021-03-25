@@ -22,6 +22,10 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            int id = 3;
+            ///int id = int.Parse(User.Identity.Name);
+            ViewBag.UserID = id;
+
             ///Viết lại ProductVM có thêm kiểu dữ liệu size cho thuộc tính size 
             var showCate = db.Categories.OrderBy(x => x.Position);
 
@@ -30,12 +34,12 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             ViewBag.StatusPro = statusProList;
 
             List<Size> size = db.Sizes.ToList();
-            SelectList sizeList = new SelectList(size, "Id", "SizeName", "1");
-            ViewBag.Size = sizeList;
+            // SelectList sizeList = new SelectList(size, "Id", "SizeName", "1");
+            ViewBag.Size = size;
 
             List<Color> color = db.Colors.ToList();
-            SelectList colorList = new SelectList(color, "Id", "ColorName", "1");
-            ViewBag.Color = colorList;
+            // SelectList colorList = new SelectList(color, "Id", "ColorName", "1");
+            ViewBag.Color = color;
 
             string date = DateTime.Today.ToString("yyyy-MM-dd");
             ViewBag.date = date;
@@ -44,7 +48,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ProductVM product, HttpPostedFileBase[] ProductImageId, List<int> sizeId, List<int> colorId)
+        public ActionResult Create(ProductVM product, HttpPostedFileBase[] ProductImageId, List<int> SizeId, List<int> ColorId)
         {
 
             Product newPro = new Product()
@@ -63,23 +67,32 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             db.SaveChanges();
 
             ///Thêm vào bảng size và colorProduct
-            ProductSize proSize = new ProductSize();
-            foreach (var item in sizeId)
+            ///Chỉ cần khởi tạo mới 1 lần, khi add xong thì ta phải new lại 1 đối tượng khác trong vòng lặp
+            if (SizeId != null && SizeId.Count > 0)
             {
-                proSize.ProductId = newPro.Id;
-                proSize.SizeId = item;
-                db.ProductSizes.Add(proSize);
-                db.SaveChanges();
+                ProductSize proSize;
+                foreach (var item in SizeId)
+                {
+                    proSize = new ProductSize();
+                    proSize.ProductId = newPro.Id;
+                    proSize.SizeId = item;
+                    db.ProductSizes.Add(proSize);
+                }
             }
-
-            ProductColor proColor = new ProductColor();
-            foreach (var item in colorId)
+            
+            
+            if (ColorId != null && ColorId.Count > 0)
             {
-                proColor.ProductId = newPro.Id;
-                proColor.ColorId = item;
-                db.ProductColors.Add(proColor);
-                db.SaveChanges();
-            };
+                ProductColor proColor;
+                foreach (var item in ColorId)
+                {
+                    proColor = new ProductColor();
+                    proColor.ProductId = newPro.Id;
+                    proColor.ColorId = item;
+                    db.ProductColors.Add(proColor);
+                }
+            }
+      
 
             //Kiểm tra chưa thêm ảnh thì k được lưu
             if (ProductImageId[0] == null)
@@ -89,15 +102,16 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             }
 
             ///Lưu vào bảng ProIamge
-            ProductImage proImage = new ProductImage();
+            ProductImage proImage;
 
             foreach (var item in ProductImageId)
             {
+                proImage = new ProductImage();
                 proImage.ImageUrl = item.FileName;
                 proImage.ProductId = newPro.Id;
                 db.ProductImages.Add(proImage);
-                db.SaveChanges();
             }
+            db.SaveChanges();
 
             ///Lấy id của url đầu tiên của Pro
             string findUrl = ProductImageId[0].FileName;
@@ -125,6 +139,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         {
             ///Tìm sản phẩm
             var product = db.Products.Find(id);
+            string error = "Bạn không được quyền xóa sản phẩm này";
 
             ///Tìm id đang đăng nhập
             if (User.Identity.IsAuthenticated)
@@ -153,7 +168,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
                 ///Check null
                 if (account == null)
                 {
-                    return Json("Bạn không được quyền xóa sản phẩm này");
+                    return Json(error);
                 }
 
                 ///Nếu = 1, tức là = Admin được được phép xóa tất cả ảnh
@@ -170,11 +185,11 @@ namespace AptechShoseShop.Areas.Admin.Controllers
                 }
                 else
                 {
-                    return Json("Bạn không được quyền xóa sản phẩm này");
+                    return Json(error);
                 }
             }
 
-            return RedirectToAction("Index");
+            return Json(error);
         }
 
         public void DeleteProId(int productId)

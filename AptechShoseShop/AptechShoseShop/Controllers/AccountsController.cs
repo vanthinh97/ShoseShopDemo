@@ -106,10 +106,15 @@ namespace AptechShoseShop.Controllers
         public ActionResult Register(TbUser user)
         {
             var emailUser = db.TbUsers.Where(x => x.Email == user.Email).SingleOrDefault();
+
             if (emailUser != null)
             {
-                ModelState.AddModelError("", "Email này đã tồn tại");
-                return View();
+                return Json("Email này đã tồn tại");
+            }
+
+            if (user.Password == null)
+            {
+                return Json("Email của bạn hợp lệ!");
             }
 
             TbUser newUser = new TbUser()
@@ -209,16 +214,16 @@ namespace AptechShoseShop.Controllers
 
 
             Random rdom = new Random();
-            var xPass = rdom.Next(0, 1000000);
-            string newPass = xPass.ToString("000000");
+            var xPass = rdom.Next(100000, 1000000).ToString();
+            ///string newPass = xPass.ToString("000000");
 
-            user.Password = MySecurity.EncryptPassword(newPass);
+            user.Password = MySecurity.EncryptPassword(xPass);
             db.SaveChanges();
 
             EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
                 "<h1>Hello [Name]! Mật khẩu mới của bạn là [newPass]</h1>"
                 .Replace("[Name]", user.FullName)
-                .Replace("[newPass]", newPass));
+                .Replace("[newPass]", xPass));
             
             return Json("Bạn hãy kiểm tra email để lấy mật khẩu");
         }

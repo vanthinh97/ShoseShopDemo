@@ -71,6 +71,7 @@
                                 id: id
                             },
                             success: function (result) {
+                                console.log(result);
                                 if (result === "OK") {
                                     swal("Ảnh của bạn đã được xóa!", {
                                         icon: "success",
@@ -78,6 +79,8 @@
                                     // ẩn doituong-id
                                     $("#HidePro-" + id).hide();
                                 }
+
+
                                 else {alert(result)}
                             }
                         });

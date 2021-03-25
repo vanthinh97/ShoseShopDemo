@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AptechShoseShop.Models.Entites;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,5 +19,9 @@ namespace AptechShoseShop.Models.Admin
         public DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public int StatusId { get; set; }
+        public List<Color> Colors { get; set; }
+        public List<Size> Sizes { get; set; }
+        public double SalePrice { get; set; }
+        public string ImgUrl { get; set; }
     }
 }

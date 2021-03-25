@@ -3,6 +3,7 @@
 @{
     AptechShoseShopDbContext db = new AptechShoseShopDbContext();
 }
+@ViewBag.HasAuthor
 <form method="post" action="@Url.Action("AddRole")">
     <select name="UserId">
         @foreach (var item in db.TbUsers)

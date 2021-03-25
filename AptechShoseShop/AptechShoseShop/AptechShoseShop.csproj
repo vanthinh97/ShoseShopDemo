@@ -150,6 +150,7 @@
     <Compile Include="Models\Accounts\ChangePW.cs" />
     <Compile Include="Models\Admin\ProductVM.cs" />
     <Compile Include="Models\Authorization\MyRoleProvider.cs" />
+    <Compile Include="Models\Client\ProductClientVM.cs" />
     <Compile Include="Models\EmailManagement.cs" />
     <Compile Include="Models\Entites\AptechShoseShopDbContext.cs" />
     <Compile Include="Models\Entites\Category.cs" />
@@ -2204,7 +2205,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64309</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44312/</IISUrl>
+          <IISUrl>https://localhost:44310/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

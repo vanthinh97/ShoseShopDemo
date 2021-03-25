@@ -11,8 +11,12 @@ namespace AptechShoseShop.Areas.Admin.Controllers
     {
         readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Admin/Authorization
-        public ActionResult Index()
+        public ActionResult Index(string checkEmail)
         {
+            if (checkEmail != null)
+            {
+                ViewBag.HasAuthor = "Quyền này đã được phân cho " + checkEmail;
+            }
             var listAuthor = db.UserRoles;
             return View(listAuthor.ToList());
         }
@@ -33,8 +37,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             }
             else
             {
-                ModelState.AddModelError("", $"Quyền này đã được phân cho {check.User.Email} ");
-                return View();
+                return RedirectToAction("Index", new { checkEmail = check.User.Email });
             }
 
             return RedirectToAction("Index");

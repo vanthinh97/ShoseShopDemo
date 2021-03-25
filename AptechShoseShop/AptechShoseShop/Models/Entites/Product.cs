@@ -16,6 +16,8 @@ namespace AptechShoseShop.Models.Entites
             ProductSizes = new HashSet<ProductSize>();
         }
 
+
+
         public int Id { get; set; }
         public string ProductName { get; set; }
         public double UnitPrice { get; set; }
