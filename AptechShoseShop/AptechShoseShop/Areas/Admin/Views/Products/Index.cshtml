@@ -2,7 +2,7 @@
 
 <h2>Products Management</h2>
 
-<button onclick="location.href='@Url.Action("Create")'">Create</button>
+<button class="btn btn-info" onclick="location.href='@Url.Action("Create")'">Create</button>
 <hr />
 <table class="table">
     <thead>
@@ -35,10 +35,14 @@
                         <div>#ID: @item.Id</div>
                         <div>@item.ProductName</div>
                         <div>$@item.UnitPrice.ToString("N2")</div>
-                        <div>@item.DiscountRatio %</div>
-                        <div>@item.DiscountExpiry.ToString("yyyy-MM-dd")</div>
+                        @if (@item.DiscountRatio > 0)
+                        {
+                            <div>Giảm giá @item.DiscountRatio %</div>
+                            <div>Đến: @item.DiscountExpiry.ToString("yyyy-MM-dd")</div>
+                        }
                         <div>@item.Category.CategoryName</div>
                         <div>@item.StatusProduct.StatusName</div>
+                        <div>Người tạo: @item.TbUser.Email</div>
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

@@ -1,22 +1,21 @@
-﻿using AptechShoseShop.Models.Admin;
-using AptechShoseShop.Models.Client;
+﻿using AptechShoseShop.Models.Client;
 using AptechShoseShop.Models.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AptechShoseShop.Controllers
 {
     public class ProductsController : Controller
     {
-         AptechShoseShopDbContext db = new AptechShoseShopDbContext();
+        AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Products
         [HttpGet]
         public ActionResult Index()
         {
-           var products = db.Products.Where(x => x.StatusId == 1).OrderByDescending(x => x.Id);
+            ///var products = db.Products.Where(x => x.StatusId == 1).OrderByDescending(x => x.Id).Take(12);
+            var products = db.Products.Where(x => x.StatusId == 1);
 
 
             var endProducts = products.Select(s => new ProductClientVM
@@ -33,13 +32,18 @@ namespace AptechShoseShop.Controllers
                 CategoryName = s.Category.CategoryName
             });
 
-            return View(endProducts.ToList());
+            Random rnd = new Random();
+            ///endProducts.ToList();
+
+            List<ProductClientVM> RdProduct = endProducts.ToList();
+            RdProduct = RdProduct.OrderBy(x => rnd.Next()).Take(12).ToList();
+
+            return View(RdProduct);
         }
 
         [HttpGet]
         public ActionResult Details(int id)
         {
-            ///int id = 13;
             var product = db.Products.Find(id);
 
             //if (product == null)
@@ -60,7 +64,8 @@ namespace AptechShoseShop.Controllers
             ViewBag.MainListUrl = MainListUrl;
             ViewBag.NewPrice = product.UnitPrice - (product.UnitPrice * product.DiscountRatio) / 100;
 
-            var ListProCate = db.Products.Where(y => y.CategoryId == product.CategoryId).ToList();
+            var ListProCate = db.Products.Where(y => y.CategoryId == product.CategoryId)
+                    .OrderByDescending(z => z.Id).Take(5).ToList();
             var MainListProCate = ListProCate.Select(s => new ProductClientVM
             {
                 ///Lay ra cai anh thu 2

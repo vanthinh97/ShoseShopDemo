@@ -172,14 +172,14 @@
                                 <a href="#" class="author">
                                     @item.CategoryName
                                 </a>
-                                <h3><a href="product-details.html">@item.ProductName</a></h3>
+                                <h3><a href="@Url.Action("Details", new { id = item.Id})">@item.ProductName</a></h3>
                             </div>
                             <div class="product-card--body">
                                 <div class="card-image">
-                                    <img style="width: 300px; height: 350px" src="@item.ImgUrl" alt="">
+                                    <img style="width: 300px; height: 300px" src="@item.ImgUrl" alt="">
                                     <div class="hover-contents">
-                                        <a href="product-details.html" class="hover-image">
-                                            <img style="width: 300px; height: 350px" src="@item.ImgUrl" alt="">
+                                        <a href="@Url.Action("Details", new { id = item.Id})" class="hover-image">
+                                            <img style="width: 300px; height: 300px" src="@item.ImgUrl" alt="">
                                         </a>
                                         <div class="hover-btns">
                                             <a href="cart.html" class="single-btn">
@@ -199,9 +199,19 @@
                                     </div>
                                 </div>
                                 <div class="price-block">
-                                    <span class="price">$@item.salePrice</span>
-                                    <del class="price-old">$@item.UnitPrice</del>
-                                    <span class="price-discount">$@item.DiscountRatio%</span>
+                                    @{
+                                        if (item.DiscountRatio == "0")
+                                        {
+                                            <span class="price">$@item.salePrice</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="price">$@item.salePrice</span>
+                                            <del class="price-old">$@item.UnitPrice</del>
+                                            <span class="price-discount">$@item.DiscountRatio%</span>
+                                        }
+                                    }
+
                                 </div>
                             </div>
                         </div>

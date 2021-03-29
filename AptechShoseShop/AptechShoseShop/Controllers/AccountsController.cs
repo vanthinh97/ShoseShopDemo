@@ -3,7 +3,6 @@ using AptechShoseShop.Models.Accounts;
 using AptechShoseShop.Models.Entites;
 using AptechShoseShop.Models.Security;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -19,13 +18,8 @@ namespace AptechShoseShop.Controllers
         // GET: Accounts
         public ActionResult Index()
         {
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    int userId = int.Parse(User.Identity.Name);
-            //    var account = db.TbUsers.Find(userId);
-            //    return View(account);
-            //}
-            var user = db.TbUsers.Where(x => x.Id == 3).SingleOrDefault();
+            int userId = int.Parse(User.Identity.Name);
+            var user = db.TbUsers.Find(userId);
             ViewBag.Url = "/Data/users/" + user.Id + "/" + user.Avatar;
             return View(user);
         }
@@ -35,7 +29,7 @@ namespace AptechShoseShop.Controllers
         public ActionResult UploadAvatar(HttpPostedFileBase file)
         {
             string fileName = file.FileName;
-            int userId = 3;
+            int userId = int.Parse(User.Identity.Name);
             TbUser user = db.TbUsers.Find(userId);
 
             string strFolder = Server.MapPath("~/data/users/" + user.Id);
@@ -132,30 +126,20 @@ namespace AptechShoseShop.Controllers
 
             //sendmail
             EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
-                "<h1>Hello [Name]!, bạn đã đăng ký tài khoản thành công tại Aptech Shose Shop</h1>".Replace("[Name]", newUser.FullName));
+                "<h1>Hello [Name]! bạn đã đăng ký tài khoản thành công tại Aptech Shose Shop</h1>".Replace("[Name]", newUser.FullName));
             return RedirectToAction("Index", "Home");
         }
         ///
 
         [HttpGet]
-        public ActionResult EditProfile()
+        public ActionResult EditProfile(int id)
         {
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    int userId = int.Parse(User.Identity.Name);
-            //    var account = db.TbUsers.Find(userId);
-            //    return View(account);
-            //}
-
-            //return Redirect(Request.UrlReferrer.ToString()); 
-
-            var user = db.TbUsers.Where(x => x.Id == 3).SingleOrDefault();
-
-            return View(user);
+            var account = db.TbUsers.Find(id);
+            return View(account);
         }
 
         [HttpPost]
-        public ActionResult EditProfile(int Id, string FullName, int Gender, string Address)
+        public ActionResult EditProfile(int Id, string FullName, int Gender, string NumberPhone, string Address)
         {
             bool? GenderV2 = null;
 
@@ -171,6 +155,7 @@ namespace AptechShoseShop.Controllers
             var newUser = db.TbUsers.Find(Id);
             newUser.FullName = FullName;
             newUser.Gender = GenderV2;
+            newUser.NumberPhone = NumberPhone;
             newUser.Address = Address;
             db.SaveChanges();
 
@@ -178,22 +163,21 @@ namespace AptechShoseShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult ChangePW()
+        public ActionResult ChangePW(int id)
         {
-            int userId = 3;
-            TbUser user = db.TbUsers.Find(userId);
+            TbUser user = db.TbUsers.Find(id);
             return View(user);
         }
 
         [HttpPost]
         public ActionResult ChangePW(ChangePW changePW)
         {
-            int userId = 3;
+            int userId = int.Parse(User.Identity.Name);
             TbUser user = db.TbUsers.Find(userId);
 
             if (!user.Password.Equals(MySecurity.EncryptPassword(changePW.oldPassword)))
             {
-                return Json("Mật khẩu không đúng, hãy nhập lại!");
+                return Json("Mật khẩu cũ không đúng, hãy nhập lại!");
             }
 
             user.Password = MySecurity.EncryptPassword(changePW.newPassword);
@@ -224,10 +208,19 @@ namespace AptechShoseShop.Controllers
                 "<h1>Hello [Name]! Mật khẩu mới của bạn là [newPass]</h1>"
                 .Replace("[Name]", user.FullName)
                 .Replace("[newPass]", xPass));
-            
+
             return Json("Bạn hãy kiểm tra email để lấy mật khẩu");
         }
 
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Response.Cookies["UserId"].Expires = DateTime.Now.AddDays(-10);
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
+        }
 
 
         public void Authen(int userId)

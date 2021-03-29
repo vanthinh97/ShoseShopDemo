@@ -1,6 +1,6 @@
 ﻿@model AptechShoseShop.Models.Entites.TbUser
 
-<h1>Your Profile</h1>
+<h1>Thông tin của bạn</h1>
 
 <div class="container">
     <!-- Modal content-->
@@ -19,11 +19,11 @@
                             <input name="Id" class="form-control" value="@Model.Id"/>
                         </div>
                         <div class="form-group">
-                            <label>Full Name</label>
+                            <label>Tên</label>
                             <input name="FullName" class="form-control" value="@Model.FullName"/>
                         </div>
                         <div class="form-group">
-                            <label>Gender</label>
+                            <label>Giới tính</label>
 
                             @{
 
@@ -47,6 +47,10 @@
                         <div class="form-group">
                             <label>Email</label>
                             <input readonly name="Email" class="form-control" value="@Model.Email"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <input name="NumberPhone" class="form-control" value="@Model.NumberPhone"/>
                         </div>
                         <div class="form-group">
                             <label>Address</label>

@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@model AptechShoseShop.Models.Entites.TbUser
+
+<div style="margin: 0 auto; width: 500px">
+    <br />
+    <h2>Chào @Model.FullName! <br />Đây là trang cá nhân của bạn</h2>
+    <hr />
+</div>
+
+<div style="width: 100%; margin-top: 30px; margin-bottom: 30px" class="row">
+    <div class="col-6">
+        <div style="padding-left: 50px;display: flex">
+            <div>
+                <button onclick="ClickInput()" id="btnUpload" class="btn btn-success">Upload avatar</button>
+            </div>
+            <div style="width: 400px; ">
+                @if (Model.Avatar == null)
+                {
+                    <img id="imgmap" src="https://9mobi.vn/cf/images/2015/03/nkk/hinh-anh-de-thuong-1.jpg" style="width:230px" />
+                }
+                else
+                {
+                    <img id="imgmap" src="@ViewBag.Url" style="width:230px; height: 250px" />
+                }
+            </div>
+            @* <img id="loading" style="display:none" src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"/>*@
+            <input onchange="UploadFile()" style="display:none" id="fileInput" name="file" type="file" />
+            <br />
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div style="width: 300px; font-weight: bold; font-size: 20px">
+            <p>Tên: <span style="margin-left: 30px">@Model.FullName</span></p>
+            <p>Số điện thoại: <span style="margin-left: 30px">@Model.NumberPhone</span></p>
+            <p>Email: <span style="margin-left: 30px">@Model.Email</span></p>
+            <p>Địa chỉ: <span style="margin-left: 30px">@Model.Address</span></p>
+        </div>
+        <div style="margin-left: 150px; width: 200px;">
+            <a class="btn btn-success" href="@Url.Action("EditProfile", "Accounts", new { id = Model.Id})">Cập nhật thông tin</a>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    function UploadFile() {
+        $(document).ready(function () {
+                var formdata = new FormData();
+                var _image = $('#fileInput')[0].files[0];
+                formdata.append('file', _image);
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UploadAvatar")',
+                    data: formdata,
+                    //async: false,
+                    //cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        $('#imgmap').attr('src', result);
+                    //    $("#loading").hide();
+                    },
+                    error: function (result) { console.log(result); }
+                });
+        });
+    }
+    function ClickInput() {
+        $("#fileInput").trigger("click");
+       // $("#loading").show();
+    }
+
+
+</script>
+
+

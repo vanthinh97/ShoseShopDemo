@@ -127,12 +127,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountsController.cs" />
     <Compile Include="Areas\Admin\Controllers\AuthorizationController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TbUsersController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -146,10 +148,16 @@
     <Compile Include="Migrations\202103211003023_f2.Designer.cs">
       <DependentUpon>202103211003023_f2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103250839150_f3.cs" />
+    <Compile Include="Migrations\202103250839150_f3.Designer.cs">
+      <DependentUpon>202103250839150_f3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accounts\ChangePW.cs" />
     <Compile Include="Models\Admin\ProductVM.cs" />
     <Compile Include="Models\Authorization\MyRoleProvider.cs" />
+    <Compile Include="Models\Cart\CartItem.cs" />
+    <Compile Include="Models\Cart\CartVM.cs" />
     <Compile Include="Models\Client\ProductClientVM.cs" />
     <Compile Include="Models\EmailManagement.cs" />
     <Compile Include="Models\Entites\AptechShoseShopDbContext.cs" />
@@ -1837,8 +1845,6 @@
     <Content Include="assets\image\bg-images\home-3-slider-2.jpg" />
     <Content Include="assets\image\bg-images\home-4-slider-1.jpg" />
     <Content Include="assets\image\bg-images\home-4-slider-2.jpg" />
-    <Content Include="assets\image\bg-images\home-slider-1-ai.png" />
-    <Content Include="assets\image\bg-images\home-slider-2-ai.png" />
     <Content Include="assets\image\bg-images\promo-banner-contained.jpg" />
     <Content Include="assets\image\bg-images\promo-banner-full.jpg" />
     <Content Include="assets\image\bg-images\promo-banner-mid.jpg" />
@@ -1848,6 +1854,9 @@
     <Content Include="assets\image\bg-images\promo-banner-with-text-2.jpg" />
     <Content Include="assets\image\bg-images\promo-banner-with-text-big.jpg" />
     <Content Include="assets\image\bg-images\promo-banner-with-text.jpg" />
+    <Content Include="assets\image\bg-images\ảnh-1.png" />
+    <Content Include="assets\image\bg-images\ảnh-2.png" />
+    <Content Include="assets\image\bg-images\ảnh-3.png" />
     <Content Include="assets\image\emptycart\tải xuống.png" />
     <Content Include="assets\image\favicon.ico" />
     <Content Include="assets\image\icon\author-logo.png" />
@@ -1857,6 +1866,7 @@
     <Content Include="assets\image\icon\quotation.png" />
     <Content Include="assets\image\logo--footer.png" />
     <Content Include="assets\image\logo.png" />
+    <Content Include="assets\image\logoShoseShop.png" />
     <Content Include="assets\image\others\best-seller-author.jpg" />
     <Content Include="assets\image\others\blog-grid-1.jpg" />
     <Content Include="assets\image\others\blog-grid-2.jpg" />
@@ -2126,6 +2136,9 @@
     <Content Include="Areas\Admin\Views\TbUsers\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TbUsers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TbUsers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\_EditCate.cshtml" />
+    <Content Include="Areas\Admin\Views\Accounts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Accounts\EditProfile.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2156,10 +2169,11 @@
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Accounts\_Register.cshtml" />
     <Content Include="Views\Accounts\EditProfile.cshtml" />
-    <Content Include="Views\Accounts\Profile.cshtml" />
     <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Accounts\_ChangePW.cshtml" />
     <Content Include="Views\Accounts\_ForgotPW.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\_Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2185,6 +2199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103211003023_f2.resx">
       <DependentUpon>202103211003023_f2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103250839150_f3.resx">
+      <DependentUpon>202103250839150_f3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

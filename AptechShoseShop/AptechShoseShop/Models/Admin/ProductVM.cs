@@ -1,8 +1,6 @@
 ﻿using AptechShoseShop.Models.Entites;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace AptechShoseShop.Models.Admin
 {
@@ -11,7 +9,7 @@ namespace AptechShoseShop.Models.Admin
         public int Id { get; set; }
         public string ProductName { get; set; }
         public double UnitPrice { get; set; }
-        public double DiscountRatio { get; set; }
+        public double? DiscountRatio { get; set; }
         public DateTime DiscountExpiry { get; set; }
         public int CategoryId { get; set; }
         public int? ProductImageId { get; set; }

@@ -60,10 +60,16 @@
                 newPassword = $('#newPassword').val(),
                 reNewPassword = $('#reNewPassword').val();
 
+                if (newPassword === password) {
+                    alert("Bạn đã nhập trùng mật khẩu cũ!");
+                    return;
+                }
+
                 if (newPassword !== reNewPassword) {
                     alert("Bạn nhập lại mật khẩu mới không đúng!");
                     return;
                 }
+
 
                 var changePW = {
                     "oldPassword" : $('#oldPassword').val(),

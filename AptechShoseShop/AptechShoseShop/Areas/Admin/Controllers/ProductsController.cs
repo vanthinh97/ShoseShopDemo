@@ -22,23 +22,23 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            int id = 3;
-            ///int id = int.Parse(User.Identity.Name);
+            ///int id = 6;
+            int id = int.Parse(User.Identity.Name);
             ViewBag.UserID = id;
 
             ///Viết lại ProductVM có thêm kiểu dữ liệu size cho thuộc tính size 
             var showCate = db.Categories.OrderBy(x => x.Position);
 
+            ///ViewBag bằng dropdowlist
             List<StatusProduct> statusPro = db.StatusProducts.ToList();
             SelectList statusProList = new SelectList(statusPro, "Id", "StatusName", "1");
             ViewBag.StatusPro = statusProList;
 
+            ///ViewBag bình thường bằng checkBox input
             List<Size> size = db.Sizes.ToList();
-            // SelectList sizeList = new SelectList(size, "Id", "SizeName", "1");
             ViewBag.Size = size;
 
             List<Color> color = db.Colors.ToList();
-            // SelectList colorList = new SelectList(color, "Id", "ColorName", "1");
             ViewBag.Color = color;
 
             string date = DateTime.Today.ToString("yyyy-MM-dd");
@@ -48,6 +48,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)] ///để bỏ qua lỗi dangerous Request của validate input
         public ActionResult Create(ProductVM product, HttpPostedFileBase[] ProductImageId, List<int> SizeId, List<int> ColorId)
         {
 
@@ -55,7 +56,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             {
                 ProductName = product.ProductName,
                 UnitPrice = product.UnitPrice,
-                DiscountRatio = product.DiscountRatio,
+                DiscountRatio = product.DiscountRatio != null ? product.DiscountRatio : 0,
                 DiscountExpiry = product.DiscountExpiry,
                 CategoryId = product.CategoryId,
                 Description = product.Description,
@@ -79,8 +80,8 @@ namespace AptechShoseShop.Areas.Admin.Controllers
                     db.ProductSizes.Add(proSize);
                 }
             }
-            
-            
+
+
             if (ColorId != null && ColorId.Count > 0)
             {
                 ProductColor proColor;
@@ -92,7 +93,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
                     db.ProductColors.Add(proColor);
                 }
             }
-      
+
 
             //Kiểm tra chưa thêm ảnh thì k được lưu
             if (ProductImageId[0] == null)
@@ -115,7 +116,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
 
             ///Lấy id của url đầu tiên của Pro
             string findUrl = ProductImageId[0].FileName;
-            var defaultImage = db.ProductImages.Where(x => x.ImageUrl == findUrl).FirstOrDefault();
+            var defaultImage = db.ProductImages.Where(x => x.ProductId == newPro.Id).Where(x => x.ImageUrl == findUrl).FirstOrDefault();
             newPro.ProductImageId = defaultImage.Id;
             db.SaveChanges();
 

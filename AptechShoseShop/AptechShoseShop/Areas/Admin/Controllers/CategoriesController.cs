@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AptechShoseShop.Models.Entites;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using AptechShoseShop.Models.Entites;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
@@ -40,6 +35,23 @@ namespace AptechShoseShop.Areas.Admin.Controllers
                 Position = cate.Position
             };
             db.Categories.Add(newCate);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult _EditCate(int id)
+        {
+            var cate = db.Categories.Find(id);
+            return PartialView(cate);
+        }
+
+        [HttpPost]
+        public ActionResult EditCate(int id, string categoryName, int position)
+        {
+            var cate = db.Categories.Find(id);
+            cate.CategoryName = categoryName;
+            cate.Position = position;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
