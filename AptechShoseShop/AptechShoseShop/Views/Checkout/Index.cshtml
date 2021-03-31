@@ -1,0 +1,124 @@
+﻿@using AptechShoseShop.Models.Entites
+@{
+    string userName = "";
+    AptechShoseShopDbContext db = new AptechShoseShopDbContext();
+    if (User.Identity.IsAuthenticated)
+    {
+        int userId = int.Parse(User.Identity.Name);
+        TbUser u = db.TbUsers.Find(userId);
+        userName = u.Email;
+    }
+}
+<main id="content" class="page-section inner-page-sec-padding-bottom space-db--20">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Checkout Form s-->
+                <div class="checkout-form">
+                    <form action="/" method="post">
+                        <div class="row row-40">
+                            <div class="col-12">
+
+
+
+                            </div>
+                            <div class="col-lg-7 mb--20">
+                                <!-- Billing Address -->
+                                <div id="billing-form" class="mb-40">
+                                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                                    <h4 class="checkout-title">Billing Address</h4>
+                                    <div class="row">
+
+                                        <div class="col-md-12 col-12 mb--20">
+                                            <label>Full Name*</label>
+                                            <input required id="fullName" type="text" placeholder="Full Name">
+                                        </div>
+
+
+                                        @{
+                                            if (User.Identity.IsAuthenticated)
+                                            {
+                                                <div class="col-md-6 col-12 mb--20">
+                                                    <label>Email Address*</label>
+                                                    <input readonly id="email" type="email" value="@userName">
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-md-6 col-12 mb--20">
+                                                    <label>Email Address*</label>
+                                                    <input required id="email" type="email" placeholder="Email Address">
+                                                </div>
+                                            }
+                                        }
+
+
+                                        <div class="col-md-6 col-12 mb--20">
+                                            <label>Phone no*</label>
+                                            <input required id="phone" type="text" placeholder="Phone number">
+                                        </div>
+                                        <div class="col-12 mb--20">
+                                            <label>Address*</label>
+                                            <input required id="address" type="text" placeholder="Address">
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!-- Shipping Address -->
+
+                                <div class="order-note-block mt--30">
+                                    <label for="order-note">Order notes</label>
+                                    <textarea id="orderNote" cols="30" rows="10" class="order-note"
+                                              placeholder="Press note ... "></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="row">
+                                    <!-- Cart Total -->
+                                    <div class="col-12">
+                                        <div class="checkout-cart-total">
+                                            <h2 class="checkout-title">YOUR ORDER</h2>
+                                            <div class="method-notice mt--25">
+                                                <article>
+                                                    <h3 class="d-none sr-only">blog-article</h3>
+                                                    Sorry, it seems that there are no available payment methods for
+                                                    your state. Please contact us if you
+                                                    require
+                                                    assistance
+                                                    or wish to make alternate arrangements.
+                                                </article>
+                                            </div>
+                                            <div class="term-block">
+                                                <input type="checkbox" id="accept_terms2">
+                                                <label for="accept_terms2">
+                                                    I’ve read and accept the terms &amp;
+                                                    conditions
+                                                </label>
+                                            </div>
+                                            <button onclick="Checkout()" class="place-order w-100">Place order</button>
+                                            @Html.Partial("_Login")
+                                            @{
+
+                                                if (!User.Identity.IsAuthenticated)
+                                                {
+
+                                                    <div style="margin-top: 30px; font-size: 22px;">
+                                                        Let's
+                                                        <a data-toggle="modal" data-target="#_Login" style="cursor: pointer; color: red; font-weight: 600">Login</a>
+                                                        to get discounts!
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -4,12 +4,7 @@
     List<Size> listSize = ViewBag.Size;
     List<Color> listColor = ViewBag.Color;
 }
-<script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
-<style>
-    .ck-editor__editable_inline {
-        min-height: 100px;
-    }
-</style>
+
 
 <h2>Create Product</h2>
 <div class="row">
@@ -32,7 +27,7 @@
                 <input name="DiscountRatio" class="form-control" />
             </div>
             <div class="form-group">
-                <label>Ngày hết hạn</label>
+                <label>Ngày hết hạn giảm giá</label>
                 <input value="@ViewBag.date" name="DiscountExpiry" type="date" class="form-control" />
             </div>
             <div class="form-group">
@@ -47,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label>Thêm ảnh</label>
-                <input required name="ProductImageId" type="file" multiple="multiple" />
+                <input required name="ProductImageId" type="file" multiple="multiple" accept="image/png, image/jpeg">
             </div>
             <div class="form-group">
 
@@ -101,6 +96,7 @@
     <div class="col-sm-2">
 
     </div>
+    <p>@Html.ActionLink("Back to List", "Index")</p>
 </div>
 
 <script>

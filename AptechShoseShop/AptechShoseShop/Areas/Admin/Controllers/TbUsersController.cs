@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using AptechShoseShop.Models.Entites;
+using AptechShoseShop.Models.Security;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using AptechShoseShop.Models.Entites;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
@@ -39,94 +37,90 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         // GET: Admin/TbUsers/Create
         public ActionResult Create()
         {
-            ViewBag.StatusId = new SelectList(db.StatusUsers, "Id", "StatusName");
+
             return View();
         }
 
-        // POST: Admin/TbUsers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FullName,Gender,Email,Address,Password,StatusId,CreatedDate,Avatar")] TbUser tbUser)
+        public ActionResult Create(string FullName, int Gender, string Email, string Password, string NumberPhone, string Address)
         {
-            if (ModelState.IsValid)
+            bool? GenderV2 = null;
+
+            if (Gender == 1)
             {
-                db.TbUsers.Add(tbUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                GenderV2 = true;
+            }
+            else if (Gender == 0)
+            {
+                GenderV2 = false;
             }
 
-            ViewBag.StatusId = new SelectList(db.StatusUsers, "Id", "StatusName", tbUser.StatusId);
-            return View(tbUser);
-        }
+            var emailUser = db.TbUsers.Where(x => x.Email == Email).SingleOrDefault();
 
-        // GET: Admin/TbUsers/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
+            if (emailUser != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ModelState.AddModelError("", "Tài khoản đã tồn tại");
+                return View();
             }
-            TbUser tbUser = db.TbUsers.Find(id);
-            if (tbUser == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.StatusId = new SelectList(db.StatusUsers, "Id", "StatusName", tbUser.StatusId);
-            return View(tbUser);
-        }
 
-        // POST: Admin/TbUsers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FullName,Gender,Email,Address,Password,StatusId,CreatedDate,Avatar")] TbUser tbUser)
-        {
-            if (ModelState.IsValid)
+            TbUser newUser = new TbUser()
             {
-                db.Entry(tbUser).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.StatusId = new SelectList(db.StatusUsers, "Id", "StatusName", tbUser.StatusId);
-            return View(tbUser);
-        }
-
-        // GET: Admin/TbUsers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TbUser tbUser = db.TbUsers.Find(id);
-            if (tbUser == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tbUser);
-        }
-
-        // POST: Admin/TbUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TbUser tbUser = db.TbUsers.Find(id);
-            db.TbUsers.Remove(tbUser);
+                FullName = FullName,
+                Gender = GenderV2,
+                Email = Email,
+                Password = MySecurity.EncryptPassword(Password),
+                NumberPhone = NumberPhone,
+                CreatedDate = DateTime.Now,
+                Address = Address,
+                StatusId = 1
+            };
+            db.TbUsers.Add(newUser);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpGet]
+        public ActionResult Edit(int id)
         {
-            if (disposing)
+            var user = db.TbUsers.Find(id);
+            var status = db.StatusUsers.ToList();
+            ViewBag.Status = status;
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int Id, string FullName, int Gender, string NumberPhone, string Address, int StatusId)
+        {
+            bool? GenderV2 = null;
+
+            if (Gender == 1)
             {
-                db.Dispose();
+                GenderV2 = true;
             }
-            base.Dispose(disposing);
+            else if (Gender == 0)
+            {
+                GenderV2 = false;
+            }
+
+            var newUser = db.TbUsers.Find(Id);
+            newUser.FullName = FullName;
+            newUser.Gender = GenderV2;
+            newUser.NumberPhone = NumberPhone;
+            newUser.Address = Address;
+            newUser.StatusId = StatusId;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var user = db.TbUsers.Find(id);
+            db.TbUsers.Remove(user);
+            db.SaveChanges();
+            return Content("OK");
         }
     }
 }

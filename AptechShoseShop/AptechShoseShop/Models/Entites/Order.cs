@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace AptechShoseShop.Models.Entites
 {
@@ -19,6 +17,7 @@ namespace AptechShoseShop.Models.Entites
         public string CustomerPhone { get; set; }
         public int StatusId { get; set; }
         public int? UserId { get; set; }
+        public string OrderNote { get; set; }
         public DateTime OrderDate { get; set; }
 
         public virtual StatusOrder Status { get; set; }

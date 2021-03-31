@@ -135,6 +135,221 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Edit(int id, string ErrorCreatBy)
+        {
+            ///int id = 86;
+            if (ErrorCreatBy != null)
+            {
+                ViewBag.ErrorCreatBy = "Bạn không được edit nếu không phải là người tạo";
+            }
+
+            var product = db.Products.Find(id);
+            if (product == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var listImage = db.ProductImages.Where(x => x.ProductId == id).ToList();
+            ViewBag.ListImage = listImage;
+
+            ViewBag.Url = "/Data/products/" + product.Id + "/" + product.ProductImage.ImageUrl;
+
+            var cates = db.Categories.ToList();
+            ViewBag.Cates = cates;
+
+            var listProStatus = db.StatusProducts.ToList();
+            ViewBag.ListProStatus = listProStatus;
+
+            var listSize = db.Sizes.ToList();
+            ViewBag.ListSize = listSize;
+            var listProSize = db.ProductSizes.Where(x => x.ProductId == id).ToList();
+            List<int> listSizeChecked = new List<int>();
+            foreach (var item in listProSize)
+            {
+                listSizeChecked.Add(item.SizeId);
+            }
+            ViewBag.ListSizeChecked = listSizeChecked;
+
+            var listColor = db.Colors.ToList();
+            ViewBag.ListColor = listColor;
+            var listProColor = db.ProductColors.Where(x => x.ProductId == id).ToList();
+            List<int> listColorChecked = new List<int>();
+            foreach (var item in listProColor)
+            {
+                listColorChecked.Add(item.ColorId);
+            }
+            ViewBag.ListColorChecked = listColorChecked;
+
+
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(ProductVM pro, HttpPostedFileBase[] ProductImageId, int[] ImgDelete, List<int> SizeId, List<int> ColorId)
+        {
+            int userId = int.Parse(User.Identity.Name);
+            ///Lấy user Admin
+            var userRole = db.UserRoles.Where(x => x.UserId == userId).Where(x => x.RoleId == 1).SingleOrDefault();
+
+            var product = db.Products.Find(pro.Id);
+            if (product == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            ///Không phải là người tạo và k phải admin thì k cho edit
+            if (userId != product.CreatedBy && userRole == null)
+            {
+                return RedirectToAction("Edit", new { id = pro.Id, ErrorCreatBy = "Error" });
+            }
+
+            product.ProductName = pro.ProductName;
+            product.UnitPrice = pro.UnitPrice;
+            product.DiscountRatio = pro.DiscountRatio != null ? pro.DiscountRatio : 0;
+            product.DiscountExpiry = pro.DiscountExpiry;
+            product.CategoryId = pro.CategoryId;
+            product.Description = pro.Description;
+            product.CreatedDate = pro.CreatedDate;
+            product.CreatedBy = pro.CreatedBy;
+            product.StatusId = pro.StatusId;
+
+            string strFolder = "";
+
+            ///Thêm proImage và lưu ảnh mới vào file
+            if (ProductImageId[0] != null)
+            {
+                ProductImage proImage;
+                foreach (var item in ProductImageId)
+                {
+                    proImage = new ProductImage();
+                    proImage.ImageUrl = item.FileName;
+                    proImage.ProductId = pro.Id;
+                    db.ProductImages.Add(proImage);
+                    strFolder = Server.MapPath("~/Data/Products/" + pro.Id);
+                    item.SaveAs(strFolder + @"\" + item.FileName);
+                }
+            }
+
+            ///Xóa ảnh cũ
+            foreach (var item in ImgDelete)
+            {
+                if (item > 0)
+                {
+                    var proDelete = db.ProductImages.Find(item);
+                    strFolder = Server.MapPath("~/data/products/" + proDelete.ProductId);
+                    if (System.IO.File.Exists(strFolder + @"\" + proDelete.ImageUrl))
+                    {
+                        System.IO.File.Delete(strFolder + @"\" + proDelete.ImageUrl);
+                    }
+                    db.ProductImages.Remove(proDelete);
+                }
+            }
+
+            ///Thêm mới và xóa size
+            if (SizeId != null && SizeId.Count > 0)
+            {
+                List<int> listOldSize = new List<int>();
+                var proOldSize = db.ProductSizes.Where(x => x.ProductId == pro.Id).ToList();
+                foreach (var item in proOldSize)
+                {
+                    listOldSize.Add(item.SizeId);
+                }
+
+                ProductSize proSize;
+                foreach (var item in SizeId)
+                {
+                    if (!listOldSize.Contains(item))
+                    {
+                        proSize = new ProductSize();
+                        proSize.ProductId = pro.Id;
+                        proSize.SizeId = item;
+                        db.ProductSizes.Add(proSize);
+                    }
+                }
+                foreach (var item in proOldSize)
+                {
+                    if (!SizeId.Contains(item.SizeId))
+                    {
+                        db.ProductSizes.Remove(item);
+                    }
+                }
+            }
+
+            ///Thêm mới và xóa color
+            if (ColorId != null && ColorId.Count > 0)
+            {
+                List<int> listOldColor = new List<int>();
+                var proOldColor = db.ProductColors.Where(x => x.ProductId == pro.Id).ToList();
+                foreach (var item in proOldColor)
+                {
+                    listOldColor.Add(item.ColorId);
+                }
+
+                ProductColor proColor;
+                foreach (var item in ColorId)
+                {
+                    if (!listOldColor.Contains(item))
+                    {
+                        proColor = new ProductColor();
+                        proColor.ProductId = pro.Id;
+                        proColor.ColorId = item;
+                        db.ProductColors.Add(proColor);
+                    }
+                }
+                foreach (var item in proOldColor)
+                {
+                    if (!ColorId.Contains(item.ColorId))
+                    {
+                        db.ProductColors.Remove(item);
+                    }
+                }
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("Edit", new { id = pro.Id });
+        }
+
+        public ActionResult Detail()
+        {
+            int id = 86;
+
+            var listImage = db.ProductImages.Where(x => x.ProductId == id).ToList();
+            ViewBag.ListImage = listImage;
+
+            var product = db.Products.Find(id);
+            ViewBag.Url = "/Data/products/" + product.Id + "/" + product.ProductImage.ImageUrl;
+
+            var cates = db.Categories.ToList();
+            ViewBag.Cates = cates;
+
+            var listProStatus = db.StatusProducts.ToList();
+            ViewBag.ListProStatus = listProStatus;
+
+            var listSize = db.Sizes.ToList();
+            ViewBag.ListSize = listSize;
+            var listProSize = db.ProductSizes.Where(x => x.ProductId == id).ToList();
+            List<int> listSizeChecked = new List<int>();
+            foreach (var item in listProSize)
+            {
+                listSizeChecked.Add(item.SizeId);
+            }
+            ViewBag.ListSizeChecked = listSizeChecked;
+
+            var listColor = db.Colors.ToList();
+            ViewBag.ListColor = listColor;
+            var listProColor = db.ProductColors.Where(x => x.ProductId == id).ToList();
+            List<int> listColorChecked = new List<int>();
+            foreach (var item in listProColor)
+            {
+                listColorChecked.Add(item.ColorId);
+            }
+            ViewBag.ListColorChecked = listColorChecked;
+
+
+
+            return View(product);
+        }
 
         public ActionResult DeletePro(int id)
         {

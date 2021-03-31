@@ -229,5 +229,41 @@ namespace AptechShoseShop.Controllers
             FormsAuthentication.SetAuthCookie(userId.ToString(), true);
         }
 
+
+
+        [HttpPost]
+        public ActionResult LoginCkout(string Email, string Password)
+        {
+            var user = db.TbUsers.Where(x => x.Email.Equals(Email)).SingleOrDefault();
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Tài khoản không tồn tại");
+            }
+            if (!string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password))
+            {
+                if (user.Password.Equals(MySecurity.EncryptPassword(Password)))
+                {
+                    Response.Cookies["UserId"].Value = user.Id.ToString();
+                    FormsAuthentication.SetAuthCookie(user.Id.ToString(), true);
+
+
+                    var c = db.UserRoles.Where(x => x.UserId == user.Id).FirstOrDefault();
+                    if (c != null && (c.RoleId == 1 || c.RoleId == 2)) //1 laf admin
+                    {
+                        return RedirectToAction("Index", "DashBoard", new { area = "Admin" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Checkout");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Mật khẩu không đúng");
+                }
+            }
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
     }
 }

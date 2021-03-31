@@ -135,6 +135,7 @@
     <Compile Include="Areas\Admin\Controllers\TbUsersController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -151,6 +152,10 @@
     <Compile Include="Migrations\202103250839150_f3.cs" />
     <Compile Include="Migrations\202103250839150_f3.Designer.cs">
       <DependentUpon>202103250839150_f3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103300955597_f4.cs" />
+    <Compile Include="Migrations\202103300955597_f4.Designer.cs">
+      <DependentUpon>202103300955597_f4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accounts\ChangePW.cs" />
@@ -2131,14 +2136,15 @@
     <Content Include="Areas\Admin\Views\Authorization\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\TbUsers\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\TbUsers\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\TbUsers\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\TbUsers\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\TbUsers\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\_EditCate.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\EditProfile.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TbUsers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TbUsers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TbUsers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TbUsers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Detail.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2174,6 +2180,9 @@
     <Content Include="Views\Accounts\_ForgotPW.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\_Cart.cshtml" />
+    <Content Include="Views\Cart\_Empty.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Shared\_Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2202,6 +2211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103250839150_f3.resx">
       <DependentUpon>202103250839150_f3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103300955597_f4.resx">
+      <DependentUpon>202103300955597_f4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

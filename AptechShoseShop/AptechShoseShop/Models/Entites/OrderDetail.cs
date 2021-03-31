@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace AptechShoseShop.Models.Entites
+﻿namespace AptechShoseShop.Models.Entites
 {
     public class OrderDetail
     {
@@ -13,6 +8,8 @@ namespace AptechShoseShop.Models.Entites
         public double UnitPrice { get; set; }
         public double DiscountRatio { get; set; }
         public int Quantity { get; set; }
+        public string ColorName { get; set; }
+        public string SizeName { get; set; }
 
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }

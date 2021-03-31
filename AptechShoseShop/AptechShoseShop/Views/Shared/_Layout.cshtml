@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using AptechShoseShop.Models.Entites
+@{ 
+    AptechShoseShopDbContext db = new AptechShoseShopDbContext();
+    string urlAvatar = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        int id = int.Parse(User.Identity.Name);
+        var user = db.TbUsers.Find(id);
+        urlAvatar = user.Avatar != null ? "/Data/users/" + user.Id + "/" + user.Avatar : "https://9mobi.vn/cf/images/2015/03/nkk/hinh-anh-de-thuong-1.jpg";
+    }
+
+}
+
+<!DOCTYPE html>
 <html lang="zxx">
 
 
@@ -59,7 +72,8 @@
                                         if (User.Identity.IsAuthenticated)
                                         {
                                             <li class="menu-item">
-                                                <a href="@Url.Action("Index", "Accounts")">My account</a>
+                                                <a style="margin-right: 0px" href="@Url.Action("Index", "Accounts")">My account</a>
+                                                <img style="max-width: 30px; max-height: 30px" class="img-profile rounded-circle" src="@urlAvatar">
                                             </li>
                                             <li class="menu-item">
                                                 <a href="@Url.Action("Logout", null, new { area = string.Empty, controller = "Accounts" }, Request.Url.Scheme)">Log out</a>
@@ -610,7 +624,7 @@
             <div class="container d-none d-lg-block">
                 <div class="row align-items-center">
                     <div class="col-lg-4">
-                        <a href="index.html" class="site-brand">
+                        <a href="@Url.Action("Index", "Home")" class="site-brand">
                             <img src="~/assets/image/logoShoseShop.png" alt="">
                         </a>
                     </div>
@@ -633,7 +647,8 @@
                                     if (User.Identity.IsAuthenticated)
                                     {
                                         <li class="menu-item">
-                                            <a href="@Url.Action("Index", "Accounts")">My account</a>
+                                            <a style="margin-right: 0px" href="@Url.Action("Index", "Accounts")">My account</a>
+                                            <img style="max-width: 40px; max-height: 40px" class="img-profile rounded-circle" src="@urlAvatar">
                                         </li>
                                         <li class="menu-item">
                                             <a href="@Url.Action("Logout", null, new { area = string.Empty, controller = "Accounts" }, Request.Url.Scheme)">Log out</a>
@@ -796,6 +811,9 @@
     <script src="~/assets/js/plugins.js"></script>
     <script src="~/assets/js/ajax-mail.js"></script>
     <script src="~/assets/js/custom.js"></script>
+
+    <script src="~/assets/js/jquery.cookie.js"></script>
+    <script src="~/assets/js/mycart.js"></script>
 
 
     @Html.Partial("~/Views/Accounts/_Register.cshtml")

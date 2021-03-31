@@ -1,0 +1,128 @@
+﻿@model AptechShoseShop.Models.Entites.Product
+@using AptechShoseShop.Models.Entites
+@{
+    List<ProductImage> proImageList = ViewBag.ListImage;
+    List<StatusProduct> proStatus = ViewBag.ListProStatus;
+
+    List<Size> ListSize = ViewBag.ListSize;
+    List<int> ListSizeChecked = ViewBag.ListSizeChecked;
+
+    List<Color> ListColor = ViewBag.ListColor;
+    List<int> ListColorChecked = ViewBag.ListColorChecked;
+}
+
+<h2>Edit Product</h2>
+
+<div class="container">
+    <!-- Modal content-->
+    <div class="modal-content">
+        @{
+            <div class="modal-body">
+                <div style="padding:10px">
+                    <form method="post" action="@Url.Action("Edit", "Products", new { id = Model.Id })" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Tên sản phẩm</label>
+                            <input value="@Model.ProductName" name="ProductName" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Giá gốc</label>
+                            <input value="@Model.UnitPrice" name="UnitPrice" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Giảm giá (%)</label>
+                            <input value="@Model.DiscountRatio" name="DiscountRatio" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày hết hạn giảm giá</label>
+                            <input value="@Model.DiscountExpiry.ToString("yyyy-MM-dd")" name="DiscountExpiry" type="date" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Danh mục</label>
+                            <select name="CategoryId" class="form-control">
+                                <option value="@Model.CategoryId">@Model.Category.CategoryName</option>
+                                @foreach (var item in ViewBag.Cates)
+                                {
+                                    <option value="@item.Id">@item.CategoryName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ảnh sản phẩm</label>
+
+                            @{
+                                if (proImageList != null)
+                                {
+                                    <div style="display: flex">
+
+                                        @foreach (var item in proImageList)
+                                        {
+
+                                            string url = "/data/products/" + item.ProductId + "/" + item.ImageUrl;
+                                            <img src="@url" style="width: 100px; height: 100px" />
+                                        }
+
+                                        @*<img id="urlPro-@item.Id" onload="LoadImagePro('@item.Id')"
+                                            src="https://9mobi.vn/cf/images/2015/03/nkk/hinh-anh-de-thuong-1.jpg" style="width: 60px; height: 60px"/>*@
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="form-group">
+
+                            <label>Chính sách mua hàng</label>
+                            <p>@Html.Raw(Model.Description)</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày tạo</label>
+                            <input readonly name="CreatedDate" class="form-control" value="@Model.CreatedDate.ToString("yyyy-MM-dd")" type="date" />
+                        </div>
+                        <div class="form-group">
+                            <label>Mã ID người tạo</label>
+                            <input readonly value="@Model.CreatedBy" name="CreatedBy" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái sản phẩm</label>
+                            <select name="CategoryId" class="form-control">
+                                <option value="@Model.StatusId">@Model.StatusProduct.StatusName</option>
+                                @foreach (var item in proStatus)
+                                {
+                                    <option value="@item.Id">@item.StatusName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Chọn size</label>
+                            <br />
+                            @{
+                                foreach (var item in ListSize)
+                                {
+                                    string chec = ListSizeChecked.Contains(item.Id) ? "checked" : "";
+                                    <label class="checkbox-inline">
+                                        <input @chec name="SizeId" type="checkbox" value="@item.Id">&#160;&#160;@item.SizeName
+                                    </label>
+                                    <span>&#160;&#160;</span>
+                                }
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label>Chọn màu</label>
+                            <br />
+                            @{
+                                foreach (var item in ListColor)
+                                {
+                                    string chec = ListColorChecked.Contains(item.Id) ? "checked" : "";
+                                    <label class="checkbox-inline">
+                                        <input @chec name="ColorId" type="checkbox" value="@item.Id">&#160;&#160;@item.ColorName
+                                    </label>
+                                    <span>&#160;&#160;</span>
+                                }
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+

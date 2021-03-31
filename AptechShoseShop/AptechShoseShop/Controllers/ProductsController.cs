@@ -33,7 +33,6 @@ namespace AptechShoseShop.Controllers
             });
 
             Random rnd = new Random();
-            ///endProducts.ToList();
 
             List<ProductClientVM> RdProduct = endProducts.ToList();
             RdProduct = RdProduct.OrderBy(x => rnd.Next()).Take(12).ToList();
@@ -51,13 +50,13 @@ namespace AptechShoseShop.Controllers
             //    return View();
             //}
 
-            var LisUrl = db.ProductImages.Where(x => x.ProductId == product.Id).ToList();
+            var ListUrl = db.ProductImages.Where(x => x.ProductId == product.Id).ToList();
 
             List<string> MainListUrl = new List<string>();
 
-            for (int i = 0; i < LisUrl.Count; i++)
+            for (int i = 0; i < ListUrl.Count; i++)
             {
-                var eachUrl = "/Data/Products/" + product.Id + "/" + LisUrl[i].ImageUrl;
+                var eachUrl = "/Data/Products/" + product.Id + "/" + ListUrl[i].ImageUrl;
                 MainListUrl.Add(eachUrl);
             }
 
@@ -68,9 +67,6 @@ namespace AptechShoseShop.Controllers
                     .OrderByDescending(z => z.Id).Take(5).ToList();
             var MainListProCate = ListProCate.Select(s => new ProductClientVM
             {
-                ///Lay ra cai anh thu 2
-                ///var listImage = db.ProductImages.Where(x => x.ProductId == s.Id)
-
                 Id = s.Id,
                 ProductName = s.ProductName,
                 ImgUrl = s.ProductImageId != null ? "/Data/Products/" + s.Id + "/" + s.ProductImage.ImageUrl : "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg",
@@ -79,8 +75,13 @@ namespace AptechShoseShop.Controllers
                 salePrice = (s.UnitPrice - ((s.UnitPrice * s.DiscountRatio) / 100)).ToString(),
                 CategoryName = s.Category.CategoryName
             });
-
             ViewBag.MainListProCate = MainListProCate.ToList();
+
+            var listColor = db.ProductColors.Where(x => x.ProductId == id).ToList();
+            ViewBag.MainListColor = listColor;
+
+            var listSize = db.ProductSizes.Where(x => x.ProductId == id).ToList();
+            ViewBag.MainListSize = listSize;
 
             return View(product);
         }

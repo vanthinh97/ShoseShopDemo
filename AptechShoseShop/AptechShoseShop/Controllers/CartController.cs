@@ -19,8 +19,6 @@ namespace AptechShoseShop.Controllers
         public ActionResult Binding(string data)//string type
         {
 
-
-
             var cart_items = JsonConvert.DeserializeObject<List<CartItem>>(data);
             if (cart_items == null || cart_items.Count == 0)
             {
@@ -42,6 +40,8 @@ namespace AptechShoseShop.Controllers
                     ca = new CartVM();
                     ca.ProductId = p.Id;
                     ca.ProductName = p.ProductName;
+                    ca.ColorName = item.ColorName;
+                    ca.SizeName = item.SizeName;
                     ca.UnitPrice = (p.UnitPrice - ((p.UnitPrice * p.DiscountRatio) / 100)).ToString();
                     ca.Quantity = item.quantity;
                     ca.ImgUrl = p.ProductImageId != null ? "/Data/Products/" + p.Id + "/" + p.ProductImage.ImageUrl

@@ -24,12 +24,27 @@ function emptyCartItems() {
 
 function addCart(productId) {
     $(document).ready(function () {   
+        var colorName = document.getElementById("ColorName");
+        var colorSelected = colorName.options[colorName.selectedIndex].value;
+        if (colorSelected === "#") {
+            alert("Bạn chưa chọn màu");
+            return;
+        };
+
+        var sizeName = document.getElementById("SizeName");
+        var sizeSelected = sizeName.options[sizeName.selectedIndex].value;
+        if (sizeSelected === "#") {
+            alert("Bạn chưa chọn size");
+            return;
+        };
+
         var quantity = $("#quantity").val();      
         var cart_items = getCartItems();
       
         var is_exist = false;
         $(cart_items).each(function (i, v) {
             if (v && v.productid === productId) {
+                ///kiểm tra thêm màu và size
                 is_exist = true;
             }
         });
@@ -37,12 +52,14 @@ function addCart(productId) {
         if (!is_exist) {
             var new_item = {
                 "productid": productId,
-                "quantity": quantity
+                "quantity": quantity,
+                "ColorName": colorSelected,
+                "SizeName": sizeSelected
             };
             cart_items.push(new_item);
             saveCartItems(cart_items);
             swal({
-                text: "This product has been added to your cart.",
+                text: "Bạn đã thêm sản phẩm này vào giỏ hàng.",
                 icon: "success",
                 buttons: {
                     cancel: "Cancel",
@@ -60,7 +77,7 @@ function addCart(productId) {
             });
         }
         else {
-            swal("Notification", "Product is existed in cart.!", "error");
+            swal("Notification", "Sản phẩm này đã tồn tại trong giỏ.!", "error");
           
         }
         console.log("ds");
@@ -97,7 +114,7 @@ function bindingCart() {
 function updateItem(productid, q) {
     productid = productid.toString();
     q = q.toString();
-    console.log(q);
+    ///console.log(q);
     var cart_items = getCartItems();
 
     $(cart_items).each(function (i, v) {
