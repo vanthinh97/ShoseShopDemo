@@ -1,0 +1,106 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<AptechShoseShop.Models.Entites.Order>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quản lý đơn hàng</h2>
+<div style="padding: 0 50px">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr class="row">
+            <th class="col-2">
+                Trạng thái <br />Đơn hàng
+            </th>
+            <th class="col-6">
+                Thông tin khách hàng
+            </th>
+            <th class="col-4">Hành động</th>
+        </tr>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="HideOrder-@item.Id" class="row">
+                    <td class="col-2">
+                        #@item.Id <br />
+                        @Html.DisplayFor(modelItem => item.Status.StatusName)
+                    </td>
+                    <td class="col-6">
+                        Tên: @Html.DisplayFor(modelItem => item.CustomerName)<br />
+                        Email: @Html.DisplayFor(modelItem => item.CustomerEmail)<br />
+                        Số điện thoại: @Html.DisplayFor(modelItem => item.CustomerPhone)<br />
+                        Địa chỉ: @Html.DisplayFor(modelItem => item.CustomerAddress)<br />
+                        @if (item.UserId > 0)
+                        {
+                            <span>#Id khách: @item.UserId</span><br />
+                        }
+                        Ghi chú: @item.OrderNote
+                    </td>
+                    <td class="col-4">
+                        @*<a class="btn btn-success" href="@Url.Action("Detail", new { id = item.Id})">Chi tiết đơn hàng</a><br />
+                            <a class="btn btn-info" href="@Url.Action("Edit", new { id = item.Id})">Chỉnh sửa đơn hàng</a><br />
+                            <button onclick="DeleteOrder('@item.Id')" class="btn btn-danger" href="#">Xóa</button>*@
+                        <a href="@Url.Action("Edit", new { id = item.Id})"><i class="fas fa-edit"></i></a>
+                        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }) |
+                        <a href="@Url.Action("Detail", new { id = item.Id})"><i class="fas fa-info"></i></a>
+                        @Html.ActionLink("Chi tiết", "Detail", new { id = item.Id }) |
+                        <button onclick="DeleteOrder('@item.Id')" class="btn btn-danger" href="#">Xóa</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <div class="row pt--30">
+        <div class="col-md-12">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new
+            {
+               page
+            }))
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function DeleteOrder(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Nếu xóa, bạn sẽ ko thể khôi phục lại!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: "@Url.Action("Delete")",
+                            type: "post",
+                            data: {
+                                id: id
+                            },
+                            success: function (result) {
+                                if (result === "OK") {
+                                    swal("Đơn hàng đã được xóa!", {
+                                        icon: "success",
+                                    });
+                                    // ẩn doituong-id
+                                    $("#HideOrder-" + id).hide();
+                                }
+                            }
+                        });
+
+
+                    } else {
+                        swal("Ban chua xoa");
+                    }
+                });
+    };
+</script>
+

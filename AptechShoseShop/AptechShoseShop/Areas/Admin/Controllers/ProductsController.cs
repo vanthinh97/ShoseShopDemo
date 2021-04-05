@@ -1,5 +1,6 @@
 ﻿using AptechShoseShop.Models.Admin;
 using AptechShoseShop.Models.Entites;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,10 +14,12 @@ namespace AptechShoseShop.Areas.Admin.Controllers
     {
         readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Admin/Products
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var product = db.Products.OrderByDescending(x => x.Id).ToList();
-            return View(product);
+            int pageSize = 10;
+            int pageNumber = page ?? 1;
+            var product = db.Products.OrderByDescending(x => x.Id);
+            return View(product.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]
@@ -310,10 +313,8 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             return RedirectToAction("Edit", new { id = pro.Id });
         }
 
-        public ActionResult Detail()
+        public ActionResult Detail(int id)
         {
-            int id = 86;
-
             var listImage = db.ProductImages.Where(x => x.ProductId == id).ToList();
             ViewBag.ListImage = listImage;
 
@@ -345,8 +346,6 @@ namespace AptechShoseShop.Areas.Admin.Controllers
                 listColorChecked.Add(item.ColorId);
             }
             ViewBag.ListColorChecked = listColorChecked;
-
-
 
             return View(product);
         }

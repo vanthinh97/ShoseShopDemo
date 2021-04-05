@@ -1,0 +1,93 @@
+﻿@model AptechShoseShop.Models.Entites.Order
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+<div style="display: flex" class="row">
+
+    <div style="text-align: center" class="yourAddress col-5">
+        <h4>Đơn hàng</h4>
+        <hr />
+        <form action="#">
+            <div style="display: flex;">
+                <label for="">Trạng thái</label>
+                <input class="form-control" type="text" value="@Model.Status.StatusName">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Tên khách hàng</label>
+                <input class="form-control" type="text" name="CustomerName" id="CustomerName" value="@Model.CustomerName">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Email</label>
+                <input class="form-control" type="text" name="CustomerEmail" id="CustomerEmail" value="@Model.CustomerEmail">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Điện thoại</label>
+                <input class="form-control" type="text" name="CustomerPhone" id="CustomerPhone" value="@Model.CustomerPhone">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Địa chỉ</label>
+                <textarea class="form-control" style="width: 320px;" rows="3" type="text" name="CustomerAddress" id="CustomerAddress">@Model.CustomerAddress</textarea>
+            </div>
+            <div style="display: none">
+                <input class="form-control" type="datetime" name="OrderDate" id="OrderDate" value="@Model.OrderDate">
+            </div>
+        </form>
+        <hr />
+        <p>
+            @Html.ActionLink("Back to List", "Index", "Orders")
+        </p>
+    </div>
+
+    <div style="text-align: center" class="orderDetail col-7">
+        <h4>Chi tiết đơn hàng</h4>
+        <hr />
+        @{
+            foreach (var item in Model.OrderDetails)
+            {
+                <h4>#Id: @item.Id</h4>
+                <form action="/" method="post">
+                    <div style="display: flex;">
+                        <label for="">Sản phẩm</label>
+                        <input class="form-control" type="text" name="" id="ProductName" value="@item.Product.ProductName">
+                    </div>
+                    <br />
+                    <div style="display: flex;">
+                        <label for="">Giá đã giảm</label>
+                        <input class="form-control" type="text" id="UnitPrice" value="@item.UnitPrice">
+                    </div>
+                    <br />
+                    <div style="display: flex;">
+                        <label for="">Số lượng</label>
+                        <input class="form-control" type="text" id="Quantity-@item.Id" value="@item.Quantity">
+                    </div>
+                    <br />
+                    <div style="display: flex;">
+                        <label for="">Màu sắc</label>
+                        <input class="form-control" type="text" id="Color" value="@item.ColorName">
+                    </div>
+                    <br />
+                    <div style="display: flex;">
+                        <label for="">Size</label>
+                        <input class="form-control" type="text" id="Size" value="@item.SizeName">
+                    </div>
+                </form>
+                <hr style="width: 300px" />
+            }
+        }
+        <div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Tổng tiền (có thuế): </label>
+                <p>$@ViewBag.SubTotal</p>
+            </div>
+        </div>
+    </div>
+
+</div>

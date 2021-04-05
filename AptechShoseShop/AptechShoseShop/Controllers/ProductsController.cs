@@ -1,5 +1,6 @@
 ﻿using AptechShoseShop.Models.Client;
 using AptechShoseShop.Models.Entites;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,29 @@ namespace AptechShoseShop.Controllers
         AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Products
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string kw, int? cateid, string sortby, int? page)
         {
+            int pageSize = 12;
+            int pageNumber = page ?? 1;
+
             ///var products = db.Products.Where(x => x.StatusId == 1).OrderByDescending(x => x.Id).Take(12);
-            var products = db.Products.Where(x => x.StatusId == 1);
 
+            var showCate = db.Categories.ToList();
+            ViewBag.ShowCate = showCate;
 
+            ViewBag.Kw = kw;
+            ViewBag.Cateid = cateid;
+            ViewBag.SortBy = sortby;
+
+            IEnumerable<Product> products = db.Products.Where(x => x.StatusId == 1);
+            products = !string.IsNullOrEmpty(kw) ? getKw(kw, products) : products;
+            products = cateid != null ? getCate(cateid, products) : products;
+            products = !string.IsNullOrEmpty(sortby) ? getSortby(sortby, products) : products;
+
+            ///Lay ra cai anh thu 2
+            ///var listImage = db.ProductImages.Where(x => x.ProductId == s.Id)
             var endProducts = products.Select(s => new ProductClientVM
             {
-                ///Lay ra cai anh thu 2
-                ///var listImage = db.ProductImages.Where(x => x.ProductId == s.Id)
-
                 Id = s.Id,
                 ProductName = s.ProductName,
                 ImgUrl = s.ProductImageId != null ? "/Data/Products/" + s.Id + "/" + s.ProductImage.ImageUrl : "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg",
@@ -32,13 +45,62 @@ namespace AptechShoseShop.Controllers
                 CategoryName = s.Category.CategoryName
             });
 
-            Random rnd = new Random();
+            if (sortby == "name_defau" || sortby == null)
+            {
+                Random rnd = new Random();
 
-            List<ProductClientVM> RdProduct = endProducts.ToList();
-            RdProduct = RdProduct.OrderBy(x => rnd.Next()).Take(12).ToList();
+                List<ProductClientVM> RdProduct = endProducts.ToList();
+                RdProduct = RdProduct.OrderBy(x => rnd.Next()).ToList();
 
-            return View(RdProduct);
+                return View(RdProduct.ToPagedList(pageNumber, pageSize));
+            }
+
+            return View(endProducts.ToPagedList(pageNumber, pageSize));
         }
+
+        public IEnumerable<Product> getCate(int? cateid, IEnumerable<Product> p)
+        {
+            p = p.Where(x => x.CategoryId == cateid);
+            return p;
+        }
+        public IEnumerable<Product> getKw(string kw, IEnumerable<Product> p)
+        {
+            kw = kw.ToLower();
+            ViewBag.Kw = kw;
+            p = p.Where(x => x.ProductName.ToLower().Contains(kw));
+            return p;
+        }
+        public IEnumerable<Product> getSortby(string sortby, IEnumerable<Product> p)
+        {
+            switch (sortby)
+            {
+                case "name":
+                    p = p.OrderBy(s => s.ProductName);
+                    break;
+                case "name_desc":
+                    p = p.OrderByDescending(x => x.ProductName);
+                    break;
+                case "price":
+                    p = p.OrderBy(x => x.UnitPrice);
+                    break;
+                case "price_desc":
+                    p = p.OrderByDescending(x => x.UnitPrice);
+                    break;
+                //case "best_sell":
+                //    string query = "select PD.*" +
+                //        "from Products as PD left join OrderDetails as OD" +
+                //        "on OD.ProductId = PD.Id" +
+                //        "group by PD.Id, PD.ProductName, PD.UnitPrice, PD.DiscountRatio, PD.DiscountExpiry, PD.IsActive, PD.CategoryId, PD.ImgUrl, PD.Description" +
+                //        "order by COUNT(OD.ProductId) desc";
+                //    p = db.Database.SqlQuery<Product>(query);
+                //    break;
+                default:
+                    p = p.OrderByDescending(x => x.Id);
+                    break;
+            }
+            return p;
+        }
+
 
         [HttpGet]
         public ActionResult Details(int id)

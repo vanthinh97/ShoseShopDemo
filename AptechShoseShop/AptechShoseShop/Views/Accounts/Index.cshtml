@@ -7,19 +7,19 @@
 </div>
 
 <div style="width: 100%; margin-top: 30px; margin-bottom: 30px" class="row">
-    <div class="col-6">
-        <div style="padding-left: 200px; display: flex">
-            <div>
-                <button onclick="ClickInput()" id="btnUpload" class="btn btn-success">Upload avatar</button>
+    <div class="col-7">
+        <div style="padding-left: 256px; display: flex">
+            <div style="z-index: 1">
+                <button style="font-size: 12px; padding: 0 2px" onclick="ClickInput()" id="btnUpload" class="btn btn-success">Upload avatar</button>
             </div>
             <div style="width: 400px; ">
                 @if (Model.Avatar == null)
                 {
-                    <img id="imgmap" src="https://9mobi.vn/cf/images/2015/03/nkk/hinh-anh-de-thuong-1.jpg" style="width:400px" />
+                    <img id="imgmap" src="https://9mobi.vn/cf/images/2015/03/nkk/hinh-anh-de-thuong-1.jpg" style="width:400px; margin-left: -100px;" />
                 }
                 else
                 {
-                    <img id="imgmap" src="@ViewBag.Url" style="width:400px; height: 300px" />
+                    <img id="imgmap" src="@ViewBag.Url" style="width:400px; height: 300px; margin-left: -100px;" />
                 }
             </div>
             @* <img id="loading" style="display:none" src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"/>*@
@@ -28,15 +28,18 @@
         </div>
     </div>
 
-    <div class="col-6">
-        <div style="margin-left: 100px; width: 300px; font-weight: bold; font-size: 20px">
+    <div class="col-5">
+        <div style="width: 300px; font-weight: bold; font-size: 20px">
             <p>Tên: <span style="margin-left: 30px">@Model.FullName</span></p>
             <p>Số điện thoại: <span style="margin-left: 30px">@Model.NumberPhone</span></p>
             <p>Email: <span style="margin-left: 30px">@Model.Email</span></p>
             <p>Địa chỉ: <span style="margin-left: 30px">@Model.Address</span></p>
         </div>
-        <div style="margin-left: 150px; width: 200px;">
+        <div style="margin-left: 20px; width: 200px;">
             <a class="btn btn-success" href="@Url.Action("EditProfile", "Accounts", new { id = Model.Id})">Cập nhật thông tin</a>
+        </div>
+        <div style="margin: 5px 0 0 5px; width: 300px;">
+            <a class="btn btn-primary" href="@Url.Action("Index", new { area = string.Empty, controller = "Order"})">Lịch sử mua hàng</a>
         </div>
     </div>
 

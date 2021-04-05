@@ -1,0 +1,24 @@
+﻿.yourAddress form label {
+    width: 110px;
+    margin: 5px 0;
+    font-size: 14px;
+    padding-top: 10px;
+}
+
+.yourAddress form input {
+    margin: 5px 0;
+    width: 320px;
+    font-size: 14px;
+    border: 1px solid #a7a7a7;
+    float: right;
+}
+
+.orderDetail label {
+    width: 150px;
+    margin-left: 30px;
+}
+
+.orderDetail input {
+    width: 320px;
+    float: right;
+}

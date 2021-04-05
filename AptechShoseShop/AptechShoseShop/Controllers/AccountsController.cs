@@ -125,8 +125,8 @@ namespace AptechShoseShop.Controllers
 
 
             //sendmail
-            EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
-                "<h1>Hello [Name]! bạn đã đăng ký tài khoản thành công tại Aptech Shose Shop</h1>".Replace("[Name]", newUser.FullName));
+            //EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
+            //    "<h1>Hello [Name]! bạn đã đăng ký tài khoản thành công tại Aptech Shose Shop</h1>".Replace("[Name]", newUser.FullName));
             return RedirectToAction("Index", "Home");
         }
         ///
@@ -264,6 +264,7 @@ namespace AptechShoseShop.Controllers
             }
             return Redirect(Request.UrlReferrer.ToString());
         }
+
 
     }
 }

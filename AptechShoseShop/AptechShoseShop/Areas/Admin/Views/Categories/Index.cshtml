@@ -4,21 +4,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>All Categories</h2>
+<h2>Toàn bộ danh mục</h2>
 @Html.Partial("_Create")
 
 <p>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#_createCate">Create New</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#_createCate">Thêm danh mục</button>
 </p>
 
 
 <table id="tblCate" class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            Tên danh mục
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Position)
+            Vị trí hiển thị danh mục
         </th>
     </tr>
 
@@ -34,13 +34,13 @@
                 </td>
                 <td>
                     <span>
-                        <button class="btn btn-info" data-toggle="modal" data-target="#_editCate-@item.Id">Edit</button>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#_editCate-@item.Id">Chỉnh sửa</button>
 
 
                     </span>
                     @*@Html.Partial("_EditCate")*@
                     <span>
-                        <button class="btn btn-danger" onclick="DeleteCate('@item.Id')">Delete</button>
+                        <button class="btn btn-danger" onclick="DeleteCate('@item.Id')">Xóa</button>
 
                     </span>
                 </td>
@@ -71,7 +71,7 @@
                             },
                             success: function (result) {
                                 if (result === "OK") {
-                                    swal("Poof! Your imaginary file has been deleted!", {
+                                    swal("Bạn đã xóa danh mục này!", {
                                         icon: "success",
                                     });
                                     // ẩn doituong-id
@@ -82,7 +82,7 @@
 
 
                     } else {
-                        swal("Ban chua xoa");
+                        swal("Bạn chưa xóa");
                     }
                 });
     };

@@ -62,9 +62,9 @@ function addCart(productId) {
                 text: "Bạn đã thêm sản phẩm này vào giỏ hàng.",
                 icon: "success",
                 buttons: {
-                    cancel: "Cancel",
+                    cancel: "Tiếp tục mua hàng",
                     catch: {
-                        text: "Proceed to checkout",
+                        text: "Đi đến thanh toán",
                         value: "cart"
                     }
                 }
@@ -159,7 +159,6 @@ function removeItem(id) {
             }
         });
 
-
 }
 
 
@@ -189,11 +188,28 @@ function Checkout() {
           ,
             success: function (response) {
                 if (response === "OK") {
-                    swal("Thông báo !", "Bạn đã đặt hàng thành công.", "success");
                     emptyCartItems();
-                   
+                    swal(
+                        "Thông báo !",
+                        {
+                        text: "Bạn đã đặt hàng thành công.",
+                        icon: "success",
+                        buttons: {
+                            catch: {
+                                text: "OK",
+                                value: "Product"
+                            }
+                        }
+                        }).then((value) => {
+                            switch (value) {
+                                case "Product":
+                                    location.href = "/products";
+                                    break;
+                            }
+                        });
                 }
                 else {
+                    //alert(response);
                     swal(response);
                 }
             },

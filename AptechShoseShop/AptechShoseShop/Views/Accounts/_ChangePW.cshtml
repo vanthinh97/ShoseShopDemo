@@ -42,7 +42,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="CloseModal" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
 
@@ -54,11 +54,11 @@
 <script type="text/javascript">
         $(document).ready(function () {
             $('#btnChangePW').click(function () {
-
+                
 
                 var password = $('#oldPassword').val(),
-                newPassword = $('#newPassword').val(),
-                reNewPassword = $('#reNewPassword').val();
+                    newPassword = $('#newPassword').val(),
+                    reNewPassword = $('#reNewPassword').val();
 
                 if (newPassword === password) {
                     alert("Bạn đã nhập trùng mật khẩu cũ!");
@@ -84,6 +84,11 @@
                     success: function (result) {
                         console.log(result);
                         alert(result);
+                        if (result == "Mật khẩu đã thay đổi!") {
+                            location.reload();
+                        }
+                        ///$('#_changePW').modal('hide');
+                        
                     },
                     error: function (result) { console.log(result); }
                 });

@@ -1,6 +1,7 @@
 ﻿using AptechShoseShop.Models.Cart;
 using AptechShoseShop.Models.Entites;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -11,7 +12,7 @@ namespace AptechShoseShop.Controllers
 
         AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Checkout
-        public ActionResult Index()
+        public ActionResult Checkout()
         {
             return View();
         }
@@ -23,10 +24,9 @@ namespace AptechShoseShop.Controllers
             string CustomerPhone, string OrderNote
             )
         {
-            if ((CustomerName ?? CustomerEmail ?? CustomerAddress) == "")
+            if (CustomerName == "" || CustomerEmail == "" || CustomerPhone == "" || CustomerAddress == "")
             {
-                ModelState.AddModelError("", "Kiểm tra lại thông tin");
-                return View();
+                return Content("Kiểm tra lại thông tin");
             }
 
             var cart_items = JsonConvert.DeserializeObject<List<CartItem>>(data);
@@ -35,6 +35,11 @@ namespace AptechShoseShop.Controllers
                 return Content("Ko có sp trong giỏ hàng");
             }
 
+            int? userName = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                userName = int.Parse(User.Identity.Name);
+            }
 
             Order orders = new Order()
             {
@@ -42,7 +47,9 @@ namespace AptechShoseShop.Controllers
                 CustomerEmail = CustomerEmail,
                 CustomerAddress = CustomerAddress,
                 CustomerPhone = CustomerPhone,
+                OrderDate = DateTime.Now,
                 OrderNote = OrderNote,
+                UserId = userName != null ? userName : userName,
                 StatusId = 1
             };
             db.Orders.Add(orders);
@@ -55,6 +62,7 @@ namespace AptechShoseShop.Controllers
                     OrderId = orders.Id,
                     ProductId = item.productid,
                     UnitPrice = p.UnitPrice,
+                    DiscountRatio = p.DiscountRatio,
                     Quantity = item.quantity,
                     ColorName = item.ColorName,
                     SizeName = item.SizeName

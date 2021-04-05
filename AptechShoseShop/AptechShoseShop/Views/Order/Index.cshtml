@@ -1,0 +1,166 @@
+﻿@model IEnumerable<AptechShoseShop.Models.Client.OrderVM>
+@{
+    ViewBag.Title = "Index";
+    // Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="cart_area cart-area-padding  ">
+    <div class="container">
+        <div class="page-section-title">
+            <h1>Lịch sử mua hàng</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+
+                <div class="tab-content py-4">
+
+                    <div class="tab-pane active" id="messages">
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <div id="ordercus-@item.OrderId">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <h5>[#@item.OrderId] - @item.OrderDate</h5>
+
+                                        </div>
+                                        <div class="col-md-5 text-center" 
+                                             @{ 
+                                                 var colorX = "";
+                                                 if (item.StatusName == "Đang chờ")
+                                                 {
+                                                     colorX = "#413c88";
+                                                 }
+                                                 else if (item.StatusName == "Đang vận chuyển")
+                                                 {
+                                                     colorX = "#4bd432";
+                                                 }
+                                                 else if (item.StatusName == "Đã nhận hàng")
+                                                 {
+                                                     colorX = "#32d4c5";
+                                                 }
+                                                 else
+                                                 {
+                                                     colorX = "#d43232e0";
+                                                 }
+                                             }
+                                             style="background-color: @colorX; padding: 2px 0; margin-left: -14px; font-weight: bold; color: white; border-radius: 5px">
+                                            Trạng thái: @item.StatusName
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 form-group" style="border:1px solid #dddddd">
+                                        @{
+                                            foreach (var product in item.ListProduct)
+                                            {
+
+                                                <div id="orderdt-77" class="row" style="padding:20px">
+                                                    <div class="col-md-2 text-center">
+                                                        <a href="#">
+                                                            <img src="@product.ProImg">
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-7">
+                                                        <div class="p-pt7">
+                                                            <a href="#" style="font-size:18px">[#@product.ProductId] - @product.ProductName  </a>
+                                                        </div>
+
+                                                        <div class="p-pt7" style="font-size:14px">
+                                                            Màu : <span id="odcolor-77">@product.Color</span>
+                                                            / Size : <span id="odsize-77">@product.Size</span>
+                                                        </div>
+
+                                                        <div class="p-pt7" style="font-size:14px">
+
+                                                            <span id="odquantity-77">
+                                                                @product.Quantity
+                                                            </span>
+                                                            <span> x </span>
+                                                            <span>$@product.UnitPrice</span>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="col-6 col-md-2" style="display: flex; text-align: center; align-items: center;">
+                                                        <span class="" style="font-size:14px" id="odtotalprice-77">$@product.TotalPrice</span>
+                                                    </div>
+
+
+                                                </div>
+                                            }
+                                        }
+                                        <div id="orderinfo-48" class="text-right" style="padding:20px 0">
+
+                                            <div>
+                                                <span style="font-size:16px">Tổng Thanh Toán: </span>
+                                                @{
+                                                    var x = item.ListProduct.Count;
+                                                }
+                                                <span style="color: #ee4d2d; font-size: 22px;font-weight:bold">$@item.ListProduct[x - 1].SubTotalPrice</span>
+                                            </div>
+                                        </div>
+                                        @if (item.StatusName == "Đang chờ")
+                                        {
+                                            <div><button onclick="DeleteOrderClient(@item.OrderId)" style=" margin-top: -80px;" class="btn btn-danger">Hủy</button></div>
+                                        }
+                                    </div>
+
+
+                                </div>
+                            }
+                        }
+
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function DeleteOrderClient(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Nếu hủy, bạn sẽ ko thể khôi phục lại!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: "@Url.Action("Cancel")",
+                            type: "post",
+                            data: {
+                                id: id
+                            },
+                            success: function (result) {
+                                if (result === "OK") {
+                                    swal("Đơn hàng đã bị hủy!", {
+                                        icon: "success",
+                                    });
+                                    // ẩn doituong-id
+                                    //$("#ordercus-" + id).hide();
+                                    location.reload();
+                                }
+                            }
+                        });
+
+
+                    } else {
+                        swal("Bạn chưa hủy");
+                    }
+                });
+    };
+</script>
+

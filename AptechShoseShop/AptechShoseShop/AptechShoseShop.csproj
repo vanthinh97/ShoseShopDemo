@@ -52,6 +52,12 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -131,12 +137,14 @@
     <Compile Include="Areas\Admin\Controllers\AuthorizationController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TbUsersController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -157,12 +165,19 @@
     <Compile Include="Migrations\202103300955597_f4.Designer.cs">
       <DependentUpon>202103300955597_f4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104010939326_f5.cs" />
+    <Compile Include="Migrations\202104010939326_f5.Designer.cs">
+      <DependentUpon>202104010939326_f5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accounts\ChangePW.cs" />
+    <Compile Include="Models\Admin\ChangeOrderDetail.cs" />
+    <Compile Include="Models\Admin\OrderDetailVM.cs" />
     <Compile Include="Models\Admin\ProductVM.cs" />
     <Compile Include="Models\Authorization\MyRoleProvider.cs" />
     <Compile Include="Models\Cart\CartItem.cs" />
     <Compile Include="Models\Cart\CartVM.cs" />
+    <Compile Include="Models\Client\OrderVM.cs" />
     <Compile Include="Models\Client\ProductClientVM.cs" />
     <Compile Include="Models\EmailManagement.cs" />
     <Compile Include="Models\Entites\AptechShoseShopDbContext.cs" />
@@ -185,6 +200,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\Orders.css" />
     <Content Include="assets\Admin\css\sb-admin-2.css" />
     <Content Include="assets\Admin\css\sb-admin-2.min.css" />
     <Content Include="assets\Admin\img\undraw_posting_photo.svg" />
@@ -1927,6 +1943,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Data\users\3\elle-viet-nam-avengers-endgame-24.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2145,6 +2162,9 @@
     <Content Include="Areas\Admin\Views\TbUsers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TbUsers\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Detail.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2181,8 +2201,9 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\_Cart.cshtml" />
     <Content Include="Views\Cart\_Empty.cshtml" />
-    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Checkout\Checkout.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2214,6 +2235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103300955597_f4.resx">
       <DependentUpon>202103300955597_f4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104010939326_f5.resx">
+      <DependentUpon>202104010939326_f5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

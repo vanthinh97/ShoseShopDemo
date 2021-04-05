@@ -14,7 +14,6 @@ namespace AptechShoseShop.Controllers
             {
                 int userId = int.Parse(User.Identity.Name);
                 TbUser u = db.TbUsers.Find(userId);
-                ViewBag.Name = u.FullName;
             };
 
             var products = db.Products.Where(x => x.StatusId == 1).OrderByDescending(x => x.Id).Take(12);

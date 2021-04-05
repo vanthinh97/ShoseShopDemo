@@ -139,6 +139,8 @@ D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\E
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\Microsoft.Web.Infrastructure.dll
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\Newtonsoft.Json.dll
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\PagedList.dll
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\PagedList.Mvc.dll
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\System.Web.Helpers.dll
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\System.Web.Mvc.dll
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\System.Web.Optimization.dll
@@ -149,6 +151,8 @@ D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\S
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\WebGrease.dll
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\EntityFramework.xml
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\EntityFramework.SqlServer.xml
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\PagedList.xml
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\PagedList.Mvc.xml
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\System.Web.Helpers.xml
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\System.Web.Mvc.xml
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\System.Web.Optimization.xml
@@ -159,13 +163,14 @@ D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\S
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\Newtonsoft.Json.xml
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\Antlr3.Runtime.pdb
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csprojAssemblyReference.cache
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f1.resources
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f2.resources
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f3.resources
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f4.resources
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f5.resources
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.GenerateResource.cache
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.CoreCompileInputs.cache
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.CopyComplete
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.dll
 D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.pdb
-D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f4.resources
+D:\LAPTRINH\BACK_END\ASP.net\ShoseShopDemo\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csprojAssemblyReference.cache

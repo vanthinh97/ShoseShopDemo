@@ -1,104 +1,105 @@
 ﻿@model IEnumerable<AptechShoseShop.Models.Cart.CartVM>
-<MyShoppingWeb.Models.CartVM>
-    <div class="cart_area cart-area-padding  ">
-        <div class="container">
-            <div class="page-section-title">
-                <h1>Shopping Cart</h1>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <!-- Cart Table -->
-                    <div class="cart-table table-responsive mb--40">
-                        <table id="myTable" class="table">
-                            <!-- Head Row -->
-                            <thead>
-                                <tr>
-                                    <th class="pro-remove"></th>
-                                    <th class="pro-thumbnail">Image</th>
-                                    <th class="pro-title">Product</th>
-                                    <th class="pro-color">Color</th>
-                                    <th class="pro-size">Size</th>
-                                    <th class="pro-price">Price</th>
-                                    <th class="pro-quantity">Quantity</th>
-                                    <th class="pro-subtotal">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Product Row -->
-                                @foreach (var item in Model)
-                                {
 
-                                    <tr id="tr-@item.ProductId">
-                                        <td class="pro-remove">
-                                            <a onclick="removeItem('@item.ProductId')" href="#"><i class="far fa-trash-alt"></i></a>
-                                        </td>
-                                        <td class="pro-thumbnail">
-                                            <a href="#">
-                                                <img src="@item.ImgUrl" alt="Product">
-                                            </a>
-                                        </td>
-                                        <td class="pro-title"><a href="#">@item.ProductName</a></td>
-                                        <td class="pro-color"><span>@item.ColorName</span></td>
-                                        <td class="pro-size"><span>@item.SizeName</span></td>
-                                        <td class="pro-price"><span>$@item.UnitPrice</span></td>
-                                        <td class="pro-quantity">
-                                            <div class="pro-qty">
-                                                <div class="count-input-block">
-                                                    <input onchange="updateItem('@item.ProductId', $('#qty-@item.ProductId').val())" id="qty-@item.ProductId" type="number" class="form-control text-center" value="@item.Quantity">
-                                                </div>
+<div class="cart_area cart-area-padding  ">
+    <div class="container">
+        <div class="page-section-title">
+            <h1>Shopping Cart</h1>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Cart Table -->
+                <div class="cart-table table-responsive mb--40">
+                    <table id="myTable" class="table">
+                        <!-- Head Row -->
+                        <thead>
+                            <tr>
+                                <th class="pro-remove"></th>
+                                <th class="pro-thumbnail">Image</th>
+                                <th class="pro-title">Product</th>
+                                <th class="pro-color">Color</th>
+                                <th class="pro-size">Size</th>
+                                <th class="pro-price">Price</th>
+                                <th class="pro-quantity">Quantity</th>
+                                <th class="pro-subtotal">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Product Row -->
+                            @foreach (var item in Model)
+                            {
+
+                                <tr id="tr-@item.ProductId">
+                                    <td class="pro-remove">
+                                        <a onclick="removeItem('@item.ProductId')" href="#"><i class="far fa-trash-alt"></i></a>
+                                    </td>
+                                    <td class="pro-thumbnail">
+                                        <a href="#">
+                                            <img src="@item.ImgUrl" alt="Product">
+                                        </a>
+                                    </td>
+                                    <td class="pro-title"><a href="#">@item.ProductName</a></td>
+                                    <td class="pro-color"><span>@item.ColorName</span></td>
+                                    <td class="pro-size"><span>@item.SizeName</span></td>
+                                    <td class="pro-price"><span>$@item.UnitPrice</span></td>
+                                    <td class="pro-quantity">
+                                        <div class="pro-qty">
+                                            <div class="count-input-block">
+                                                <input onchange="updateItem('@item.ProductId', $('#qty-@item.ProductId').val())" id="qty-@item.ProductId" type="number" class="form-control text-center" value="@item.Quantity">
                                             </div>
-                                        </td>
-                                        <td class="pro-subtotal"><span>$@item.Total</span></td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                        </div>
+                                    </td>
+                                    <td class="pro-subtotal"><span>$@item.Total</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+        function deleteRow(r, productId) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementById("myTable").deleteRow(i);
+
+        }
+    </script>*@
+@*<script>
+        function x(producid) {
+            var quanti = $('#qty-' + producid).val();
+            ////
+            updateItem(producid);
+        }
+    </script>*@
+
+<div style="clear: both; padding-top: 50px" class="cart-section-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12 mb--30 mb-lg--0">
+
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="col-lg-6 col-12 d-flex">
+                <div class="cart-summary">
+                    <div class="cart-summary-wrap">
+                        <h4><span>Cart Summary</span></h4>
+
+                        <p>Sub Total <span class="text-primary">$@ViewBag.SubTotal</span></p>
+                        <p>VAT <span class="text-primary">@ViewBag.VAT %</span></p>
+                        <h2>Grand Total <span class="text-primary">$@ViewBag.GrandTotal</span></h2>
+                    </div>
+                    <div class="cart-summary-button">
+                        <a href="@Url.Action("Checkout","Checkout")" class="checkout-btn c-btn btn--primary">Checkout</a>
+                        @*<button class="update-btn c-btn btn-outlined">Update Cart</button>*@
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    @*<script>
-            function deleteRow(r, productId) {
-                var i = r.parentNode.parentNode.rowIndex;
-                document.getElementById("myTable").deleteRow(i);
-
-            }
-        </script>*@
-    @*<script>
-            function x(producid) {
-                var quanti = $('#qty-' + producid).val();
-                ////
-                updateItem(producid);
-            }
-        </script>*@
-    <div style="clear: both; padding-top: 50px" class="cart-section-2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-12 mb--30 mb-lg--0">
-
-                </div>
-
-                <!-- Cart Summary -->
-                <div class="col-lg-6 col-12 d-flex">
-                    <div class="cart-summary">
-                        <div class="cart-summary-wrap">
-                            <h4><span>Cart Summary</span></h4>
-
-                            <p>Sub Total <span class="text-primary">$@ViewBag.SubTotal</span></p>
-                            <p>VAT <span class="text-primary">@ViewBag.VAT %</span></p>
-                            <h2>Grand Total <span class="text-primary">$@ViewBag.GrandTotal</span></h2>
-                        </div>
-                        <div class="cart-summary-button">
-                            <a href="@Url.Action("Index","Checkout")" class="checkout-btn c-btn btn--primary">Checkout</a>
-                            @*<button class="update-btn c-btn btn-outlined">Update Cart</button>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 
 
 
