@@ -70,35 +70,38 @@ namespace AptechShoseShop.Controllers
             p = p.Where(x => x.ProductName.ToLower().Contains(kw));
             return p;
         }
-        public IEnumerable<Product> getSortby(string sortby, IEnumerable<Product> p)
+        public IEnumerable<Product> getSortby(string sortby, IEnumerable<Product> listProduct)
         {
             switch (sortby)
             {
                 case "name":
-                    p = p.OrderBy(s => s.ProductName);
+                    listProduct = listProduct.OrderBy(s => s.ProductName);
                     break;
                 case "name_desc":
-                    p = p.OrderByDescending(x => x.ProductName);
+                    listProduct = listProduct.OrderByDescending(x => x.ProductName);
                     break;
                 case "price":
-                    p = p.OrderBy(x => x.UnitPrice);
+                    listProduct = listProduct.OrderBy(x => x.UnitPrice);
                     break;
                 case "price_desc":
-                    p = p.OrderByDescending(x => x.UnitPrice);
+                    listProduct = listProduct.OrderByDescending(x => x.UnitPrice);
                     break;
-                //case "best_sell":
-                //    string query = "select PD.*" +
-                //        "from Products as PD left join OrderDetails as OD" +
-                //        "on OD.ProductId = PD.Id" +
-                //        "group by PD.Id, PD.ProductName, PD.UnitPrice, PD.DiscountRatio, PD.DiscountExpiry, PD.IsActive, PD.CategoryId, PD.ImgUrl, PD.Description" +
-                //        "order by COUNT(OD.ProductId) desc";
-                //    p = db.Database.SqlQuery<Product>(query);
-                //    break;
+                case "best_sell":
+                    var bestseller = db.OrderDetails.AsEnumerable()
+                          .GroupBy(x => x.ProductId)
+                          .Select(t => new { ID = t.Key, Value = t.Sum(s => s.Quantity) })
+                          .OrderByDescending(x => x.Value).Select(s => s.ID);
+                    var listProductMap = from a in bestseller
+                                         join b in listProduct
+                                         on a equals b.Id
+                                         select b;
+                    listProduct = listProductMap.Concat(listProduct).Distinct().ToList();
+                    break;
                 default:
-                    p = p.OrderByDescending(x => x.Id);
+                    listProduct = listProduct.OrderByDescending(x => x.Id);
                     break;
             }
-            return p;
+            return listProduct;
         }
 
 

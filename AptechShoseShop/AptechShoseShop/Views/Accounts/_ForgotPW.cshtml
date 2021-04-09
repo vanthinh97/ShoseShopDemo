@@ -6,7 +6,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Change Password</h4>
+                    <h4 class="modal-title">Lấy lại mật khẩu</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -19,7 +19,7 @@
                             <form>
                                 <div class="form-group">
                                     <label>Mời bạn nhập Email của mình</label>
-                                    <input id="Email" name="Email" class="form-control" required />
+                                    <input id="ForgotEmail" name="Email" class="form-control" required />
                                 </div>
                                 <div class="form-group text-right">
                                     <button id="btnForgotPW" type="button" class="btn btn-success">Submit</button>
@@ -48,7 +48,7 @@
                 $('#btnForgotPW').click(function () {
                     alert("Vui lòng chờ trong giây lát!");
                     
-                    var email = {"email" : $('#Email').val()};
+                    var email = { "email": $('#ForgotEmail').val()};
 
                     $.ajax({
                         type: "POST",
@@ -58,6 +58,7 @@
                         success: function (result) {
                             console.log(result);
                             alert(result);
+                            location.reload();
                         },
                         error: function (result) { console.log(result); }
                     });

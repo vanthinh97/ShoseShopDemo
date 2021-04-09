@@ -63,10 +63,10 @@
 
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
                     <span>
-                        <button class="btn btn-info" onclick="DeleteUser('@item.Id')">Delete</button>
+                        <button class="btn btn-info" onclick="DeleteUser('@item.Id')">Xóa</button>
                     </span>
                 </td>
             </tr>
@@ -101,6 +101,9 @@
                                     // ẩn doituong-id
                                     $("#HideUser-" + id).hide();
                                 }
+                            },
+                            error: function () {
+                                swal("User này đang được dùng trong lịch sử mua hàng");
                             }
                         });
 

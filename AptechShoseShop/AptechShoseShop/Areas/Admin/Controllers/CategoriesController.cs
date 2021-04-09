@@ -10,17 +10,20 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         private readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();
 
         // GET: Admin/Categories
+        [Authorize(Roles = "Manager")]
         public ActionResult Index()
         {
             return View(db.Categories.OrderBy(x => x.Position).ToList());
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public ActionResult CreateCate()
         {
             return View();
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public ActionResult CreateCate(Category cate)
         {
@@ -39,6 +42,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         public ActionResult _EditCate(int id)
         {
@@ -46,6 +50,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             return PartialView(cate);
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public ActionResult EditCate(int id, string categoryName, int position)
         {
@@ -56,6 +61,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteCate(int id)
         {
             Category t = db.Categories.Find(id);

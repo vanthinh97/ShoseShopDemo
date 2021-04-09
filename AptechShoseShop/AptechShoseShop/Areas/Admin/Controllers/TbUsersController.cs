@@ -72,7 +72,8 @@ namespace AptechShoseShop.Areas.Admin.Controllers
                 NumberPhone = NumberPhone,
                 CreatedDate = DateTime.Now,
                 Address = Address,
-                StatusId = 1
+                StatusId = 1,
+                CountLogin = 0
             };
             db.TbUsers.Add(newUser);
             db.SaveChanges();

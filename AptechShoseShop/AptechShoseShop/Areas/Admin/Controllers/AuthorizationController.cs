@@ -1,21 +1,19 @@
 ﻿using AptechShoseShop.Models.Entites;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AuthorizationController : Controller
     {
         readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Admin/Authorization
-        public ActionResult Index(string checkEmail)
+        public ActionResult Index(string checkRole, string checkEmail)
         {
             if (checkEmail != null)
             {
-                ViewBag.HasAuthor = "Quyền này đã được phân cho " + checkEmail;
+                ViewBag.HasAuthor = "Quyền " + checkRole + " đã được phân cho " + checkEmail;
             }
             var listAuthor = db.UserRoles;
             return View(listAuthor.ToList());
@@ -37,7 +35,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             }
             else
             {
-                return RedirectToAction("Index", new { checkEmail = check.User.Email });
+                return RedirectToAction("Index", new { checkRole = check.Role.RoleName, checkEmail = check.User.Email });
             }
 
             return RedirectToAction("Index");

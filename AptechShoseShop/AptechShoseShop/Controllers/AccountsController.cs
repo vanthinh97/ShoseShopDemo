@@ -57,6 +57,25 @@ namespace AptechShoseShop.Controllers
 
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var id = int.Parse(User.Identity.Name);
+
+                ///Check role
+                var userRole = db.UserRoles.Where(x => x.UserId == id);
+                if (userRole != null)
+                {
+                    foreach (var item in userRole)
+                    {
+                        if (item.RoleId == 1 || item.RoleId == 2)
+                        {
+                            return RedirectToAction("Index", "DashBoard", new { area = "Admin" });
+                        }
+                    }
+                }
+
+                return RedirectToAction("Index", "Home", new { area = string.Empty });
+            }
             return View();
         }
 
@@ -77,14 +96,64 @@ namespace AptechShoseShop.Controllers
                 return View();
             }
 
+            if (user.TimeLock != null)
+            {
+                var timeCurrent = DateTime.Now;
+                if (timeCurrent < user.TimeLock)
+                {
+                    user.CountLogin += 1;
+                    if (user.CountLogin >= 6)
+                    {
+                        user.StatusId = 2;
+                        user.TimeLock = null;
+                        db.SaveChanges();
+                        ModelState.AddModelError("", "Tài khoản đã bị khóa, để lấy lại mật khẩu hãy click vào \"tài khoản đang bị khóa\"");
+                        return View();
+                    }
+                    db.SaveChanges();
+                    ModelState.AddModelError("", $"Tài khoản bị khóa cho đến {user.TimeLock}");
+                    return View();
+                }
+                else
+                {
+                    user.TimeLock = null;
+                    db.SaveChanges();
+                }
+            }
+
+            if (user.StatusId == 2)
+            {
+                ModelState.AddModelError("", "Tài khoản đang bị khóa");
+                return View();
+            }
+
             if (user.Password.Equals(MySecurity.EncryptPassword(password)))
             {
                 Authen(user.Id);
-
+                user.CountLogin = 0;
+                db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
             else
             {
+                user.CountLogin += 1;
+                if (user.CountLogin == 3)
+                {
+                    DateTime currentTime = DateTime.Now;
+                    user.TimeLock = currentTime.AddMinutes(15);
+                    db.SaveChanges();
+                    ModelState.AddModelError("", "Tài khoản đã bị khóa sau 15 phút");
+                    return View();
+                }
+                if (user.CountLogin >= 6)
+                {
+                    user.StatusId = 2;
+                    user.TimeLock = null;
+                    db.SaveChanges();
+                    ModelState.AddModelError("", "Tài khoản đã bị khóa, để lấy lại mật khẩu hãy click vào \"tài khoản đang bị khóa\"");
+                    return View();
+                }
+                db.SaveChanges();
                 ModelState.AddModelError("", "Mật khẩu không đúng");
             }
 
@@ -117,7 +186,8 @@ namespace AptechShoseShop.Controllers
                 Email = user.Email,
                 Password = MySecurity.EncryptPassword(user.Password),
                 StatusId = 1,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+                CountLogin = 0
             };
             db.TbUsers.Add(newUser);
             db.SaveChanges();
@@ -202,6 +272,8 @@ namespace AptechShoseShop.Controllers
             ///string newPass = xPass.ToString("000000");
 
             user.Password = MySecurity.EncryptPassword(xPass);
+            user.StatusId = 1;
+            user.CountLogin = 0;
             db.SaveChanges();
 
             EmailManagement.SendMail(user.Email, "Aptech Shose Shop",

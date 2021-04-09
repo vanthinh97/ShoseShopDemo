@@ -1,0 +1,102 @@
+﻿@using AptechShoseShop.Models.Entites
+@{
+
+    List<Color> ListColor = ViewBag.Colors;
+    List<Size> ListSize = ViewBag.Sizes;
+}
+
+<form id="FormProDetail">
+    <div style="display: flex;">
+        <label for="">Id sản phẩm</label>
+        <input required onchange="GetProduct()" class="form-control" type="text" name="ProductId" id="ProductId" value="">
+    </div>
+    <br />
+    <div style="display: flex;">
+        <label for="">Sản phẩm</label>
+        <input readonly class="form-control" type="text" name="ProductName" id="ProductName" value="">
+    </div>
+    <br />
+    <div style="display: flex;">
+        <label for="">Giá đã giảm</label>
+        <input readonly class="form-control" type="text" id="UnitPrice" value="">
+    </div>
+    <br />
+    <div style="display: flex;">
+        <label for="">Số lượng</label>
+        <input required class="form-control" type="text" name="Quantity" id="Quantity" value="">
+    </div>
+
+    <br />
+    <div style="display: flex;">
+        <label for="">Màu sắc</label>
+        <select required style="width: 320px; float: right" name="ColorName" id="Color" class="form-control">
+            <option value="">--chọn--</option>
+            @{
+                foreach (var color in ListColor)
+                {
+                    <option value="@color.ColorName">@color.ColorName</option>
+                }
+            }
+
+        </select>
+    </div>
+    <br />
+    <div style="display: flex;">
+        <label for="">Size</label>
+        <select required style="width: 320px; float: right" name="SizeName" id="Size-" class="form-control">
+            <option value="">--Chọn--</option>
+            @{
+                foreach (var size in ListSize)
+                {
+                    <option value="@size.SizeName">@size.SizeName</option>
+                }
+            }
+        </select>
+    </div>
+    <br />
+    <button id="#" onclick="ResetProDetail()" type="button" class="btn btn-primary">Tạo lại</button>
+    <button onclick="AddProDetail()" type="button" class="btn btn-primary add-row">Thêm sản phẩm</button>
+    <hr style="width: 300px" />
+</form>
+<script>
+    function GetProduct() {
+        $(document).ready(function () {
+            /*alert("OK");*/
+            var id = $("#ProductId").val();
+            var data = { "id": id };
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetProductById")',
+                data: data,
+                dataType: "json",
+                success: function (result) {
+                    if (result) {
+                        document.getElementById("ProductName").value = result.ProductName;
+                        document.getElementById("UnitPrice").value = result.SellPrice;
+                    };
+                },
+                error: function () {
+                    alert("Không tìm thấy sản phẩm có #id " + id);
+                    document.getElementById("ProductId").value = "";
+                    document.getElementById("ProductName").value = "";
+                    document.getElementById("UnitPrice").value = "";
+                    document.getElementById("Quantity").value = "";
+                }
+            });
+        });
+    };
+
+    function AddProDetail() {
+        $(document).ready(function () {
+            var $clone = $("#FormProDetail").first().clone();
+            $clone.insertBefore("#FormProDetail");
+        });
+    };
+
+    function ResetProDetail() {
+        document.getElementById("ProductId").value = "";
+        document.getElementById("ProductName").value = "";
+        document.getElementById("UnitPrice").value = "";
+        document.getElementById("Quantity").value = "";
+    };
+</script>

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class AccountsController : Controller
     {
         private readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();
@@ -20,7 +21,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadAvatar(HttpPostedFileBase file)
+        public ActionResult UploadAvatar(HttpPostedFileBase file) //HttpPostedFileBase là 1 thuộc tính của input giúp lấy được tên ảnh
         {
             string fileName = file.FileName;
             int userId = int.Parse(User.Identity.Name);
@@ -39,8 +40,10 @@ namespace AptechShoseShop.Areas.Admin.Controllers
 
             if (!Directory.Exists(strFolder))
             {
+                //Tạo thư mục ID
                 Directory.CreateDirectory(strFolder);
             }
+            //Thêm ảnh vô thư mục ID đó 
             file.SaveAs(strFolder + @"\" + fileName);
 
             user.Avatar = fileName;

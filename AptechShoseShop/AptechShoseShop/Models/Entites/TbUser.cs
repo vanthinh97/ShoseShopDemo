@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace AptechShoseShop.Models.Entites
 {
@@ -27,6 +24,8 @@ namespace AptechShoseShop.Models.Entites
         public int StatusId { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Avatar { get; set; }
+        public int? CountLogin { get; set; }
+        public DateTime? TimeLock { get; set; }
 
         public virtual StatusUser Status { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

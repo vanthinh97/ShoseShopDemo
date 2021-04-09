@@ -1,5 +1,6 @@
 ﻿using AptechShoseShop.Models.Admin;
 using AptechShoseShop.Models.Entites;
+using Newtonsoft.Json;
 using PagedList;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class OrdersController : Controller
     {
         AptechShoseShopDbContext db = new AptechShoseShopDbContext();
@@ -17,6 +19,90 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             int pageNumber = page ?? 1;
             var orders = db.Orders.OrderByDescending(x => x.Id);
             return View(orders.ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var status = db.StatusOrders.ToList();
+            ViewBag.Status = status;
+
+            var colors = db.Colors.ToList();
+            ViewBag.Colors = colors;
+
+            var sizes = db.Sizes.ToList();
+            ViewBag.Sizes = sizes;
+
+            return View();
+        }
+
+        [HttpGet]
+        public string GetProductById(int id)
+        {
+            var product = db.Products.Find(id);
+
+            if (product == null)
+            {
+                return null;
+            }
+
+            ProInOrderDetailVM proFinded = new ProInOrderDetailVM()
+            {
+                ProductId = product.Id,
+                ProductName = product.ProductName,
+                SellPrice = (product.UnitPrice - ((product.UnitPrice * product.DiscountRatio) / 100)).ToString(),
+            };
+
+            return JsonConvert.SerializeObject(proFinded);
+        }
+
+        //[HttpGet]
+        //public ActionResult BindingOrderDetail()
+        //{
+        //    var colors = db.Colors.ToList();
+        //    ViewBag.Colors = colors;
+
+        //    var sizes = db.Sizes.ToList();
+        //    ViewBag.Sizes = sizes;
+
+        //    return PartialView("_CreateOrderDeail");
+        //}
+
+        // TODO: them san pham
+        [HttpPost]
+        public ActionResult Create(OrderAdminVM postOrder)
+        {
+            //Order newOrder = new Order()
+            //{
+            //    StatusId = order.StatusId,
+            //    CustomerName = order.CustomerName,
+            //    CustomerEmail = order.CustomerEmail,
+            //    CustomerPhone = order.CustomerPhone,
+            //    CustomerAddress = order.CustomerAddress,
+            //    OrderNote = order.OrderNote,
+            //    OrderDate = DateTime.Now
+            //};
+            //db.Orders.Add(newOrder);
+
+            //foreach (var item in proDetail)
+            //{
+            //    var product = db.Products.Find(item.ProductId);
+            //    OrderDetail newProDetail = new OrderDetail()
+            //    {
+            //        OrderId = newOrder.Id,
+            //        ProductId = product.Id,
+            //        UnitPrice = product.UnitPrice,
+            //        DiscountRatio = product.DiscountRatio,
+            //        Quantity = item.Quantity.Value,
+            //        ColorName = item.ColorName,
+            //        SizeName = item.SizeName
+            //    };
+            //    db.OrderDetails.Add(newProDetail);
+            //}
+
+            //db.SaveChanges();
+
+            return RedirectToAction("Index", "Orders");
         }
 
         [HttpGet]
@@ -120,6 +206,14 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             db.SaveChanges();
 
             return Content("OK");
+        }
+
+        [HttpGet]
+        public ActionResult _OrderDetail(int OrderId)
+        {
+            ViewBag.OrderId = OrderId;
+            var data = db.OrderDetails.Where(x => x.OrderId == OrderId).ToList();
+            return PartialView(data);
         }
     }
 }

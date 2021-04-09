@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 
 namespace AptechShoseShop.Models.Entites
 {
@@ -25,5 +21,6 @@ namespace AptechShoseShop.Models.Entites
         public virtual DbSet<StatusUser> StatusUsers { get; set; }
         public virtual DbSet<TbUser> TbUsers { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<Policy> Policies { get; set; }
     }
 }

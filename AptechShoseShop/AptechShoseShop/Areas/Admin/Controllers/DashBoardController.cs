@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class DashBoardController : Controller
     {
         AptechShoseShopDbContext db = new AptechShoseShopDbContext();

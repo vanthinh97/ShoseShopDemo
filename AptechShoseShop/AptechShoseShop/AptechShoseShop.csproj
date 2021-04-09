@@ -169,11 +169,25 @@
     <Compile Include="Migrations\202104010939326_f5.Designer.cs">
       <DependentUpon>202104010939326_f5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104060214449_f6.cs" />
+    <Compile Include="Migrations\202104060214449_f6.Designer.cs">
+      <DependentUpon>202104060214449_f6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104060430301_f7.cs" />
+    <Compile Include="Migrations\202104060430301_f7.Designer.cs">
+      <DependentUpon>202104060430301_f7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104061622465_f8.cs" />
+    <Compile Include="Migrations\202104061622465_f8.Designer.cs">
+      <DependentUpon>202104061622465_f8.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accounts\ChangePW.cs" />
     <Compile Include="Models\Admin\ChangeOrderDetail.cs" />
     <Compile Include="Models\Admin\OrderDetailVM.cs" />
+    <Compile Include="Models\Admin\OrderAdminVM.cs" />
     <Compile Include="Models\Admin\ProductVM.cs" />
+    <Compile Include="Models\Admin\ProInOrderDetailVM.cs" />
     <Compile Include="Models\Authorization\MyRoleProvider.cs" />
     <Compile Include="Models\Cart\CartItem.cs" />
     <Compile Include="Models\Cart\CartVM.cs" />
@@ -185,6 +199,7 @@
     <Compile Include="Models\Entites\Color.cs" />
     <Compile Include="Models\Entites\Order.cs" />
     <Compile Include="Models\Entites\OrderDetail.cs" />
+    <Compile Include="Models\Entites\Policy.cs" />
     <Compile Include="Models\Entites\Product.cs" />
     <Compile Include="Models\Entites\ProductColor.cs" />
     <Compile Include="Models\Entites\ProductImage.cs" />
@@ -1944,6 +1959,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Data\users\14\elle-viet-nam-avengers-endgame-02.jpg" />
     <Content Include="Data\users\3\elle-viet-nam-avengers-endgame-24.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2165,6 +2181,9 @@
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\_OrderDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\_CreateOrderDetail.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2238,6 +2257,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104010939326_f5.resx">
       <DependentUpon>202104010939326_f5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104060214449_f6.resx">
+      <DependentUpon>202104060214449_f6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104060430301_f7.resx">
+      <DependentUpon>202104060430301_f7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104061622465_f8.resx">
+      <DependentUpon>202104061622465_f8.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

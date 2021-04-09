@@ -1,0 +1,260 @@
+﻿@model AptechShoseShop.Models.Admin.OrderAdminVM
+@using AptechShoseShop.Models.Entites
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    List<StatusOrder> StatusOrder = ViewBag.Status;
+    List<Color> ListColor = ViewBag.Colors;
+    List<Size> ListSize = ViewBag.Sizes;
+
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<h2>Tạo đơn hàng</h2>
+
+<div style="display: flex" class="row">
+
+    <div style="text-align: center" class="orderDetail col-5">
+        <h4>Đơn hàng</h4>
+        <hr />
+        <div method="post" action="@Url.Action("Create")">
+            <div style="display: none" name="Id" id=""></div>
+            <div style="display: flex;">
+                <label for="">Trạng thái</label>
+                <select required style="width: 320px; float: right" id="StatusId" name="StatusId" class="form-control">
+                    <option value="">--chọn--</option>
+                    @{
+                        foreach (var item in StatusOrder)
+                        {
+                            <option value="@item.Id">@item.StatusName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Tên khách hàng</label>
+                <input required class="form-control" type="text" name="CustomerName" id="CustomerName" value="">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Email</label>
+                <input required class="form-control" type="text" name="CustomerEmail" id="CustomerEmail" value="">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Điện thoại</label>
+                <input required class="form-control" type="text" name="CustomerPhone" id="CustomerPhone" value="">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Địa chỉ</label>
+                <textarea required class="form-control" style="width: 320px;" rows="3" type="text" name="CustomerAddress" id="CustomerAddress"></textarea>
+            </div>
+            <br />
+            <div style="display: none">
+                <input class="form-control" type="datetime" name="OrderDate" id="OrderDate" value="@DateTime.Now">
+            </div>
+            <div style="display: flex;">
+                <label for="">Note</label>
+                <textarea class="form-control" style="width: 320px;" rows="3" type="text" name="OrderNote" id="OrderNote"></textarea>
+            </div>
+            <br />
+
+        </div>
+        <hr />
+
+    </div>
+
+    <div style="text-align: center" class="orderDetail col-7">
+        <h4>Chi tiết đơn hàng</h4>
+        <hr />
+        <div name="proDetail" id="FormProDetail">
+            <div style="display: flex;">
+                <label for="">Id sản phẩm</label>
+                <input required onchange="GetProduct()" class="form-control" type="text" name="ProductId" id="ProductId" value="">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Sản phẩm</label>
+                <input readonly class="form-control" type="text" name="ProductName" id="ProductName" value="">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Giá đã giảm</label>
+                <input readonly class="form-control" type="text" name="SellPrice" id="UnitPrice" value="">
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Số lượng</label>
+                <input required class="form-control" type="text" name="Quantity" id="Quantity" value="">
+            </div>
+
+            <br />
+            <div style="display: flex;">
+                <label for="">Màu sắc</label>
+                <select required style="width: 320px; float: right" name="ColorName" id="Color" class="form-control">
+                    <option value="">--chọn--</option>
+                    @{
+                        foreach (var color in ListColor)
+                        {
+                            <option value="@color.ColorName">@color.ColorName</option>
+                        }
+                    }
+
+                </select>
+            </div>
+            <br />
+            <div style="display: flex;">
+                <label for="">Size</label>
+                <select required style="width: 320px; float: right" name="SizeName" id="Size" class="form-control">
+                    <option value="">--Chọn--</option>
+                    @{
+                        foreach (var size in ListSize)
+                        {
+                            <option value="@size.SizeName">@size.SizeName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <br />
+            <button id="#" onclick="ResetProDetail()" type="button" class="btn btn-primary">Tạo lại</button>
+            <button id="btn-add" type="button" class="btn btn-primary">Thêm sản phẩm</button>
+        </div>
+        <hr />
+
+        <table id="table-prodetail" class="table table-striped" style="width: 100%">
+            <thead>
+                <tr class="row">
+                    <th class="col-3">Id sản phẩm</th>
+                    <th class="col-3">Số lượng</th>
+                    <th class="col-3">Màu sắc</th>
+                    <th class="col-3">Size</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <button id="save-order" style="margin-left: 400px" type="button" class="btn btn-primary">Tạo thông tin đơn hàng</button>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index", "Orders")
+</p>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btn-add").click(function () {
+            AddProDetail();
+        });
+
+        $("#save-order").click(function () {
+            SaveOrderRecord();
+        });
+    });
+
+    function AddProDetail() {
+        //var $clone = $("#FormProDetail").first().clone();
+        //$clone.insertBefore("#FormProDetail");
+        /*alert("OK");*/
+
+        var proDetailRecord = "<tr class='row'><td class='col-3'>" + $("#ProductId").val() + "</td><td class='col-3'>" + $("#Quantity").val()
+            + "</td><td class='col-3'>" + $("#Color").val() + "</td><td class='col-3'>" + $("#Size").val() + "</td></tr>";
+        $("#table-prodetail").last().append(proDetailRecord);
+        $("#ProductId").val("");
+        $("#ProductName").val("");
+        $("#UnitPrice").val("");
+        $("#Quantity").val("");
+        $("#Color").val("");
+        $("#Size").val("");
+    };
+
+    function SaveOrderRecord() {
+        var StatusId = $("#StatusId").val();
+        var CustomerName = $("#CustomerName").val();
+        var CustomerEmail = $("#CustomerEmail").val();
+        var CustomerPhone = $("#CustomerPhone").val();
+        var CustomerAddress = $("#CustomerAddress").val();
+        var OrderDate = "";
+        var OrderNote = $("#OrderNote").val();
+
+        
+
+        /*var postOrder = new OrderAdminVM(StatusId, CustomerName, CustomerEmail, CustomerPhone, CustomerAddress, OrderDate, OrderNote, listOfOrder);*/
+
+        var orderDetailAdminVMs = new Array();
+        $("#table-prodetail").find("tr:gt(0)").each(function () {
+            var ProductId = $(this).find("td:eq(0)").text();
+            var Quantity = $(this).find("td:eq(1)").text();
+            var ColorName = $(this).find("td:eq(2)").text();
+            var SizeName = $(this).find("td:eq(3)").text();
+
+
+            var OrderDetailModel = {};
+            OrderDetailModel.ProductId = ProductId;
+            OrderDetailModel.Quantity = Quantity;
+            OrderDetailModel.ColorName = ColorName;
+            OrderDetailModel.SizeName = SizeName;
+
+
+            orderDetailAdminVMs.push(OrderDetailModel);
+        });
+
+        var postOrder = { StatusId, CustomerName, CustomerEmail, CustomerPhone, CustomerAddress, OrderDate, OrderNote, orderDetailAdminVMs};
+    /*console.log(postOrder);*/
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf=8',
+            url: '/Admin/Orders/Create',
+            data: JSON.stringify(postOrder),
+            success: function (data) {
+                alert("Da them");
+            },
+            error: function () {
+                alert("Loi add");
+            }
+        });
+    };
+
+    function GetProduct() {
+        $(document).ready(function () {
+            /*alert("OK");*/
+            var id = $("#ProductId").val();
+            var data = { "id": id };
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetProductById")',
+                data: data,
+                dataType: "json",
+                success: function (result) {
+                    if (result) {
+                        document.getElementById("ProductName").value = result.ProductName;
+                        document.getElementById("UnitPrice").value = result.SellPrice;
+                    };
+                },
+                error: function () {
+                    alert("Không tìm thấy sản phẩm có #id " + id);
+                    $("#ProductId").val("");
+                    $("#ProductName").val("");
+                    $("#UnitPrice").val("");
+                    $("#Quantity").val("");
+                    $("#Color").val("");
+                    $("#Size").val("");
+                }
+            });
+        });
+    };
+
+   
+
+    //function ResetProDetail() {
+    //    document.getElementById("ProductId").value = "";
+    //    document.getElementById("ProductName").value = "";
+    //    document.getElementById("UnitPrice").value = "";
+    //    document.getElementById("Quantity").value = "";
+    //};
+
+</script>
+

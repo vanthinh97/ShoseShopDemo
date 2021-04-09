@@ -189,6 +189,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(ProductVM pro, HttpPostedFileBase[] ProductImageId, int[] ImgDelete, List<int> SizeId, List<int> ColorId)
         {
             int userId = int.Parse(User.Identity.Name);

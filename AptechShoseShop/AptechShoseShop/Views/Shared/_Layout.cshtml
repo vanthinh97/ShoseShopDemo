@@ -77,10 +77,16 @@
                                         </a>
                                     </li>
 
-                                    @*///Authen cho thang nay*@
-                                    <li class="menu-item">
-                                        <a href="@Url.Action("Index", null, new { area = "Admin", controller = "DashBoard" }, Request.Url.Scheme)">ADMIN</a>
-                                    </li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                                        {
+                                            <li class="menu-item">
+                                                <a href="@Url.Action("Index", null, new { area = "Admin", controller = "DashBoard" }, Request.Url.Scheme)">ADMIN</a>
+                                            </li>
+                                        }
+                                    }
+
                                     @{
                                         if (User.Identity.IsAuthenticated)
                                         {
@@ -150,10 +156,10 @@
                                     <div class="cart-block">
                                         <div class="cart-total">
                                             @*<span class="text-number">
-                                                1
-                                            </span>*@
-                                            <span class="text-item">
-                                                Giỏ hàng của bạn
+                                                    1
+                                                </span>*@
+                                            <span style="font-size: 24px; font-weight: bold; color: #38cc06" class="text-item">
+                                                Giỏ Hàng
                                             </span>
                                             @*<span class="price">
                                                     $@SubTotal

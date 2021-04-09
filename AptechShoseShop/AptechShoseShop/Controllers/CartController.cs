@@ -10,6 +10,7 @@ namespace AptechShoseShop.Controllers
     {
         AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Cart
+
         public ActionResult Index()
         {
             return View();
@@ -18,6 +19,13 @@ namespace AptechShoseShop.Controllers
         [HttpGet]
         public ActionResult Binding(string data)//string type
         {
+            ///khi thoat phien dang nhap hoac tk khac dang nhap thi van con cookies
+            //int UserId = 0;
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    UserId = int.Parse(User.Identity.Name);
+            //}
+
 
             var cart_items = JsonConvert.DeserializeObject<List<CartItem>>(data);
             if (cart_items == null || cart_items.Count == 0)

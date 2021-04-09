@@ -77,9 +77,15 @@
                                     // ẩn doituong-id
                                     $("#HideCate-" + id).hide();
                                 }
+                                else {
+                                    swal("Thông báo!","Bạn không có quyền xóa danh mục này!","warning");
+                                }
+                                
+                            },
+                            error: function () {
+                                alert('error; ');
                             }
                         });
-
 
                     } else {
                         swal("Bạn chưa xóa");
