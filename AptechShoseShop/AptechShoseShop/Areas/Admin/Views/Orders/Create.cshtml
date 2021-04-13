@@ -210,7 +210,8 @@
             url: '/Admin/Orders/Create',
             data: JSON.stringify(postOrder),
             success: function (data) {
-                alert("Da them");
+                alert(data);
+                location.href = "/admin/orders";
             },
             error: function () {
                 alert("Loi add");

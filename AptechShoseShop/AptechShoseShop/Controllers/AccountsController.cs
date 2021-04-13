@@ -16,6 +16,7 @@ namespace AptechShoseShop.Controllers
     {
         private readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Accounts
+        [HttpGet]
         public ActionResult Index()
         {
             int userId = int.Parse(User.Identity.Name);
@@ -54,7 +55,7 @@ namespace AptechShoseShop.Controllers
             return Content("/data/users/" + user.Id + "/" + fileName);
         }
 
-
+        [HttpGet]
         public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
@@ -160,6 +161,7 @@ namespace AptechShoseShop.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
@@ -195,11 +197,10 @@ namespace AptechShoseShop.Controllers
 
 
             //sendmail
-            //EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
-            //    "<h1>Hello [Name]! bạn đã đăng ký tài khoản thành công tại Aptech Shose Shop</h1>".Replace("[Name]", newUser.FullName));
+            EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
+                "<h1>Hello [Name]! bạn đã đăng ký tài khoản thành công tại Aptech Shose Shop</h1>".Replace("[Name]", newUser.FullName));
             return RedirectToAction("Index", "Home");
         }
-        ///
 
         [HttpGet]
         public ActionResult EditProfile(int id)

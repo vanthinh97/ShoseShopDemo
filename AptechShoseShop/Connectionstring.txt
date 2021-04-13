@@ -1,4 +1,0 @@
-<add name="AptechShoseShop" connectionString="data source=.;initial catalog=db_MyShoppingWeb;integrated security=True;" providerName="System.Data.SqlClient" />
-
-Has pass:
-<add name="AptechShoseShop" connectionString="data source=.;initial catalog=db_ShoseShopLan5;user id=sa;password=123456;" providerName="System.Data.SqlClient" />

@@ -11,6 +11,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
 
         // GET: Admin/Categories
         [Authorize(Roles = "Manager")]
+        [HttpGet]
         public ActionResult Index()
         {
             return View(db.Categories.OrderBy(x => x.Position).ToList());

@@ -10,6 +10,7 @@ namespace AptechShoseShop.Controllers
     {
         AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Order
+        [HttpGet]
         public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -41,7 +42,7 @@ namespace AptechShoseShop.Controllers
                 List<OrderVM> listResult = new List<OrderVM>();
                 int userId = int.Parse(User.Identity.Name);
                 OrderVM o;
-                foreach (var item in db.Orders.Where(x => x.UserId == userId))
+                foreach (var item in db.Orders.OrderByDescending(x => x.Id).Where(x => x.UserId == userId))
                 {
                     o = new OrderVM(item.Id, item.OrderDate.ToString(), item.Status.StatusName, listProduct(item.Id));
                     listResult.Add(o);
@@ -53,6 +54,8 @@ namespace AptechShoseShop.Controllers
 
             return RedirectToAction("Index", "Home", new { area = string.Empty });
         }
+
+        [HttpGet]
         public List<ProductOrderVM> listProduct(int orderId)
         {
             List<ProductOrderVM> list = new List<ProductOrderVM>();
@@ -76,11 +79,6 @@ namespace AptechShoseShop.Controllers
         {
             var order = db.Orders.Find(id);
             var orderDetail = db.OrderDetails.Where(x => x.OrderId == id).ToList();
-            //foreach (var item in orderDetail)
-            //{
-            //    db.OrderDetails.Remove(item);
-            //};
-            //db.Orders.Remove(order);
             order.StatusId = 4;
             db.SaveChanges();
 

@@ -41,12 +41,12 @@
                 <form method="get" action="@Url.Action("Index")" class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
                     <div class="sorting-selection">
                         <div class="New_Cursor">
-                            <input style=" width: 200px;" class="form-control" name="kw" placeholder="press keyword ..." value="@ViewBag.Kw" />
+                            <input style=" width: 200px;" class="form-control" name="kw" placeholder="tên sản phẩm ..." value="@ViewBag.Kw" />
                             <i></i>
                         </div>
                         <div>
                             <select name="cateid" class="form-control nice-select sort-select">
-                                <option value="">Category</option>
+                                <option value="">Danh mục</option>
                                 @{
                                     foreach (var item in ViewBag.ShowCate)
                                     {
@@ -58,26 +58,26 @@
                         </div>
                         <div style="">
                             <select id="sortby" name="sortby" class="form-control nice-select sort-select">
-                                <option value="name_defau">Default Sorting</option>
+                                <option value="name_defau">Sắp xếp</option>
                                 <option value="name">
-                                    Sort By:Name (A - Z)
+                                    Theo tên (A - Z)
                                 </option>
                                 <option value="name_desc">
-                                    Sort By:Name (Z - A)
+                                    Theo tên (Z - A)
                                 </option>
                                 <option value="price">
-                                    Sort By:Price (Low &gt; High)
+                                    Theo giá (Thấp &gt; Cao)
                                 </option>
                                 <option value="price_desc">
-                                    Sort By:Price (High &gt; Low)
+                                    Theo giá (Cao &gt; Thấp)
                                 </option>
                                 <option value="best_sell">
-                                    Best-Selling Products
+                                    Được mua nhiều nhất
                                 </option>
                             </select>
                         </div>
                         <span style="padding: 0">
-                            <button style="width: 30px;" type="submit" class="btn btn-success btn-mid">Filter</button>
+                            <button style="width: 30px;" type="submit" class="btn btn-success btn-mid">Lọc</button>
                         </span>
 
                     </div>

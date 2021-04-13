@@ -13,6 +13,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         private AptechShoseShopDbContext db = new AptechShoseShopDbContext();
 
         // GET: Admin/TbUsers
+        [HttpGet]
         public ActionResult Index()
         {
             var tbUsers = db.TbUsers.Include(t => t.Status);
@@ -35,9 +36,9 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         }
 
         // GET: Admin/TbUsers/Create
+        [HttpGet]
         public ActionResult Create()
         {
-
             return View();
         }
 

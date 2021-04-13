@@ -14,6 +14,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
     {
         readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Admin/Products
+        [HttpGet]
         public ActionResult Index(int? page)
         {
             int pageSize = 10;
@@ -25,7 +26,6 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ///int id = 6;
             int id = int.Parse(User.Identity.Name);
             ViewBag.UserID = id;
 
@@ -138,9 +138,9 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public ActionResult Edit(int id, string ErrorCreatBy)
         {
-            ///int id = 86;
             if (ErrorCreatBy != null)
             {
                 ViewBag.ErrorCreatBy = "Bạn không được edit nếu không phải là người tạo";

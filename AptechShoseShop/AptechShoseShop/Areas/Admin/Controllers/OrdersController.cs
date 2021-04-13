@@ -2,6 +2,7 @@
 using AptechShoseShop.Models.Entites;
 using Newtonsoft.Json;
 using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -56,53 +57,41 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             return JsonConvert.SerializeObject(proFinded);
         }
 
-        //[HttpGet]
-        //public ActionResult BindingOrderDetail()
-        //{
-        //    var colors = db.Colors.ToList();
-        //    ViewBag.Colors = colors;
-
-        //    var sizes = db.Sizes.ToList();
-        //    ViewBag.Sizes = sizes;
-
-        //    return PartialView("_CreateOrderDeail");
-        //}
-
         // TODO: them san pham
         [HttpPost]
         public ActionResult Create(OrderAdminVM postOrder)
         {
-            //Order newOrder = new Order()
-            //{
-            //    StatusId = order.StatusId,
-            //    CustomerName = order.CustomerName,
-            //    CustomerEmail = order.CustomerEmail,
-            //    CustomerPhone = order.CustomerPhone,
-            //    CustomerAddress = order.CustomerAddress,
-            //    OrderNote = order.OrderNote,
-            //    OrderDate = DateTime.Now
-            //};
-            //db.Orders.Add(newOrder);
+            Order newOrder = new Order()
+            {
+                StatusId = postOrder.StatusId,
+                CustomerName = postOrder.CustomerName,
+                CustomerEmail = postOrder.CustomerEmail,
+                CustomerPhone = postOrder.CustomerPhone,
+                CustomerAddress = postOrder.CustomerAddress,
+                OrderNote = postOrder.OrderNote,
+                OrderDate = DateTime.Now
+            };
+            db.Orders.Add(newOrder);
 
-            //foreach (var item in proDetail)
-            //{
-            //    var product = db.Products.Find(item.ProductId);
-            //    OrderDetail newProDetail = new OrderDetail()
-            //    {
-            //        OrderId = newOrder.Id,
-            //        ProductId = product.Id,
-            //        UnitPrice = product.UnitPrice,
-            //        DiscountRatio = product.DiscountRatio,
-            //        Quantity = item.Quantity.Value,
-            //        ColorName = item.ColorName,
-            //        SizeName = item.SizeName
-            //    };
-            //    db.OrderDetails.Add(newProDetail);
-            //}
+            foreach (var item in postOrder.orderDetailAdminVMs)
+            {
+                var product = db.Products.Find(item.ProductId);
+                OrderDetail newProDetail = new OrderDetail()
+                {
+                    OrderId = newOrder.Id,
+                    ProductId = product.Id,
+                    UnitPrice = product.UnitPrice,
+                    DiscountRatio = product.DiscountRatio,
+                    Quantity = item.Quantity,
+                    ColorName = item.ColorName,
+                    SizeName = item.SizeName
+                };
+                db.OrderDetails.Add(newProDetail);
+            }
 
-            //db.SaveChanges();
+            db.SaveChanges();
 
-            return RedirectToAction("Index", "Orders");
+            return Json(data: "Bạn đã thêm 1 đơn hàng mới", JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

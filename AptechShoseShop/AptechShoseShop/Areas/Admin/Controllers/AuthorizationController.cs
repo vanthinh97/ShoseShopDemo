@@ -9,6 +9,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
     {
         readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();
         // GET: Admin/Authorization
+        [HttpGet]
         public ActionResult Index(string checkRole, string checkEmail)
         {
             if (checkEmail != null)

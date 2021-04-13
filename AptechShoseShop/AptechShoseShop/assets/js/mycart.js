@@ -43,8 +43,7 @@ function addCart(productId) {
       
         var is_exist = false;
         $(cart_items).each(function (i, v) {
-            if (v && v.productid === productId) {
-                ///kiểm tra thêm màu và size
+            if (v && v.productid === productId && v.ColorName === colorSelected && v.SizeName === sizeSelected) {
                 is_exist = true;
             }
         });
@@ -77,25 +76,32 @@ function addCart(productId) {
             });
         }
         else {
-            swal("Notification", "Sản phẩm này đã tồn tại trong giỏ.!", "error");
+
+            var cart_items = getCartItems();
+            let itemCart = cart_items.find(x => x.productid === productId && x.SizeName === sizeSelected && x.ColorName === colorSelected);
+            var quantityCart = parseInt(itemCart["quantity"]) + 1;
+            var colorCart = itemCart["ColorName"];
+            var sizeCart = itemCart["SizeName"];
+            updateItem(productId, quantityCart, colorCart, sizeCart);                      
+            swal("Notification", "Bạn đã thêm giỏ hàng " + quantityCart + " sản phẩm này.");
           
         }
-        console.log("ds");
+       
     });
    
  
 }
 
 
-function bindingCart() {
+function bindingCart(type) {
     $(document).ready(function () {
         var cart_items = getCartItems();
         $.ajax({
             type: "GET",
             url: '/Cart/Binding',
-            data: "data=" + JSON.stringify(cart_items),
+            data: "data=" + JSON.stringify(cart_items) + "&type=" + type,
             success: function (response) {
-                $("#binding-cart").html(response);
+                $("#" + type).html(response);
 
 
             },
@@ -111,18 +117,19 @@ function bindingCart() {
 }
 
 
-function updateItem(productid, q) {
+function updateItem(productid, q, color, size) {
     productid = productid.toString();
     q = q.toString();
-    ///console.log(q);
+    color = color.toString();
+    size = size.toString();
+    /*console.log();*/
     var cart_items = getCartItems();
 
     $(cart_items).each(function (i, v) {
-        if ((v && v.productid === productid)
-        ) {
+        if (v && v.productid === productid && v.ColorName === color && v.SizeName === size) {
             cart_items[i].quantity = q;
             saveCartItems(cart_items);
-            bindingCart();
+            bindingCartCommon();
         }
     });
 
@@ -130,7 +137,10 @@ function updateItem(productid, q) {
 
 
 
-
+function bindingCartCommon() {
+    bindingCart("binding-cart");
+    bindingCart("small-cart-binding");
+}
 
 
 function removeItem(id) {
@@ -152,7 +162,7 @@ function removeItem(id) {
                     }
                 }
                 saveCartItems(cart_items);
-                bindingCart();
+                bindingCartCommon();
 
             } else {
                 // nếu ấn cancel

@@ -8,6 +8,7 @@ namespace AptechShoseShop.Controllers
     public class HomeController : Controller
     {
         private AptechShoseShopDbContext db = new AptechShoseShopDbContext();
+        [HttpGet]
         public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)

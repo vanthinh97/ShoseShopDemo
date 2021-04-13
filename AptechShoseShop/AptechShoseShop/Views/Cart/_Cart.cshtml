@@ -3,7 +3,7 @@
 <div class="cart_area cart-area-padding  ">
     <div class="container">
         <div class="page-section-title">
-            <h1>Shopping Cart</h1>
+            <h1>Shopping Cart </h1>
         </div>
         <div class="row">
             <div class="col-12">
@@ -27,7 +27,7 @@
                             <!-- Product Row -->
                             @foreach (var item in Model)
                             {
-
+                                var quantiName = item.ProductId.ToString() + item.ColorName + item.SizeName;
                                 <tr id="tr-@item.ProductId">
                                     <td class="pro-remove">
                                         <a onclick="removeItem('@item.ProductId')" href="#"><i class="far fa-trash-alt"></i></a>
@@ -38,13 +38,16 @@
                                         </a>
                                     </td>
                                     <td class="pro-title"><a href="#">@item.ProductName</a></td>
-                                    <td class="pro-color"><span>@item.ColorName</span></td>
-                                    <td class="pro-size"><span>@item.SizeName</span></td>
+                                    <td id="color-@item.ColorName" class="pro-color"><span>@item.ColorName</span></td>
+                                    <td id="size-@item.SizeName" class="pro-size"><span>@item.SizeName</span></td>
                                     <td class="pro-price"><span>$@item.UnitPrice</span></td>
                                     <td class="pro-quantity">
                                         <div class="pro-qty">
                                             <div class="count-input-block">
-                                                <input onchange="updateItem('@item.ProductId', $('#qty-@item.ProductId').val())" id="qty-@item.ProductId" type="number" class="form-control text-center" value="@item.Quantity">
+                                                <input onchange="updateItem('@item.ProductId', $('#qty-@quantiName').val(),
+                                                        $('#color-@item.ColorName').text(), $('#size-@item.SizeName').text())" 
+                                                       id="qty-@quantiName" type="number" 
+                                                       class="form-control text-center" value="@item.Quantity">
                                             </div>
                                         </div>
                                     </td>
