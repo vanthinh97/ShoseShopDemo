@@ -22,5 +22,6 @@ namespace AptechShoseShop.Models.Entites
         public virtual DbSet<TbUser> TbUsers { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Policy> Policies { get; set; }
+        public virtual DbSet<Banner> Banners { get; set; }
     }
 }

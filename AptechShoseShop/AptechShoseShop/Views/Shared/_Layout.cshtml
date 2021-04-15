@@ -73,7 +73,7 @@
 
                                     <li class="menu-item has-children">
                                         <a href="@Url.Action("Index", "Products")">
-                                            Sản phẩm
+                                            Sản phẩm1
                                         </a>
                                     </li>
 
@@ -92,7 +92,7 @@
                                         {
                                             <li class="menu-item">
                                                 <a style="margin-right: 0px" href="@Url.Action("Index", "Accounts")">Tài khoản</a>
-                                                <img style="max-width: 30px; max-height: 30px" class="img-profile rounded-circle" src="@urlAvatar">
+                                                <img style="margin-top: -6px; max-width: 30px; max-height: 30px" class="img-profile rounded-circle" src="@urlAvatar">
                                             </li>
 
                                             <li class="menu-item">
@@ -117,6 +117,7 @@
                                         <i class="fa fa-bars"></i>Danh mục giày
                                     </a>
                                     <ul class="category-menu">
+                                        <li class="cat-item"><a href="https://localhost:44310/Products">Tất cả</a></li>
                                         @foreach (var item in cates)
                                         {
                                             <li class="cat-item"><a href="@Url.Action("Index", "Products", new { cateid = item.Id})">@item.CategoryName</a></li>

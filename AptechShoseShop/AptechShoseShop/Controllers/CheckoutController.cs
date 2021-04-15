@@ -1,8 +1,10 @@
-﻿using AptechShoseShop.Models.Cart;
+﻿using AptechShoseShop.Models;
+using AptechShoseShop.Models.Cart;
 using AptechShoseShop.Models.Entites;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Mvc;
 
 namespace AptechShoseShop.Controllers
@@ -54,6 +56,8 @@ namespace AptechShoseShop.Controllers
             };
             db.Orders.Add(orders);
 
+            string emailOrderDetail = string.Empty;
+            double subTotal = 0;
             foreach (var item in cart_items)
             {
                 Product p = db.Products.Find(item.productid);
@@ -68,9 +72,40 @@ namespace AptechShoseShop.Controllers
                     SizeName = item.SizeName
                 };
                 db.OrderDetails.Add(od);
+
+                string priceInEmail = (p.UnitPrice - ((p.UnitPrice * p.DiscountRatio) / 100)).ToString();
+                string quanInEmail = item.quantity.ToString();
+                subTotal += (p.UnitPrice - ((p.UnitPrice * p.DiscountRatio.Value) / 100)) * item.quantity;
+                emailOrderDetail += "<tr>" +
+                    "<td width='80%' class='purchase_item'><span class='f-fallback'>{" + od.Product.ProductName + "}</span></td>" +
+                    "<td class='align-right' width='20%' class='purchase_item'><span class='f-fallback'>" + quanInEmail + " x $" + priceInEmail + "</span></td>" +
+                    "</tr>";
             }
             db.SaveChanges();
+            subTotal *= 1.1;
+
+            //Send mail
+            string CreateBody()
+            {
+                string body = string.Empty;
+                using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Checkout/Receipt.html")))
+                {
+                    body = reader.ReadToEnd();
+                }
+                body = body.Replace("{ purchase_date }", DateTime.Now.ToString("yyyy-MM-dd"));
+                body = body.Replace("{name}", CustomerName);
+                body = body.Replace("{receipt_id}", orders.Id.ToString());
+                body = body.Replace("{OrderDate}", DateTime.Now.ToString());
+                body = body.Replace("{receipt_details}", emailOrderDetail);
+                body = body.Replace("{total}", subTotal.ToString());
+
+                return body;
+            }
+            EmailManagement.SendMail(CustomerEmail, "Aptech Shose Shop", CreateBody());
+
             return Content("OK");
         }
+
+
     }
 }

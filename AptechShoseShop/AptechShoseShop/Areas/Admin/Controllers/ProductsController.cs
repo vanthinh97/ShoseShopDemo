@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class ProductsController : Controller
     {
         readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();

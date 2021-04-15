@@ -71,6 +71,9 @@ namespace AptechShoseShop.Controllers
 
             ViewBag.ListBestProducts = listBestProducts.ToList();
 
+            //Banner
+            ViewBag.ListBanner = db.Banners.OrderBy(x => x.Position).ToList();
+
             return View();
         }
 

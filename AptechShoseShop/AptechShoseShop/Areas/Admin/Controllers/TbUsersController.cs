@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class TbUsersController : Controller
     {
         private AptechShoseShopDbContext db = new AptechShoseShopDbContext();

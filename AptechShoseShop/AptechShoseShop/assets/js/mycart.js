@@ -79,7 +79,7 @@ function addCart(productId) {
 
             var cart_items = getCartItems();
             let itemCart = cart_items.find(x => x.productid === productId && x.SizeName === sizeSelected && x.ColorName === colorSelected);
-            var quantityCart = parseInt(itemCart["quantity"]) + 1;
+            var quantityCart = parseInt(itemCart["quantity"]) + parseInt(quantity);
             var colorCart = itemCart["ColorName"];
             var sizeCart = itemCart["SizeName"];
             updateItem(productId, quantityCart, colorCart, sizeCart);                      
@@ -143,7 +143,7 @@ function bindingCartCommon() {
 }
 
 
-function removeItem(id) {
+function removeItem(id, color, size) {
     swal({
         title: "Xác nhận xóa.",
         text: "Xóa sản phẩm này khỏi giỏ hàng",
@@ -156,7 +156,7 @@ function removeItem(id) {
                 //  id = id.toString();
                 var cart_items = getCartItems();
                 for (var i = 0; i < cart_items.length; i++) {
-                    if (cart_items[i].productid === id) {
+                    if (cart_items[i].productid === id && cart_items[i].ColorName === color && cart_items[i].SizeName === size) {
 
                         cart_items.splice(i, 1);
                     }

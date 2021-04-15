@@ -1,0 +1,52 @@
+﻿@model AptechShoseShop.Models.Entites.Banner
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<div class="container">
+    <!-- Modal content-->
+    <div class="modal-content">
+
+        @{
+            <div class="modal-body">
+                <div style="padding:10px">
+                    <form method="post" action="@Url.Action("Edit", "Banners")" enctype="multipart/form-data">
+                        <input hidden name="Id" class="form-control" value="@Model.Id"/>
+                        <div class="form-group">
+                            <label>Banner Name</label>
+                            <input name="Name" class="form-control" value="@Model.Name"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input name="Description" class="form-control" value="@Model.Description"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Choose Image</label>
+                            <input name="UrlImageBanner" type="file" />
+                        </div>
+                        <div class="form-group">
+                            <label>Link to product</label>
+                            <input name="LinkBanner" class="form-control" value="@Model.LinkBanner"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Position</label>
+                            <input readonly type="number" name="Position" class="form-control" value="@Model.Position"/>
+                        </div>
+
+                        <div class="form-group">
+                            <button id="submitButton" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

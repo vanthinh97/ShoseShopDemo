@@ -1,16 +1,32 @@
-﻿@using PagedList.Mvc
-@model PagedList.IPagedList<AptechShoseShop.Models.Entites.Product>
-<link href="~/Content/PagedList.css" rel="stylesheet" />
-<h2>Quản lý sản phẩm</h2>
+﻿@model IEnumerable<AptechShoseShop.Models.Entites.Banner>
+@{
+    ViewBag.Title = "Banner";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
 
-<a class="btn btn-info" href="/Admin/Products/Create">Tạo mới sản phẩm</a>
+<h2>Banner Management</h2>
+
+<div class="row">
+    <div class="col-5">
+        <a class="btn btn-info" href="/Admin/Banners/create">Create new</a>
+    </div>
+    <div class="col-7">
+        <h4>instructions</h4>
+        <ul>
+            <li>The position is position that image appear in Home page</li>
+            <li>You don't need to change the position</li>
+            <li>Just change image and tittle</li>
+        </ul>
+    </div>
+</div>
 <hr />
 <table class="table">
     <thead>
         <tr>
-            <th>Tên sản phẩm</th>
-            <th>Thông tin sản phẩm</th>
-            <th>Hành động</th>
+            <th>Image</th>
+            <th>Banner Information</th>
+            <th>Position</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -19,38 +35,30 @@
             {
                 string src = "";
 
-                if (item.ProductImageId != null)
+                if (item.UrlImageBanner != null)
                 {
-                    src = "/data/products/" + item.Id + "/" + item.ProductImage.ImageUrl;
+                    src = "/data/banners/" + item.Id + "/" + item.UrlImageBanner;
                 }
                 else
                 {
                     src = "https://www.viettablet.com/images/companies/1/anh3/galaxy-s7-edge-01.jpg";
                 }
-                <tr id="HidePro-@item.Id">
+                <tr id="HideBanner-@item.Id">
 
                     <td>
                         <img src="@src" style="width:200px" />
                     </td>
                     <td>
                         <div>#ID: @item.Id</div>
-                        <div>@item.ProductName</div>
-                        <div>$@item.UnitPrice.ToString("N2")</div>
-                        @if (@item.DiscountRatio > 0)
-                        {
-                            <div>Giảm giá @item.DiscountRatio %</div>
-                            <div>Đến: @item.DiscountExpiry.ToString("yyyy-MM-dd")</div>
-                        }
-                        <div>@item.Category.CategoryName</div>
-                        <div>@item.StatusProduct.StatusName</div>
-                        <div>Người tạo: @item.TbUser.Email</div>
+                        <div>@item.Name</div>
+                        <div>@item.Description</div>
+                        <div>@item.LinkBanner</div>
                     </td>
+                    <td>@item.Position</td>
                     <td>
                         <a href="@Url.Action("Edit", new { id = item.Id})"><i class="fas fa-edit"></i></a>
-                        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }) |
-                        <a href="@Url.Action("Detail", new { id = item.Id})"><i class="fas fa-info"></i></a>
-                        @Html.ActionLink("Chi tiết", "Detail", new { id = item.Id }) |
-                        <a class="btn btn-warning" onclick="DeletePro('@item.Id')">Xóa</a>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+                        @*<a class="btn btn-warning" onclick="DeleteBanner('@item.Id')">Xóa</a>*@
                     </td>
                 </tr>
             }
@@ -58,18 +66,10 @@
 
     </tbody>
 </table>
-<div class="row pt--30">
-    <div class="col-md-12">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new
-        {
-           page
-        }))
-    </div>
-</div>
 
 <script type="text/javascript">
 
-    function DeletePro(id) {
+    function DeleteBanner(id) {
             swal({
                 title: "Are you sure?",
                 text: "Nếu xóa, bạn sẽ ko thể khôi phục lại!",
@@ -80,7 +80,7 @@
                 .then((willDelete) => {
                     if (willDelete) {
                         $.ajax({
-                            url: "@Url.Action("DeletePro")",
+                            url: "@Url.Action("DeleteBanner")",
                             type: "post",
                             data: {
                                 id: id
@@ -92,7 +92,7 @@
                                         icon: "success",
                                     });
                                     // ẩn doituong-id
-                                    $("#HidePro-" + id).hide();
+                                    $("#HideBanner-" + id).hide();
                                 }
 
 
@@ -107,3 +107,4 @@
                 });
     };
 </script>
+

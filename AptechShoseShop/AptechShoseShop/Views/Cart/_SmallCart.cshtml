@@ -17,6 +17,7 @@
         <div class=" single-cart-block ">
             @foreach (var item in Model)
             {
+                var ProductDefi = item.ProductId.ToString() + item.ColorName + item.SizeName;
                 <div class="cart-product">
                     <a href="product-details.html" class="image">
                         <img src="@item.ImgUrl" alt="">
@@ -30,7 +31,7 @@
                             </a>
                         </h3>
                         <p class="price"><span class="qty">@item.Quantity ×</span> $@item.UnitPrice</p>
-                        <button onclick="removeItem('@item.ProductId')" class="cross-btn"><i class="fas fa-times"></i></button>
+                        <button onclick="removeItem('@item.ProductId', '@item.ColorName', '@item.SizeName')" class="cross-btn"><i class="fas fa-times"></i></button>
                     </div>
 
                 </div>

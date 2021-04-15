@@ -110,10 +110,10 @@ namespace AptechShoseShop.Controllers
         {
             var product = db.Products.Find(id);
 
-            //if (product == null)
-            //{
-            //    return View();
-            //}
+            if (product == null)
+            {
+                return PartialView("_Error");
+            }
 
             var ListUrl = db.ProductImages.Where(x => x.ProductId == product.Id).ToList();
 

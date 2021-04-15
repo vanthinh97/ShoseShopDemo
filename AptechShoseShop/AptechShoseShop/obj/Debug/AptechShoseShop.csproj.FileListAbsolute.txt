@@ -267,6 +267,7 @@ D:\LAPTRINH\BACK_END\ASP.net\ProjectAptech_Batch153\AptechShoseShop\AptechShoseS
 D:\LAPTRINH\BACK_END\ASP.net\ProjectAptech_Batch153\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f6.resources
 D:\LAPTRINH\BACK_END\ASP.net\ProjectAptech_Batch153\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f7.resources
 D:\LAPTRINH\BACK_END\ASP.net\ProjectAptech_Batch153\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f8.resources
+D:\LAPTRINH\BACK_END\ASP.net\ProjectAptech_Batch153\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.Migrations.f9.resources
 D:\LAPTRINH\BACK_END\ASP.net\ProjectAptech_Batch153\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.GenerateResource.cache
 D:\LAPTRINH\BACK_END\ASP.net\ProjectAptech_Batch153\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.CoreCompileInputs.cache
 D:\LAPTRINH\BACK_END\ASP.net\ProjectAptech_Batch153\AptechShoseShop\AptechShoseShop\obj\Debug\AptechShoseShop.csproj.CopyComplete

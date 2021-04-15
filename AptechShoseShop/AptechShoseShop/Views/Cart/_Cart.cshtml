@@ -27,26 +27,29 @@
                             <!-- Product Row -->
                             @foreach (var item in Model)
                             {
-                                var quantiName = item.ProductId.ToString() + item.ColorName + item.SizeName;
+                                var ProductDefi = item.ProductId.ToString() + item.ColorName + item.SizeName;
                                 <tr id="tr-@item.ProductId">
                                     <td class="pro-remove">
-                                        <a onclick="removeItem('@item.ProductId')" href="#"><i class="far fa-trash-alt"></i></a>
+                                        <a onclick="removeItem('@item.ProductId', '@item.ColorName',
+                                            '@item.SizeName')" href="#">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a>
                                     </td>
                                     <td class="pro-thumbnail">
-                                        <a href="#">
+                                        <a target="_blank" href="https://localhost:44310/Products/Details/@item.ProductId">
                                             <img src="@item.ImgUrl" alt="Product">
                                         </a>
                                     </td>
                                     <td class="pro-title"><a href="#">@item.ProductName</a></td>
-                                    <td id="color-@item.ColorName" class="pro-color"><span>@item.ColorName</span></td>
-                                    <td id="size-@item.SizeName" class="pro-size"><span>@item.SizeName</span></td>
+                                    <td id="color" class="pro-color"><span>@item.ColorName</span></td>
+                                    <td id="size" class="pro-size"><span>@item.SizeName</span></td>
                                     <td class="pro-price"><span>$@item.UnitPrice</span></td>
                                     <td class="pro-quantity">
                                         <div class="pro-qty">
                                             <div class="count-input-block">
-                                                <input onchange="updateItem('@item.ProductId', $('#qty-@quantiName').val(),
-                                                        $('#color-@item.ColorName').text(), $('#size-@item.SizeName').text())" 
-                                                       id="qty-@quantiName" type="number" 
+                                                <input onchange="updateItem('@item.ProductId', $('#qty-@ProductDefi').val(),
+                                                        '@item.ColorName', '@item.SizeName')" 
+                                                       id="qty-@ProductDefi" type="number" 
                                                        class="form-control text-center" value="@item.Quantity">
                                             </div>
                                         </div>
