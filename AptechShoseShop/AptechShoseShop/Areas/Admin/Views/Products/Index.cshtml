@@ -1,16 +1,16 @@
 ﻿@using PagedList.Mvc
 @model PagedList.IPagedList<AptechShoseShop.Models.Entites.Product>
 <link href="~/Content/PagedList.css" rel="stylesheet" />
-<h2>Quản lý sản phẩm</h2>
+<h2>Product Management</h2>
 
-<a class="btn btn-info" href="/Admin/Products/Create">Tạo mới sản phẩm</a>
+<a class="btn btn-info" href="/Admin/Products/Create">Create new product</a>
 <hr />
 <table class="table">
     <thead>
         <tr>
-            <th>Tên sản phẩm</th>
-            <th>Thông tin sản phẩm</th>
-            <th>Hành động</th>
+            <th>Product Name</th>
+            <th>Information</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -38,19 +38,19 @@
                         <div>$@item.UnitPrice.ToString("N2")</div>
                         @if (@item.DiscountRatio > 0)
                         {
-                            <div>Giảm giá @item.DiscountRatio %</div>
-                            <div>Đến: @item.DiscountExpiry.ToString("yyyy-MM-dd")</div>
+                            <div>Discount ratio: @item.DiscountRatio %</div>
+                            <div>To: @item.DiscountExpiry.ToString("yyyy-MM-dd")</div>
                         }
                         <div>@item.Category.CategoryName</div>
                         <div>@item.StatusProduct.StatusName</div>
-                        <div>Người tạo: @item.TbUser.Email</div>
+                        <div>Created by: @item.TbUser.Email</div>
                     </td>
                     <td>
                         <a href="@Url.Action("Edit", new { id = item.Id})"><i class="fas fa-edit"></i></a>
-                        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                         <a href="@Url.Action("Detail", new { id = item.Id})"><i class="fas fa-info"></i></a>
-                        @Html.ActionLink("Chi tiết", "Detail", new { id = item.Id }) |
-                        <a class="btn btn-warning" onclick="DeletePro('@item.Id')">Xóa</a>
+                        @Html.ActionLink("Detail", "Detail", new { id = item.Id }) |
+                        <a class="btn btn-warning" onclick="DeletePro('@item.Id')">Delete</a>
                     </td>
                 </tr>
             }
@@ -72,7 +72,7 @@
     function DeletePro(id) {
             swal({
                 title: "Are you sure?",
-                text: "Nếu xóa, bạn sẽ ko thể khôi phục lại!",
+                text: "If deleted, you will not be able to restore it!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -88,7 +88,7 @@
                             success: function (result) {
                                 console.log(result);
                                 if (result === "OK") {
-                                    swal("Ảnh của bạn đã được xóa!", {
+                                    swal("Your photo has been deleted!", {
                                         icon: "success",
                                     });
                                     // ẩn doituong-id
@@ -102,7 +102,7 @@
 
 
                     } else {
-                        swal("Bạn chưa xóa");
+                        swal("You have not deleted");
                     }
                 });
     };

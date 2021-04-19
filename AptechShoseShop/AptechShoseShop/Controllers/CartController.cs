@@ -76,8 +76,6 @@ namespace AptechShoseShop.Controllers
             #endregion
 
             //   return type == "cart" ? PartialView("_Cart", lstCart) : PartialView("_SmallCart", lstCart);
-
-
         }
     }
 }

@@ -97,13 +97,13 @@ namespace AptechShoseShop.Areas.Admin.Controllers
 
             if (!user.Password.Equals(MySecurity.EncryptPassword(changePW.oldPassword)))
             {
-                return Json("Mật khẩu cũ không đúng, hãy nhập lại!");
+                return Json("Old password is incorrect, please enter again!");
             }
 
             user.Password = MySecurity.EncryptPassword(changePW.newPassword);
             db.SaveChanges();
 
-            return Json("Mật khẩu đã thay đổi!");
+            return Json("Password has changed!");
         }
     }
 }

@@ -11,7 +11,7 @@
     List<int> ListColorChecked = ViewBag.ListColorChecked;
 }
 
-<h2>Chi tiết sản phẩm</h2>
+<h2>Product Detail</h2>
 
 <div class="container">
     <!-- Modal content-->
@@ -21,23 +21,23 @@
                 <div style="padding:10px">
                     <form method="post" action="@Url.Action("Edit", "Products", new { id = Model.Id })" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label>Tên sản phẩm</label>
+                            <label>Product Name</label>
                             <input value="@Model.ProductName" name="ProductName" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label>Giá gốc</label>
+                            <label>Unit Price</label>
                             <input value="@Model.UnitPrice" name="UnitPrice" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label>Giảm giá (%)</label>
+                            <label>Discount Ratio (%)</label>
                             <input value="@Model.DiscountRatio" name="DiscountRatio" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label>Ngày hết hạn giảm giá</label>
+                            <label>Expiration Date</label>
                             <input value="@Model.DiscountExpiry.ToString("yyyy-MM-dd")" name="DiscountExpiry" type="date" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label>Danh mục</label>
+                            <label>Category</label>
                             <select name="CategoryId" class="form-control">
                                 <option value="@Model.CategoryId">@Model.Category.CategoryName</option>
                                 @foreach (var item in ViewBag.Cates)
@@ -47,7 +47,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Ảnh sản phẩm</label>
+                            <label>Product Images</label>
 
                             @{
                                 if (proImageList != null)
@@ -69,19 +69,19 @@
                         </div>
                         <div class="form-group">
 
-                            <label>Chính sách mua hàng</label>
+                            <label>Purchase Policy</label>
                             <p>@Html.Raw(Model.Description)</p>
                         </div>
                         <div class="form-group">
-                            <label>Ngày tạo</label>
+                            <label>Created Date</label>
                             <input readonly name="CreatedDate" class="form-control" value="@Model.CreatedDate.ToString("yyyy-MM-dd")" type="date" />
                         </div>
                         <div class="form-group">
-                            <label>Mã ID người tạo</label>
+                            <label>Created User ID</label>
                             <input readonly value="@Model.CreatedBy" name="CreatedBy" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label>Trạng thái sản phẩm</label>
+                            <label>Status Product</label>
                             <select name="CategoryId" class="form-control">
                                 <option value="@Model.StatusId">@Model.StatusProduct.StatusName</option>
                                 @foreach (var item in proStatus)
@@ -91,7 +91,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Chọn size</label>
+                            <label>Choose size</label>
                             <br />
                             @{
                                 foreach (var item in ListSize)
@@ -105,7 +105,7 @@
                             }
                         </div>
                         <div class="form-group">
-                            <label>Chọn màu</label>
+                            <label>Choose color</label>
                             <br />
                             @{
                                 foreach (var item in ListColor)

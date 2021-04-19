@@ -3,33 +3,33 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Xin chào @ViewBag.Name! Đây là trang quản lý của bạn</h2>
+<h2>Hello @ViewBag.Name! This is your dashboard page</h2>
 <br /><br />
 <div class="row">
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Số Người Dùng</h5>
-                <p class="card-text">Trang web của bạn đang có @ViewBag.QuanUser người dùng.</p>
-                <a href="/Admin/TbUsers" class="btn btn-primary">Chi tiết</a>
+                <h5 class="card-title">Number of users</h5>
+                <p class="card-text">Your website has @ViewBag.QuanUser users.</p>
+                <a href="/Admin/TbUsers" class="btn btn-primary">Detail</a>
             </div>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Số Đơn Hàng</h5>
-                <p class="card-text">Trang web của bạn đang có @ViewBag.QuanOrder đơn hàng.</p>
-                <a href="/Admin/Orders" class="btn btn-primary">Chi tiết</a>
+                <h5 class="card-title">Number of orders</h5>
+                <p class="card-text">Your website has @ViewBag.QuanOrder orders.</p>
+                <a href="/Admin/Orders" class="btn btn-primary">Detail</a>
             </div>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Số Sản Phẩm</h5>
-                <p class="card-text">Trang web của bạn đang có @ViewBag.QuanPro sản phẩm.</p>
-                <a href="/Admin/Products" class="btn btn-primary">Chi tiết</a>
+                <h5 class="card-title">Number of product</h5>
+                <p class="card-text">Your website has @ViewBag.QuanPro products.</p>
+                <a href="/Admin/Products" class="btn btn-primary">Detail</a>
             </div>
         </div>
     </div>

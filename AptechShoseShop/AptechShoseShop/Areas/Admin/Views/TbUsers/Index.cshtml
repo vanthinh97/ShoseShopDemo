@@ -5,30 +5,30 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Quản lý user</h2>
+<h2>User Management</h2>
 
 <p>
-    @Html.ActionLink("Tạo mới", "Create")
+    @Html.ActionLink("Create new", "Create")
 </p>
 <table id="tblCate" class="table">
     <tr>
         <th>
-            Tên
+            Name
         </th>
         <th>
-            Giới tính
+            Gender
         </th>
         <th>
-            Số ĐT
+            Number phone
         </th>
         <th>
             Email
         </th>
         <th>
-            Địa chỉ
+            Adress
         </th>
         <th>
-            Trạng thái
+            Status
         </th>
         <th></th>
     </tr>
@@ -63,10 +63,10 @@
 
                 </td>
                 <td>
-                    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                     <span>
-                        <button class="btn btn-info" onclick="DeleteUser('@item.Id')">Xóa</button>
+                        <button class="btn btn-info" onclick="DeleteUser('@item.Id')">Delete</button>
                     </span>
                 </td>
             </tr>
@@ -80,7 +80,7 @@
     function DeleteUser(id) {
             swal({
                 title: "Are you sure?",
-                text: "Nếu xóa, bạn sẽ ko thể khôi phục lại!",
+                text: "If deleted, you will not be able to restore it!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -103,13 +103,13 @@
                                 }
                             },
                             error: function () {
-                                swal("User này đang được dùng trong lịch sử mua hàng");
+                                swal("This user is being used in purchase history");
                             }
                         });
 
 
                     } else {
-                        swal("Ban chua xoa");
+                        swal("you have not yet deleted");
                     }
                 });
     };

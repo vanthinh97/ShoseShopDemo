@@ -6,23 +6,23 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Quản lý đơn hàng</h2>
+<h2>Orders Manager</h2>
 <div >
 
     <p>
-        <a class="btn btn-primary" href="@Url.Action("Create", "Orders")">Tạo mới</a>
+        <a class="btn btn-primary" href="@Url.Action("Create", "Orders")">Create new</a>
     </p>
     <div class="card shadow mb-4">
         <div class="card-body">
             <table class="table">
                 <tr class="row">
                     <th class="col-2">
-                        Trạng thái
+                        Status
                     </th>
                     <th class="col-6">
-                        Thông tin khách hàng
+                        Customer's Information
                     </th>
-                    <th class="col-4">Hành động</th>
+                    <th class="col-4">Action</th>
                 </tr>
 
                 <tbody>
@@ -37,15 +37,15 @@
 
                             </td>
                             <td class="col-6">
-                                Tên: @Html.DisplayFor(modelItem => item.CustomerName)<br />
+                                Name: @Html.DisplayFor(modelItem => item.CustomerName)<br />
                                 Email: @Html.DisplayFor(modelItem => item.CustomerEmail)<br />
-                                Số điện thoại: @Html.DisplayFor(modelItem => item.CustomerPhone)<br />
-                                Địa chỉ: @Html.DisplayFor(modelItem => item.CustomerAddress)<br />
+                                Number phone: @Html.DisplayFor(modelItem => item.CustomerPhone)<br />
+                                Adress: @Html.DisplayFor(modelItem => item.CustomerAddress)<br />
                                 @if (item.UserId > 0)
                                 {
-                                    <span>#Id khách: @item.UserId</span><br />
+                                    <span>#Customer ID: @item.UserId</span><br />
                                 }
-                                Ghi chú: @item.OrderNote
+                                Note: @item.OrderNote
                             </td>
                             <td class="col-4">
 
@@ -91,7 +91,7 @@
     function DeleteOrder(id) {
             swal({
                 title: "Are you sure?",
-                text: "Nếu xóa, bạn sẽ ko thể khôi phục lại!",
+                text: "If deleted, you will not be able to restore it!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -106,7 +106,7 @@
                             },
                             success: function (result) {
                                 if (result === "OK") {
-                                    swal("Đơn hàng đã được xóa!", {
+                                    swal("Order has been deleted!", {
                                         icon: "success",
                                     });
                                     // ẩn doituong-id
@@ -117,7 +117,7 @@
 
 
                     } else {
-                        swal("Ban chua xoa");
+                        swal("You have not deleted");
                     }
                 });
     };

@@ -4,21 +4,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Toàn bộ danh mục</h2>
+<h2>All categories</h2>
 @Html.Partial("_Create")
 
 <p>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#_createCate">Thêm danh mục</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#_createCate">Add category</button>
 </p>
 
 
 <table id="tblCate" class="table">
     <tr>
         <th>
-            Tên danh mục
+            Name
         </th>
         <th>
-            Vị trí hiển thị danh mục
+            Position to appear
         </th>
     </tr>
 
@@ -34,14 +34,13 @@
                 </td>
                 <td>
                     <span>
-                        <button class="btn btn-info" data-toggle="modal" data-target="#_editCate-@item.Id">Chỉnh sửa</button>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#_editCate-@item.Id">Edit</button>
 
 
                     </span>
                     @*@Html.Partial("_EditCate")*@
                     <span>
-                        <button class="btn btn-danger" onclick="DeleteCate('@item.Id')">Xóa</button>
-
+                        <button class="btn btn-danger" onclick="DeleteCate('@item.Id')">Delete</button>
                     </span>
                 </td>
             </tr>
@@ -56,7 +55,7 @@
     function DeleteCate(id) {
             swal({
                 title: "Are you sure?",
-                text: "Nếu xóa, bạn sẽ ko thể khôi phục lại!",
+                text: "If deleted, you will not be able to restore it!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -71,14 +70,14 @@
                             },
                             success: function (result) {
                                 if (result === "OK") {
-                                    swal("Bạn đã xóa danh mục này!", {
+                                    swal("You have deleted this category!", {
                                         icon: "success",
                                     });
                                     // ẩn doituong-id
                                     $("#HideCate-" + id).hide();
                                 }
                                 else {
-                                    swal("Thông báo!","Bạn không có quyền xóa danh mục này!","warning");
+                                    swal("Notice!","You do not have permission to delete this category!","warning");
                                 }
                                 
                             },
@@ -88,7 +87,7 @@
                         });
 
                     } else {
-                        swal("Bạn chưa xóa");
+                        swal("You have not deleted");
                     }
                 });
     };

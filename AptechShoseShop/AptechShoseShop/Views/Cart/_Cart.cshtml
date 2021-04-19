@@ -3,7 +3,7 @@
 <div class="cart_area cart-area-padding  ">
     <div class="container">
         <div class="page-section-title">
-            <h1>Shopping Cart </h1>
+            <h1>Shopping Cart <span style="font-size: 18px; color: red"><a href="/">- Continue Shopping</a></span></h1>
         </div>
         <div class="row">
             <div class="col-12">
@@ -36,7 +36,7 @@
                                         </a>
                                     </td>
                                     <td class="pro-thumbnail">
-                                        <a target="_blank" href="https://localhost:44310/Products/Details/@item.ProductId">
+                                        <a target="_blank" href="/Products/Details/@item.ProductId">
                                             <img src="@item.ImgUrl" alt="Product">
                                         </a>
                                     </td>
@@ -64,21 +64,6 @@
         </div>
     </div>
 </div>
-
-@*<script>
-        function deleteRow(r, productId) {
-            var i = r.parentNode.parentNode.rowIndex;
-            document.getElementById("myTable").deleteRow(i);
-
-        }
-    </script>*@
-@*<script>
-        function x(producid) {
-            var quanti = $('#qty-' + producid).val();
-            ////
-            updateItem(producid);
-        }
-    </script>*@
 
 <div style="clear: both; padding-top: 50px" class="cart-section-2">
     <div class="container">

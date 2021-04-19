@@ -62,7 +62,7 @@
                                     <i class="fas fa-headphones-alt"></i>
                                 </div>
                                 <div class="text">
-                                    <p>Gọi Online 24/7</p>
+                                    <p>Free Support 24/7</p>
                                     <p class="font-weight-bold number">+01-202-555-0181</p>
                                 </div>
                             </div>
@@ -71,11 +71,11 @@
                             <div class="main-navigation flex-lg-right">
                                 <ul class="main-menu menu-right ">
 
-                                    <li class="menu-item has-children">
+                                    @*<li class="menu-item has-children">
                                         <a href="@Url.Action("Index", "Products")">
                                             Sản phẩm1
                                         </a>
-                                    </li>
+                                    </li>*@
 
                                     @if (User.Identity.IsAuthenticated)
                                     {
@@ -91,12 +91,12 @@
                                         if (User.Identity.IsAuthenticated)
                                         {
                                             <li class="menu-item">
-                                                <a style="margin-right: 0px" href="@Url.Action("Index", "Accounts")">Tài khoản</a>
+                                                <a style="margin-right: 0px" href="@Url.Action("Index", "Accounts")">My account</a>
                                                 <img style="margin-top: -6px; max-width: 30px; max-height: 30px" class="img-profile rounded-circle" src="@urlAvatar">
                                             </li>
 
                                             <li class="menu-item">
-                                                <a href="@Url.Action("Logout", null, new { area = string.Empty, controller = "Accounts" }, Request.Url.Scheme)">Thoát</a>
+                                                <a href="@Url.Action("Logout", null, new { area = string.Empty, controller = "Accounts" }, Request.Url.Scheme)">Logout</a>
                                             </li>
                                         }
                                     }
@@ -114,10 +114,10 @@
                             <nav class="category-nav   ">
                                 <div>
                                     <a href="javascript:void(0)" class="category-trigger">
-                                        <i class="fa fa-bars"></i>Danh mục giày
+                                        <i class="fa fa-bars"></i>Shose Category
                                     </a>
                                     <ul class="category-menu">
-                                        <li class="cat-item"><a href="https://localhost:44310/Products">Tất cả</a></li>
+                                        <li class="cat-item"><a href="https://localhost:44310/Products">All Products</a></li>
                                         @foreach (var item in cates)
                                         {
                                             <li class="cat-item"><a href="@Url.Action("Index", "Products", new { cateid = item.Id})">@item.CategoryName</a></li>
@@ -128,7 +128,7 @@
                         </div>
                         <div class="col-lg-5">
                             <form method="get" action="@Url.Action("Index", "Products")" class="header-search-block">
-                                <input name="kw" type="text" placeholder="Tìm kiếm sản phẩm ...">
+                                <input name="kw" type="text" placeholder="Search entire store here">
                                 <button>Search</button>
                             </form>
                         </div>
@@ -189,11 +189,11 @@
 
                                 <li class="menu-item has-children">
                                     <a href="@Url.Action("Index", "Products")">
-                                        Product
+                                        All Product
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="@Url.Action("Checkout", null, new { area = string.Empty, controller = "Checkout" }, Request.Url.Scheme)">Thanh toán</a>
+                                    <a href="@Url.Action("Checkout", null, new { area = string.Empty, controller = "Checkout" }, Request.Url.Scheme)">Checkout</a>
                                 </li>
                                 <!-- Pages -->
                                 @{

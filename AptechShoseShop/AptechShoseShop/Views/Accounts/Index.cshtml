@@ -2,7 +2,7 @@
 
 <div style="margin: 0 auto; width: 500px">
     <br />
-    <h2>Chào @Model.FullName! <br />Đây là trang cá nhân của bạn</h2>
+    <h2>Hello @Model.FullName! <br />This is your profile page</h2>
     <hr />
 </div>
 
@@ -30,16 +30,16 @@
 
     <div class="col-5">
         <div style="width: 300px; font-weight: bold; font-size: 20px">
-            <p>Tên: <span style="margin-left: 30px">@Model.FullName</span></p>
-            <p>Số điện thoại: <span style="margin-left: 30px">@Model.NumberPhone</span></p>
+            <p>Name: <span style="margin-left: 30px">@Model.FullName</span></p>
+            <p>Phone number: <span style="margin-left: 30px">@Model.NumberPhone</span></p>
             <p>Email: <span style="margin-left: 30px">@Model.Email</span></p>
-            <p>Địa chỉ: <span style="margin-left: 30px">@Model.Address</span></p>
+            <p>Adress: <span style="margin-left: 30px">@Model.Address</span></p>
         </div>
         <div style="margin-left: 20px; width: 200px;">
-            <a class="btn btn-success" href="@Url.Action("EditProfile", "Accounts", new { id = Model.Id})">Cập nhật thông tin</a>
+            <a class="btn btn-success" href="@Url.Action("EditProfile", "Accounts", new { id = Model.Id})">Update information</a>
         </div>
         <div style="margin: 5px 0 0 5px; width: 300px;">
-            <a class="btn btn-primary" href="@Url.Action("Index", new { area = string.Empty, controller = "Order"})">Lịch sử mua hàng</a>
+            <a class="btn btn-primary" href="@Url.Action("Index", new { area = string.Empty, controller = "Order"})">Purchase History</a>
         </div>
     </div>
 

@@ -27,14 +27,14 @@ function addCart(productId) {
         var colorName = document.getElementById("ColorName");
         var colorSelected = colorName.options[colorName.selectedIndex].value;
         if (colorSelected === "#") {
-            alert("Bạn chưa chọn màu");
+            alert("You have not choose color yet");
             return;
         };
 
         var sizeName = document.getElementById("SizeName");
         var sizeSelected = sizeName.options[sizeName.selectedIndex].value;
         if (sizeSelected === "#") {
-            alert("Bạn chưa chọn size");
+            alert("You have not choose size yet");
             return;
         };
 
@@ -58,12 +58,12 @@ function addCart(productId) {
             cart_items.push(new_item);
             saveCartItems(cart_items);
             swal({
-                text: "Bạn đã thêm sản phẩm này vào giỏ hàng.",
+                text: "You added this product to cart.",
                 icon: "success",
                 buttons: {
-                    cancel: "Tiếp tục mua hàng",
+                    cancel: "Continue shopping",
                     catch: {
-                        text: "Đi đến thanh toán",
+                        text: "Go to checkout",
                         value: "cart"
                     }
                 }
@@ -83,7 +83,7 @@ function addCart(productId) {
             var colorCart = itemCart["ColorName"];
             var sizeCart = itemCart["SizeName"];
             updateItem(productId, quantityCart, colorCart, sizeCart);                      
-            swal("Notification", "Bạn đã thêm giỏ hàng " + quantityCart + " sản phẩm này.");
+            swal("Notification", "You added in cart " + quantityCart + " this product.");
           
         }
        
@@ -145,8 +145,8 @@ function bindingCartCommon() {
 
 function removeItem(id, color, size) {
     swal({
-        title: "Xác nhận xóa.",
-        text: "Xóa sản phẩm này khỏi giỏ hàng",
+        title: "Confirm.",
+        text: "Remove this product from the cart",
         icon: "warning",
         buttons: true,
         dangerMode: true
@@ -202,7 +202,7 @@ function Checkout() {
                     swal(
                         "Thông báo !",
                         {
-                        text: "Bạn đã đặt hàng thành công.",
+                        text: "Your order placed Successfully .",
                         icon: "success",
                         buttons: {
                             catch: {
@@ -224,7 +224,7 @@ function Checkout() {
                 }
             },
             error: function () {
-                console.log("Lỗi");
+                console.log("Error");
             }
         });
     });

@@ -41,12 +41,12 @@
                 <form method="get" action="@Url.Action("Index")" class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
                     <div class="sorting-selection">
                         <div class="New_Cursor">
-                            <input style=" width: 200px;" class="form-control" name="kw" placeholder="tên sản phẩm ..." value="@ViewBag.Kw" />
+                            <input style=" width: 200px;" class="form-control" name="kw" placeholder="product's name ..." value="@ViewBag.Kw" />
                             <i></i>
                         </div>
                         <div>
                             <select name="cateid" class="form-control nice-select sort-select">
-                                <option value="">Danh mục</option>
+                                <option value="">Category</option>
                                 @{
                                     foreach (var item in ViewBag.ShowCate)
                                     {
@@ -58,26 +58,26 @@
                         </div>
                         <div style="">
                             <select id="sortby" name="sortby" class="form-control nice-select sort-select">
-                                <option value="name_defau">Sắp xếp</option>
+                                <option value="name_defau">Range</option>
                                 <option value="name">
-                                    Theo tên (A - Z)
+                                    Range By:Name (A - Z)
                                 </option>
                                 <option value="name_desc">
-                                    Theo tên (Z - A)
+                                    Range By:Name (Z - A)
                                 </option>
                                 <option value="price">
-                                    Theo giá (Thấp &gt; Cao)
+                                    Range By:Price (Low &gt; High)
                                 </option>
                                 <option value="price_desc">
-                                    Theo giá (Cao &gt; Thấp)
+                                    Range By:Price (High &gt; Low)
                                 </option>
                                 <option value="best_sell">
-                                    Được mua nhiều nhất
+                                    Best selling
                                 </option>
                             </select>
                         </div>
                         <span style="padding: 0">
-                            <button style="width: 30px;" type="submit" class="btn btn-success btn-mid">Lọc</button>
+                            <button style="width: 30px;" type="submit" class="btn btn-success btn-mid">FILTER</button>
                         </span>
 
                     </div>
@@ -85,66 +85,7 @@
             </div>
         </div>
         <div class="shop-toolbar d-none">
-            <div class="row align-items-center">
-                <div class="col-lg-2 col-md-2 col-sm-6">
-                    <!-- Product View Mode -->
-                    <div class="product-view-mode">
-                        <a href="#" class="sorting-btn active" data-target="grid"><i class="fas fa-th"></i></a>
-                        <a href="#" class="sorting-btn" data-target="grid-four">
-                            <span class="grid-four-icon">
-                                <i class="fas fa-grip-vertical"></i><i class="fas fa-grip-vertical"></i>
-                            </span>
-                        </a>
-                        <a href="#" class="sorting-btn" data-target="list "><i class="fas fa-list"></i></a>
-                    </div>
-                </div>
-                <div class="col-xl-5 col-md-4 col-sm-6  mt--10 mt-sm--0">
 
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-6  mt--10 mt-md--0">
-
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
-                    <div class="sorting-selection">
-                        <span>Sort By:</span>
-                        <select class="form-control nice-select sort-select mr-0">
-                            <option value="" selected="selected">Default Sorting</option>
-                            <option value="">
-                                Sort
-                                By:Name (A - Z)
-                            </option>
-                            <option value="">
-                                Sort
-                                By:Name (Z - A)
-                            </option>
-                            <option value="">
-                                Sort
-                                By:Price (Low &gt; High)
-                            </option>
-                            <option value="">
-                                Sort
-                                By:Price (High &gt; Low)
-                            </option>
-                            <option value="">
-                                Sort
-                                By:Rating (Highest)
-                            </option>
-                            <option value="">
-                                Sort
-                                By:Rating (Lowest)
-                            </option>
-                            <option value="">
-                                Sort
-                                By:Model (A - Z)
-                            </option>
-                            <option value="">
-                                Sort
-                                By:Model (Z - A)
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border">
             @foreach (var item in Model)

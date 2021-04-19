@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class BannersController : Controller
     {
         AptechShoseShopDbContext db = new AptechShoseShopDbContext();

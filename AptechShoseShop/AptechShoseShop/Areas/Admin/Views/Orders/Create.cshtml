@@ -11,19 +11,19 @@
 }
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
-<h2>Tạo đơn hàng</h2>
+<h2>Create Order</h2>
 
 <div style="display: flex" class="row">
 
     <div style="text-align: center" class="orderDetail col-5">
-        <h4>Đơn hàng</h4>
+        <h4>Order</h4>
         <hr />
         <div method="post" action="@Url.Action("Create")">
             <div style="display: none" name="Id" id=""></div>
             <div style="display: flex;">
-                <label for="">Trạng thái</label>
+                <label for="">Status</label>
                 <select required style="width: 320px; float: right" id="StatusId" name="StatusId" class="form-control">
-                    <option value="">--chọn--</option>
+                    <option value="">--Choose--</option>
                     @{
                         foreach (var item in StatusOrder)
                         {
@@ -34,7 +34,7 @@
             </div>
             <br />
             <div style="display: flex;">
-                <label for="">Tên khách hàng</label>
+                <label for="">Customer Name</label>
                 <input required class="form-control" type="text" name="CustomerName" id="CustomerName" value="">
             </div>
             <br />
@@ -44,12 +44,12 @@
             </div>
             <br />
             <div style="display: flex;">
-                <label for="">Điện thoại</label>
+                <label for="">Number phone</label>
                 <input required class="form-control" type="text" name="CustomerPhone" id="CustomerPhone" value="">
             </div>
             <br />
             <div style="display: flex;">
-                <label for="">Địa chỉ</label>
+                <label for="">Adress</label>
                 <textarea required class="form-control" style="width: 320px;" rows="3" type="text" name="CustomerAddress" id="CustomerAddress"></textarea>
             </div>
             <br />
@@ -68,34 +68,34 @@
     </div>
 
     <div style="text-align: center" class="orderDetail col-7">
-        <h4>Chi tiết đơn hàng</h4>
+        <h4>Order Details</h4>
         <hr />
         <div name="proDetail" id="FormProDetail">
             <div style="display: flex;">
-                <label for="">Id sản phẩm</label>
+                <label for="">Id product</label>
                 <input required onchange="GetProduct()" class="form-control" type="text" name="ProductId" id="ProductId" value="">
             </div>
             <br />
             <div style="display: flex;">
-                <label for="">Sản phẩm</label>
+                <label for="">Product</label>
                 <input readonly class="form-control" type="text" name="ProductName" id="ProductName" value="">
             </div>
             <br />
             <div style="display: flex;">
-                <label for="">Giá đã giảm</label>
+                <label for="">Decreasing Price</label>
                 <input readonly class="form-control" type="text" name="SellPrice" id="UnitPrice" value="">
             </div>
             <br />
             <div style="display: flex;">
-                <label for="">Số lượng</label>
+                <label for="">Quantity</label>
                 <input required class="form-control" type="text" name="Quantity" id="Quantity" value="">
             </div>
 
             <br />
             <div style="display: flex;">
-                <label for="">Màu sắc</label>
+                <label for="">Color</label>
                 <select required style="width: 320px; float: right" name="ColorName" id="Color" class="form-control">
-                    <option value="">--chọn--</option>
+                    <option value="">--choose--</option>
                     @{
                         foreach (var color in ListColor)
                         {
@@ -109,7 +109,7 @@
             <div style="display: flex;">
                 <label for="">Size</label>
                 <select required style="width: 320px; float: right" name="SizeName" id="Size" class="form-control">
-                    <option value="">--Chọn--</option>
+                    <option value="">--choose--</option>
                     @{
                         foreach (var size in ListSize)
                         {
@@ -119,23 +119,23 @@
                 </select>
             </div>
             <br />
-            <button id="#" onclick="ResetProDetail()" type="button" class="btn btn-primary">Tạo lại</button>
-            <button id="btn-add" type="button" class="btn btn-primary">Thêm sản phẩm</button>
+            <button id="#" onclick="ResetProDetail()" type="button" class="btn btn-primary">Reset</button>
+            <button id="btn-add" type="button" class="btn btn-primary">Add order detail</button>
         </div>
         <hr />
 
         <table id="table-prodetail" class="table table-striped" style="width: 100%">
             <thead>
                 <tr class="row">
-                    <th class="col-3">Id sản phẩm</th>
-                    <th class="col-3">Số lượng</th>
-                    <th class="col-3">Màu sắc</th>
+                    <th class="col-3">Id product</th>
+                    <th class="col-3">Quantity</th>
+                    <th class="col-3">Color</th>
                     <th class="col-3">Size</th>
                 </tr>
             </thead>
         </table>
     </div>
-    <button id="save-order" style="margin-left: 400px" type="button" class="btn btn-primary">Tạo thông tin đơn hàng</button>
+    <button id="save-order" style="margin-left: 400px" type="button" class="btn btn-primary">Create order information</button>
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index", "Orders")
@@ -214,7 +214,7 @@
                 location.href = "/admin/orders";
             },
             error: function () {
-                alert("Loi add");
+                alert("error add");
             }
         });
     };
@@ -236,7 +236,7 @@
                     };
                 },
                 error: function () {
-                    alert("Không tìm thấy sản phẩm có #id " + id);
+                    alert("No product found has #id " + id);
                     $("#ProductId").val("");
                     $("#ProductName").val("");
                     $("#UnitPrice").val("");
@@ -250,12 +250,14 @@
 
    
 
-    //function ResetProDetail() {
-    //    document.getElementById("ProductId").value = "";
-    //    document.getElementById("ProductName").value = "";
-    //    document.getElementById("UnitPrice").value = "";
-    //    document.getElementById("Quantity").value = "";
-    //};
+    function ResetProDetail() {
+        document.getElementById("ProductId").value = "";
+        document.getElementById("ProductName").value = "";
+        document.getElementById("UnitPrice").value = "";
+        document.getElementById("Quantity").value = "";
+        document.getElementById("Color").value = "";
+        document.getElementById("Size").value = "";
+    };
 
 </script>
 

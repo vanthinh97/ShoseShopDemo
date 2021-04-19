@@ -87,13 +87,13 @@ namespace AptechShoseShop.Controllers
 
             if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
             {
-                ModelState.AddModelError("", "Không được để trống ! ");
+                ModelState.AddModelError("", "Do not leave it blank ! ");
                 return View();
             }
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Tài khoản không tồn tại");
+                ModelState.AddModelError("", "Account does not exist !");
                 return View();
             }
 
@@ -108,11 +108,11 @@ namespace AptechShoseShop.Controllers
                         user.StatusId = 2;
                         user.TimeLock = null;
                         db.SaveChanges();
-                        ModelState.AddModelError("", "Tài khoản đã bị khóa, để lấy lại mật khẩu hãy click vào \"tài khoản đang bị khóa\"");
+                        ModelState.AddModelError("", "The account has been locked, to retrieve your password click on \"Account is blocked?\"");
                         return View();
                     }
                     db.SaveChanges();
-                    ModelState.AddModelError("", $"Tài khoản bị khóa cho đến {user.TimeLock}");
+                    ModelState.AddModelError("", $"Account has been blocked until {user.TimeLock}");
                     return View();
                 }
                 else
@@ -124,7 +124,7 @@ namespace AptechShoseShop.Controllers
 
             if (user.StatusId == 2)
             {
-                ModelState.AddModelError("", "Tài khoản đang bị khóa");
+                ModelState.AddModelError("", "Account is blocked");
                 return View();
             }
 
@@ -143,7 +143,7 @@ namespace AptechShoseShop.Controllers
                     DateTime currentTime = DateTime.Now;
                     user.TimeLock = currentTime.AddMinutes(15);
                     db.SaveChanges();
-                    ModelState.AddModelError("", "Tài khoản đã bị khóa sau 15 phút");
+                    ModelState.AddModelError("", "Account has been locked for 15 minutes");
                     return View();
                 }
                 if (user.CountLogin >= 6)
@@ -151,11 +151,11 @@ namespace AptechShoseShop.Controllers
                     user.StatusId = 2;
                     user.TimeLock = null;
                     db.SaveChanges();
-                    ModelState.AddModelError("", "Tài khoản đã bị khóa, để lấy lại mật khẩu hãy click vào \"tài khoản đang bị khóa\"");
+                    ModelState.AddModelError("", "The account has been locked, to retrieve your password click on \"Account is blocked?\"");
                     return View();
                 }
                 db.SaveChanges();
-                ModelState.AddModelError("", "Mật khẩu không đúng");
+                ModelState.AddModelError("", "Incorrect password");
             }
 
             return View();
@@ -174,12 +174,12 @@ namespace AptechShoseShop.Controllers
 
             if (emailUser != null)
             {
-                return Json("Email này đã tồn tại");
+                return Json("This email already exists");
             }
 
             if (user.Password == null)
             {
-                return Json("Email của bạn hợp lệ!");
+                return Json("Your email is valid!");
             }
 
             TbUser newUser = new TbUser()
@@ -195,10 +195,9 @@ namespace AptechShoseShop.Controllers
             db.SaveChanges();
             Authen(newUser.Id);
 
-
             //sendmail
             EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
-                "<h1>Hello [Name]! bạn đã đăng ký tài khoản thành công tại Aptech Shose Shop</h1>".Replace("[Name]", newUser.FullName));
+                "<h1>Hello [Name]! You have successfully registered an account at Aptech Shose Shop</h1>".Replace("[Name]", newUser.FullName));
             return RedirectToAction("Index", "Home");
         }
 
@@ -248,13 +247,13 @@ namespace AptechShoseShop.Controllers
 
             if (!user.Password.Equals(MySecurity.EncryptPassword(changePW.oldPassword)))
             {
-                return Json("Mật khẩu cũ không đúng, hãy nhập lại!");
+                return Json("Old password is incorrect, please enter again!");
             }
 
             user.Password = MySecurity.EncryptPassword(changePW.newPassword);
             db.SaveChanges();
 
-            return Json("Mật khẩu đã thay đổi!");
+            return Json("Password has changed!");
         }
 
         [HttpPost]
@@ -264,7 +263,7 @@ namespace AptechShoseShop.Controllers
 
             if (user == null)
             {
-                return Json("Email bạn nhập vào không đúng");
+                return Json("The email you entered is not correct");
             }
 
 
@@ -275,14 +274,15 @@ namespace AptechShoseShop.Controllers
             user.Password = MySecurity.EncryptPassword(xPass);
             user.StatusId = 1;
             user.CountLogin = 0;
+            user.TimeLock = null;
             db.SaveChanges();
 
             EmailManagement.SendMail(user.Email, "Aptech Shose Shop",
-                "<h1>Hello [Name]! Mật khẩu mới của bạn là [newPass]</h1>"
+                "<h1>Hello [Name]! Your new password is [newPass]</h1>"
                 .Replace("[Name]", user.FullName)
                 .Replace("[newPass]", xPass));
 
-            return Json("Bạn hãy kiểm tra email để lấy mật khẩu");
+            return Json("Please check your email for the password");
         }
 
 
@@ -305,37 +305,34 @@ namespace AptechShoseShop.Controllers
 
 
         [HttpPost]
-        public ActionResult LoginCkout(string Email, string Password)
+        public ActionResult LoginCkout(string Email1, string Password1)
         {
-            var user = db.TbUsers.Where(x => x.Email.Equals(Email)).SingleOrDefault();
+            if (Email1 == "" || Password1 == "")
+            {
+                return Json("NOTNULL");
+            }
+            var user = db.TbUsers.Where(x => x.Email.Equals(Email1)).SingleOrDefault();
             if (user == null)
             {
-                ModelState.AddModelError("", "Tài khoản không tồn tại");
+                return Json("NULL");
             }
-            if (!string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password))
+            if (!string.IsNullOrEmpty(Email1) && !string.IsNullOrEmpty(Password1))
             {
-                if (user.Password.Equals(MySecurity.EncryptPassword(Password)))
+                if (user.Password.Equals(MySecurity.EncryptPassword(Password1)))
                 {
-                    Response.Cookies["UserId"].Value = user.Id.ToString();
-                    FormsAuthentication.SetAuthCookie(user.Id.ToString(), true);
+                    Authen(user.Id);
 
+                    //Response.Cookies["UserId"].Value = user.Id.ToString();
+                    //FormsAuthentication.SetAuthCookie(user.Id.ToString(), true);
 
-                    var c = db.UserRoles.Where(x => x.UserId == user.Id).FirstOrDefault();
-                    if (c != null && (c.RoleId == 1 || c.RoleId == 2)) //1 laf admin
-                    {
-                        return RedirectToAction("Index", "DashBoard", new { area = "Admin" });
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Checkout");
-                    }
+                    return Json("OK");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Mật khẩu không đúng");
+                    return Json("NOTCORRECT");
                 }
             }
-            return Redirect(Request.UrlReferrer.ToString());
+            return Json("OK");
         }
 
 

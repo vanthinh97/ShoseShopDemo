@@ -24,7 +24,7 @@
                                 <input required name="Password" type="password" class="form-control" />
                             </div>
                             <div class="form-group">
-                                <label>Tên</label>
+                                <label>Your Name</label>
                                 <span class="required text-danger">*</span>
                                 <input required name="Fullname" class="form-control" />
                             </div>
@@ -47,7 +47,7 @@
 <script type="text/javascript">
             $(document).ready(function () {
                 $('#Email').change(function () {
-                    alert("Hệ thống đang kiểm tra Email! \nVui lòng chờ cho đến khi hiển thị thông báo tiếp theo");
+                    alert("The system is checking Email! \nPlease wait until next message is displayed");
 
                     var email = {"email" : $('#Email').val()};
 
@@ -59,7 +59,7 @@
                         success: function (result) {
                             console.log(result);
                             alert(result);
-                            if (result == "Email này đã tồn tại") {
+                            if (result == "This email already exists") {
                                 document.getElementById('Email').value = '';
                             }
                         },

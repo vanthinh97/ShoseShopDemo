@@ -61,7 +61,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
 
             if (emailUser != null)
             {
-                ModelState.AddModelError("", "Tài khoản đã tồn tại");
+                ModelState.AddModelError("", "Account already exists");
                 return View();
             }
 

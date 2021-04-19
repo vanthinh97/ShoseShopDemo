@@ -18,15 +18,15 @@
                             
                             <form>
                                 <div class="form-group">
-                                    <label>Nhập mật khẩu cũ</label>
+                                    <label>Enter old password</label>
                                     <input type="password" id="oldPassword" name="oldPassword" class="form-control" required />
                                 </div>
                                 <div class="form-group">
-                                    <label>Nhập mật khẩu mới</label>
+                                    <label>Enter new password</label>
                                     <input type="password" id="newPassword" name="newPassword" class="form-control" required />
                                 </div>
                                 <div class="form-group">
-                                    <label>Nhập lại mật khẩu mới</label>
+                                    <label>Enter new password again</label>
                                     <input type="password" id="reNewPassword" name="reNewPassword" class="form-control" required />
                                 </div>
                                 <div class="form-group text-right">
@@ -61,12 +61,12 @@
                     reNewPassword = $('#reNewPassword').val();
 
                 if (newPassword === password) {
-                    alert("Bạn đã nhập trùng mật khẩu cũ!");
+                    alert("You have entered the same old password!");
                     return;
                 }
 
                 if (newPassword !== reNewPassword) {
-                    alert("Bạn nhập lại mật khẩu mới không đúng!");
+                    alert("You re-entered the new password incorrectly!");
                     return;
                 }
 
@@ -84,7 +84,7 @@
                     success: function (result) {
                         console.log(result);
                         alert(result);
-                        if (result == "Mật khẩu đã thay đổi!") {
+                        if (result == "Password has changed!") {
                             location.reload();
                         }
                         ///$('#_changePW').modal('hide');

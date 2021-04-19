@@ -1,6 +1,6 @@
 ﻿@model AptechShoseShop.Models.Entites.TbUser
 
-<h1>Thông tin của bạn</h1>
+<h2 style="margin-left: 30px">Your information</h2>
 
 <div class="container">
     <!-- Modal content-->
@@ -19,15 +19,15 @@
                             <input name="Id" class="form-control" value="@Model.Id"/>
                         </div>
                         <div class="form-group">
-                            <label>Tên</label>
+                            <label>Name</label>
                             <input name="FullName" class="form-control" value="@Model.FullName"/>
                         </div>
                         <div class="form-group">
-                            <label>Giới tính</label>
+                            <label>Gender</label>
 
                             @{
 
-                                string userGender = Model.Gender != null ? (Model.Gender == true ? "Nam" : "Nữ") : "Chọn";
+                                string userGender = Model.Gender != null ? (Model.Gender == true ? "Male" : "Female") : "Choose";
                                 int numGender = -1;
                                 if (Model.Gender == true)
                                 {
@@ -40,8 +40,8 @@
                             }
                             <select id="Gender" name="Gender" class="form-control nice-select sort-select">
                                 <option value="@numGender">@userGender</option>
-                                <option value="1">Nam</option>
-                                <option value="0">Nữ</option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -49,7 +49,7 @@
                             <input readonly name="Email" class="form-control" value="@Model.Email"/>
                         </div>
                         <div class="form-group">
-                            <label>Số điện thoại</label>
+                            <label>Phone number</label>
                             <input name="NumberPhone" class="form-control" value="@Model.NumberPhone"/>
                         </div>
                         <div class="form-group">
@@ -62,7 +62,7 @@
                         </div>
                         <div class="form-group">
                             <a style="color: white; font-weight: bold" class="btn btn-info" data-toggle="modal" data-target="#_changePW">
-                                Thay đổi mật khẩu
+                                Change Password
                             </a>
                         </div>
                     </form>

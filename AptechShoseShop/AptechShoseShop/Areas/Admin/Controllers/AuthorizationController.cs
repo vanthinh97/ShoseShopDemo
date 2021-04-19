@@ -14,7 +14,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         {
             if (checkEmail != null)
             {
-                ViewBag.HasAuthor = "Quyền " + checkRole + " đã được phân cho " + checkEmail;
+                ViewBag.HasAuthor = "Role " + checkRole + " has been authorized " + checkEmail;
             }
             var listAuthor = db.UserRoles;
             return View(listAuthor.ToList());

@@ -5,7 +5,7 @@
 }
 
 
-<h1>Thông tin của bạn</h1>
+<h1>User's Information</h1>
 
 <div class="container">
     <!-- Modal content-->
@@ -20,15 +20,15 @@
                             <input name="Id" class="form-control" value="@Model.Id" />
                         </div>
                         <div class="form-group">
-                            <label>Tên</label>
+                            <label>Name</label>
                             <input name="FullName" class="form-control" value="@Model.FullName" />
                         </div>
                         <div class="form-group">
-                            <label>Giới tính</label>
+                            <label>Gender</label>
 
                             @{
 
-                                string userGender = Model.Gender != null ? (Model.Gender == true ? "Nam" : "Nữ") : "Chọn";
+                                string userGender = Model.Gender != null ? (Model.Gender == true ? "Male" : "Female") : "Choose";
                                 int numGender = -1;
                                 if (Model.Gender == true)
                                 {
@@ -41,8 +41,8 @@
                             }
                             <select id="Gender" name="Gender" class="form-control nice-select sort-select">
                                 <option value="@numGender">@userGender</option>
-                                <option value="1">Nam</option>
-                                <option value="0">Nữ</option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -50,7 +50,7 @@
                             <input readonly name="Email" class="form-control" value="@Model.Email" />
                         </div>
                         <div class="form-group">
-                            <label>Số điện thoại</label>
+                            <label>Number Phone</label>
                             <input name="NumberPhone" class="form-control" value="@Model.NumberPhone" />
                         </div>
                         <div class="form-group">
@@ -58,7 +58,7 @@
                             <input name="Address" class="form-control" value="@Model.Address" />
                         </div>
                         <div class="form-group">
-                            <label>Trạng thái</label>
+                            <label>Status</label>
                             <select id="StatusId" name="StatusId" class="form-control nice-select sort-select">
                                 <option value="@Model.StatusId">@Model.Status.StatusName</option>
                                 @foreach (var item in ListStatus)

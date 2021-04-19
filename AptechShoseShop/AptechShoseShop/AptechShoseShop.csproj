@@ -2230,10 +2230,10 @@
     <Content Include="Views\Cart\_Cart.cshtml" />
     <Content Include="Views\Cart\_Empty.cshtml" />
     <Content Include="Views\Checkout\Checkout.cshtml" />
-    <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Cart\_SmallCart.cshtml" />
     <Content Include="Views\Shared\_Error.cshtml" />
+    <Content Include="Views\Shared\_Login1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

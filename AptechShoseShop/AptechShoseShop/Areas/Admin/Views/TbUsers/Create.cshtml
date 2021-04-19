@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Tạo mới user</h2>
+<h2>Create new user</h2>
 
 <div class="container">
     <!-- Modal content-->
@@ -20,15 +20,15 @@
                 <div style="padding:10px">
                     <form method="post" action="@Url.Action("Create", "TbUsers")">
                         <div class="form-group">
-                            <label>Tên</label>
+                            <label>Name</label>
                             <input required name="FullName" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label>Giới tính</label>
+                            <label>Gender</label>
                             <select id="Gender" name="Gender" class="form-control nice-select sort-select">
-                                <option value="-1">--Chọn--</option>
-                                <option value="1">Nam</option>
-                                <option value="0">Nữ</option>
+                                <option value="-1">--Choose--</option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
                             </select>
                         </div>
                         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
@@ -41,7 +41,7 @@
                             <input required name="Password" type="password" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label>Số điện thoại</label>
+                            <label>Number Phone</label>
                             <input name="NumberPhone" class="form-control" />
                         </div>
                         <div class="form-group">

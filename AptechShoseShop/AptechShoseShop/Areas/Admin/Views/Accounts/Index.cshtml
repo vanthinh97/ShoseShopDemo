@@ -7,7 +7,7 @@
 
 <div style="margin: 0 auto; width: 500px">
     <br />
-    <h2>Chào @Model.FullName! <br />Đây là trang cá nhân của bạn</h2>
+    <h2>Hello @Model.FullName! <br />This is your personal page</h2>
     <hr />
 </div>
 
@@ -36,13 +36,13 @@
 
     <div class="col-6">
         <div style="width: 300px; font-weight: bold; font-size: 20px">
-            <p>Tên: <span style="margin-left: 30px">@Model.FullName</span></p>
-            <p>Số điện thoại: <span style="margin-left: 30px">@Model.NumberPhone</span></p>
+            <p>Name: <span style="margin-left: 30px">@Model.FullName</span></p>
+            <p>Number phone: <span style="margin-left: 30px">@Model.NumberPhone</span></p>
             <p>Email: <span style="margin-left: 30px">@Model.Email</span></p>
-            <p>Địa chỉ: <span style="margin-left: 30px">@Model.Address</span></p>
+            <p>Adress: <span style="margin-left: 30px">@Model.Address</span></p>
         </div>
         <div style="margin-left: 50px; width: 200px;">
-            <a class="btn btn-success" href="@Url.Action("EditProfile", "Accounts", new { id = Model.Id})">Cập nhật thông tin</a>
+            <a class="btn btn-success" href="@Url.Action("EditProfile", "Accounts", new { id = Model.Id})">Update information</a>
         </div>
     </div>
 

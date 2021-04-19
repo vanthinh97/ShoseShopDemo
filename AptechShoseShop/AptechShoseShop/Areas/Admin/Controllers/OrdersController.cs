@@ -91,7 +91,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
 
             db.SaveChanges();
 
-            return Json(data: "Bạn đã thêm 1 đơn hàng mới", JsonRequestBehavior.AllowGet);
+            return Json(data: "You have added 1 new order!", JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -180,7 +180,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             changeOrder.SizeName = NewOrder.Size;
             db.SaveChanges();
 
-            return Json("Bạn đã thay đổi đơn hàng!");
+            return Json("You have changed this order!");
         }
 
         public ActionResult Delete(int id)

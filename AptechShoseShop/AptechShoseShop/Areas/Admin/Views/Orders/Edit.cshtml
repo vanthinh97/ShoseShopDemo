@@ -12,16 +12,16 @@
 }
 
 
-<h2>Chỉnh sửa đơn hàng</h2>
+<h2>Edit Order</h2>
 <div style="display: flex" class="row">
 
     <div style="text-align: center" class="yourAddress col-5">
-        <h4>Đơn hàng</h4>
+        <h4>Order</h4>
         <hr />
         <form method="post" action="@Url.Action("Edit")">
             <div style="display: none" id="@Model.Id">@Model.Id</div>
             <div style="display: flex;">
-                <label for="">Trạng thái</label>
+                <label for="">Status</label>
                 <select style="width: 320px; float: right" name="StatusId" class="form-control">
                     <option value="@Model.StatusId">@Model.Status.StatusName</option>
                     @{
@@ -37,7 +37,7 @@
             </div>
             <br />
             <div style="display: flex;">
-                <label for="">Tên khách hàng</label>
+                <label for="">Customer Name</label>
                 <input class="form-control" type="text" name="CustomerName" id="CustomerName" value="@Model.CustomerName">
             </div>
             <br />
@@ -47,19 +47,19 @@
             </div>
             <br />
             <div style="display: flex;">
-                <label for="">Điện thoại</label>
+                <label for="">Number phone</label>
                 <input class="form-control" type="text" name="CustomerPhone" id="CustomerPhone" value="@Model.CustomerPhone">
             </div>
             <br />
             <div style="display: flex;">
-                <label for="">Địa chỉ</label>
+                <label for="">Adress</label>
                 <textarea class="form-control" style="width: 320px;" rows="3" type="text" name="CustomerAddress" id="CustomerAddress">@Model.CustomerAddress</textarea>
             </div>
             <div style="display: none">
                 <input class="form-control" type="datetime" name="OrderDate" id="OrderDate" value="@Model.OrderDate">
             </div>
             <br />
-            <button type="submit" class="btn btn-primary">Thay đổi</button>
+            <button type="submit" class="btn btn-primary">Change</button>
         </form>
         <hr />
         <p>
@@ -68,7 +68,7 @@
     </div>
 
     <div style="text-align: center" class="orderDetail col-7">
-        <h4>Chi tiết đơn hàng</h4>
+        <h4>Order Details</h4>
         <hr />
         @{
             foreach (var item in listOrderDetail)
@@ -76,23 +76,23 @@
                 <h4>#Id: @item.Id</h4>
                 <form action="/" method="post">
                     <div style="display: flex;">
-                        <label for="">Sản phẩm</label>
+                        <label for="">Product</label>
                         <input readonly class="form-control" type="text" name="" id="ProductName" value="@item.ProductName">
                     </div>
                     <br />
                     <div style="display: flex;">
-                        <label for="">Giá đã giảm</label>
+                        <label for="">Decreasing Price</label>
                         <input readonly class="form-control" type="text" id="UnitPrice" value="@item.UnitPrice">
                     </div>
                     <br />
                     <div style="display: flex;">
-                        <label for="">Số lượng</label>
+                        <label for="">Quantity</label>
                         <input class="form-control" type="text" id="Quantity-@item.Id" value="@item.Quantity">
                     </div>
 
                     <br />
                     <div style="display: flex;">
-                        <label for="">Màu sắc</label>
+                        <label for="">Color</label>
                         @*<input class="form-control" type="text" id="Color" value="@item.Color">*@
                         <select style="width: 320px; float: right" name="Color" id="Color-@item.Id" class="form-control">
                             <option value="@item.Color">@item.Color</option>
@@ -125,7 +125,7 @@
                         </select>
                     </div>
                     <br />
-                    <button id="#" onclick="ChangeDetail('@item.Id')" type="button" class="btn btn-primary">Thay đổi</button>
+                    <button id="#" onclick="ChangeDetail('@item.Id')" type="button" class="btn btn-primary">Change</button>
                 </form>
 
                 <hr style="width: 300px" />
@@ -135,7 +135,7 @@
         <div>
             <br />
             <div style="display: flex;">
-                <label for="">Tổng tiền (có thuế): </label>
+                <label for="">Total (include VAT): </label>
                 <p>$@ViewBag.SubTotal</p>
             </div>
         </div>

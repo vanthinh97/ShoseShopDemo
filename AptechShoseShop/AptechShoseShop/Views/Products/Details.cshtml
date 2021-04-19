@@ -66,8 +66,8 @@
                     <h3 class="product-title">@Model.ProductName</h3>
                     <hr />
                     <ul class="list-unstyled">
-                        <li>Danh mục: <a href="#" class="list-value font-weight-bold"> @Model.Category.CategoryName</a></li>
-                        <li>Trạng thái: <span class="list-value"> @Model.StatusProduct.StatusName</span></li>
+                        <li>Category: <a href="@Url.Action("Index", "Products", new { cateid = Model.CategoryId})" class="list-value font-weight-bold"> @Model.Category.CategoryName</a></li>
+                        <li>Status: <span class="list-value"> @Model.StatusProduct.StatusName</span></li>
                     </ul>
                     <div class="price-block">
                         <span class="price-new">
@@ -100,10 +100,10 @@
                     <hr /><br />
                     <div class="add-to-cart-row">
                         <div>
-                            <label>Chọn màu</label>
+                            <label>Choose color</label>
                             <br />
                             <select style="border-radius: 16px" required id="ColorName" name="ColorName" class="form-control">
-                                <option value="#">--Màu--</option>
+                                <option value="#">--Color--</option>
                                 @foreach (var item in MainListColor)
                                 {
                                     <option value="@item.Color.ColorName">@item.Color.ColorName</option>
@@ -111,7 +111,7 @@
                             </select>
                         </div>
                         <div style="padding-left: 40px">
-                            <label>Chọn size</label>
+                            <label>Choose size</label>
                             <br />
                             <select style="border-radius: 16px" required id="SizeName" name="SizeName" class="form-control">
                                 <option value="#">--Size--</option>

@@ -144,7 +144,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         {
             if (ErrorCreatBy != null)
             {
-                ViewBag.ErrorCreatBy = "Bạn không được edit nếu không phải là người tạo";
+                ViewBag.ErrorCreatBy = "You cannot edit if you are not the creator";
             }
 
             var product = db.Products.Find(id);
@@ -183,8 +183,6 @@ namespace AptechShoseShop.Areas.Admin.Controllers
                 listColorChecked.Add(item.ColorId);
             }
             ViewBag.ListColorChecked = listColorChecked;
-
-
 
             return View(product);
         }
@@ -356,7 +354,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         {
             ///Tìm sản phẩm
             var product = db.Products.Find(id);
-            string error = "Bạn không được quyền xóa sản phẩm này";
+            string error = "You are not authorized to delete this product";
 
             ///Tìm id đang đăng nhập
             if (User.Identity.IsAuthenticated)
