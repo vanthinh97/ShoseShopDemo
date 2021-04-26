@@ -1,30 +1,30 @@
 ﻿using AptechShoseShop.Models.Entites;
+using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace AptechShoseShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class CategoriesController : Controller
     {
         private readonly AptechShoseShopDbContext db = new AptechShoseShopDbContext();
 
         // GET: Admin/Categories
-        [Authorize(Roles = "Manager")]
         [HttpGet]
         public ActionResult Index()
         {
             return View(db.Categories.OrderBy(x => x.Position).ToList());
         }
 
-        [Authorize(Roles = "Manager")]
         [HttpGet]
         public ActionResult CreateCate()
         {
             return View();
         }
 
-        [Authorize(Roles = "Manager")]
         [HttpPost]
         public ActionResult CreateCate(Category cate)
         {
@@ -33,17 +33,45 @@ namespace AptechShoseShop.Areas.Admin.Controllers
 
             //};
 
-            Category newCate = new Category()
+            //Category newCate = new Category()
+            //{
+            //    CategoryName = cate.CategoryName,
+            //    Position = cate.Position
+            //};
+            //db.Categories.Add(newCate);
+            //db.SaveChanges();
+
+            string connect = System.Configuration.ConfigurationManager.ConnectionStrings["AptechShoseShop"].ConnectionString;
+
+            using (var connection = new SqlConnection(connect))
             {
-                CategoryName = cate.CategoryName,
-                Position = cate.Position
-            };
-            db.Categories.Add(newCate);
-            db.SaveChanges();
+                connection.Open();
+
+                int Id = 0;
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = $@"INSERT INTO Categories {Id}
+                                    (
+                                    CategoryName,
+                                    Position
+                                    )
+                                    VALUES
+                                    (
+                                    @CategoryName, 
+                                    @Position
+                                    )";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = connection;
+                    cmd.Parameters.AddWithValue("@CategoryName", cate.CategoryName);
+                    cmd.Parameters.AddWithValue("@Position", cate.Position);
+                    Id = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                connection.Close();
+            }
+
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "Manager")]
         [HttpGet]
         public ActionResult _EditCate(int id)
         {
@@ -51,7 +79,6 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             return PartialView(cate);
         }
 
-        [Authorize(Roles = "Manager")]
         [HttpPost]
         public ActionResult EditCate(int id, string categoryName, int position)
         {

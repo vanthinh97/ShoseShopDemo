@@ -121,6 +121,12 @@ namespace AptechShoseShop.Areas.Admin.Controllers
         public ActionResult Delete(int id)
         {
             var user = db.TbUsers.Find(id);
+            var SameUser = int.Parse(User.Identity.Name);
+            if (user.Id == SameUser)
+            {
+                return Content("You cannot delete yourself");
+            }
+
             db.TbUsers.Remove(user);
             db.SaveChanges();
             return Content("OK");

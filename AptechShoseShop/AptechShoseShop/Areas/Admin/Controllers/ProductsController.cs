@@ -31,6 +31,7 @@ namespace AptechShoseShop.Areas.Admin.Controllers
             ViewBag.UserID = id;
 
             ///Viết lại ProductVM có thêm kiểu dữ liệu size cho thuộc tính size 
+
             var showCate = db.Categories.OrderBy(x => x.Position);
 
             ///ViewBag bằng dropdowlist

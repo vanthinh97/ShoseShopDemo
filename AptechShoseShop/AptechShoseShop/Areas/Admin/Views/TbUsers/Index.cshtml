@@ -100,7 +100,8 @@
                                     });
                                     // ẩn doituong-id
                                     $("#HideUser-" + id).hide();
-                                }
+                                };
+                                swal(result);
                             },
                             error: function () {
                                 swal("This user is being used in purchase history");

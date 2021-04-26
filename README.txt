@@ -3,4 +3,4 @@ Batch 153
 
 user account Admin to demo
 username: thinh@gmail.com
-password: 1234
+password: 123
